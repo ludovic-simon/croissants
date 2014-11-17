@@ -1,0 +1,61 @@
+<!doctype html>
+<html ng-app="croissants" lang="en">
+
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<script src="/croissants/js/jquery.min.js"></script>
+		<script src="/croissants/js/jquery-ui.min.js"></script>
+		<script src="/croissants/js/select2.min.js"></script>
+	    <script src="/croissants/js/angular.min.js"></script>
+	    <script src="/croissants/js/angular-route.js"></script>
+	    <script src="/croissants/js/angular-select2.js"></script>
+	    <script src="/croissants/js/angular-jquery-ui.js"></script>
+	    <script src="/croissants/js/bootstrap.min.js"></script>
+		<script src="/croissants/js/croissants_utils.js"></script>
+		<script src="/croissants/controllers/croissants.js"></script>
+		<script src="/croissants/controllers/accueilView.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css"></link>
+		<link rel="stylesheet" type="text/css" href="../css/select2.css"></link>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="../css/sdev-ui.css"></link>
+		<link rel="stylesheet" type="text/css" href="/croissants/css/croissants.css"></link>
+	</head>
+	
+	<body ng-controller="CroissantsTemplateCtrl">
+		<!-- Menu -->
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand navLink" href="/croissants/views/croissants.html#/home">FaisPeterLesCroissants</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Bloc central -->
+	<div class="container-fluid">
+		<div class="row">
+			<div ng-view class="col-sm-12 mainView"></div>
+		</div>
+	</div>
+
+	
+	</body>
+</html>

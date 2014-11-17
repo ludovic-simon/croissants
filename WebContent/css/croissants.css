@@ -1,0 +1,213 @@
+/******************** BOOTSTRAP *******************/
+
+body {
+	padding-top: 50px;
+}
+
+.mainSection {
+	padding: 20px;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+	margin-top: 0px;
+}
+
+a:hover {
+	color: inherit;
+}
+
+/******************** FORMULAIRE *******************/
+
+form {
+	margin-bottom: 15px;
+}
+
+.form-group {
+	margin-bottom: 10px; 
+}
+
+.form-inline .form-group {
+	margin-right: 15px;
+}
+
+.form-horizontal .form-group {
+	margin-right: 0px; /* Sinon une barre de scroll horizontal apparait avec le -15px par defaut */	
+	margin-left: 0px;
+}
+
+.form-group .select2-container.form-control {
+	border: none;
+	-webkit-box-shadow: none;
+	min-width: 200px;
+}
+
+.form-horizontal .select2-container .select2-choices {
+	border: 1px dotted #EEEEEE;
+}
+
+.select2-container {
+	width: 100%;
+}
+
+.form-horizontal .form-group {
+	margin-right: 0px; /* Sinon une barre de scroll horizontal apparait avec le -15px par defaut */	
+}
+
+.select2-container {
+	height: inherit !important;
+}
+
+input[type="file"] {
+	border: none;
+}
+
+input[type="checkbox"] {
+	height: 30px;
+}
+
+.searchBar {
+	border-bottom: 1px solid #EEEEEE;
+}
+
+
+/******************** OFFLINE *******************/
+
+.login-form {
+	max-width: 330px;
+	padding-top: 50px;
+	margin: 0 auto;
+}
+
+.inscription-form {
+	max-width: 600px;
+	padding-top: 50px;
+	margin: 0 auto;
+}
+
+/******************** PANEL *******************/
+
+.mainView {
+	height: 100%;
+	overflow: auto;
+	padding: 0;
+}
+
+
+.warningPanel {
+	margin-bottom: 15px;
+	border: 1px solid grey;
+	border-radius:10px;
+	padding : 10px;
+	padding-left: 60px;
+	background: #FFFFD2 url(../images/warning32.png) no-repeat 10px 10px;
+}
+
+
+/******************** FORMULAIRE *******************/
+
+.formGrid {
+}
+
+.formGrid tr:hover {
+	background-color: #D1D4D7;
+}
+
+.formGrid tr:last-child:hover {
+	background-color: inherit;
+}
+
+.error {
+	color: red;
+	font-weight: bold;	
+}
+
+input.ng-invalid.ng-dirty {
+	background-color: #FA787E;
+}
+
+.css-form input.ng-valid.ng-dirty {
+	background-color: #78FA89;
+}
+
+.horizontalForm input, select, textarea, .select2-container {
+/*	padding-right: 20px; ecart a droite du champ foireux, egalement avec margin ... */
+}
+
+input.dateField {
+	width: 70px;	
+}
+
+input.dateTimeField {
+	width: 130px;
+}
+
+.editForm {
+}
+
+.editForm .form-group {
+	margin-bottom: 0;
+}
+
+.editForm .form-group:hover {
+	background-color: #EEEEEE;
+}
+
+.editForm input, .editForm textarea {
+	border: none;
+	box-shadow: none;
+}
+
+.editForm textarea {
+	height: 30px;
+}
+
+.editForm input:hover, .editForm textarea:hover {
+	border: 1px solid #CCCCCC;
+	box-shadow: none;
+}
+
+.editForm input:focus, .editForm textarea:focus {
+	border: 1px solid green;
+}
+
+/******************** DIALOGUES *******************/
+
+.ui-dialog {
+	padding: 0px;
+}
+
+.ui-dialog-content {
+	font-family: Helvetica, Arial, sans-serif !important;
+	font-size: 9pt !important;
+}
+
+.ui-dialog .ui-corner-all {
+	border-radius: 0px;
+}
+
+.ui-widget-header {
+	background: #63798A !important;
+	border: none !important;
+	font-family: Helvetica, Arial, sans-serif !important;
+	font-size: 12px !important;
+	font-weight: bold !important;
+	color: white;}
+
+.ui-dialog-buttonpane .ui-state-default {
+	padding: 3px 8px 3px 8px !important;
+	background: #63798A !important;
+	color: white;
+	font-family: Caecilia-bold, Helvetica, sans-serif !important;
+	border: 1px solid #B3B3B3 !important;
+	border-radius: 3px !important;
+	cursor: pointer !important;
+	font-weight: bold !important;	
+}
+
+.ui-dialog .ui-button-text {
+	padding: 0px;
+}
+
+.ui-dialog-titlebar-close {
+	background: #CCCCCC !important;
+}

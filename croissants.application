@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:app="app" name="croissants" description="" generatorConfigs="Standard" packageRootName="com.XXX_NOM_ENTREPRISE.croissants" projectCommonName="croissants" packageCommonName="fr.forfun.croissants" projectServerName="croissants" packageServerName="fr.forfun.croissants" projectClientName="croissants" packageClientName="fr.forfun.croissants" webContentFolder="WebContent" appCssFiles="css/croissants.css" appJsFiles="js/croissants_utils.js" previewCssFiles="" documentationCssFiles="">
+  <configuration persistenceProviderType="HIBERNATE">
+    <dataSources databaseName="croissants" title="Croissants (local)" jndiName="jdbc/croissants" sgbdType="MY_SQL" description="" driverJarPath="D:\LSIMON\Tools\libs\mysql-connector-java-5.1.24-bin.jar" driverClassName="com.mysql.jdbc.Driver" jdbcUrl="jdbc:mysql://localhost:3307/croissants" defaultSchema="" userName="root" password=""/>
+  </configuration>
+  <modules name="DefaultModule" description="Module intégrant les classes socles de l'application définies par chaque générateur">
+    <layers xsi:type="app:DataLayer">
+      <simpleTypes name="ObjectType" description="Type objet racine (Object)" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <parentType/>
+        <methods name="equals" description="Indique si les 2 objets sont équivalents" returnDescription="true si les 2 objets sont équivalents">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Objet de test pour l'équivalence">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="notEquals" description="Indique si les 2 objets sont differents" returnDescription="true si les 2 objets sont differents">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Objet de test pour la comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="in" description="Indique si l'objet est contenu dans la liste en parametre" returnDescription="true si si l'objet est contenu dans liste en parametre">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="values" description="Liste de valeurs">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+              <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+            </dataType>
+          </params>
+        </methods>
+        <methods name="notIn" description="Indique si l'objet est exclu dans la liste en parametre" returnDescription="true si si l'objet est exclu dans liste en parametre">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="values" description="Liste de valeurs">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+              <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+            </dataType>
+          </params>
+        </methods>
+        <methods name="isNull" description="Indique si l'objet est null" returnDescription="true si l'objet est null">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="isNotNull" description="Indique si l'objet n'est pas null" returnDescription="true si l'objet n'est pas null">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="toString" description="Renvoie la chaine pour l'objet" returnDescription="la chaine pour l'objet">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="T" description="Type générique T" isAPI="true" isGeneric="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+      </simpleTypes>
+      <simpleTypes name="V" description="Type générique V" isAPI="true" isGeneric="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.2"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+      </simpleTypes>
+      <simpleTypes name="Widget" description="Type parent des composants graphiques" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.3"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="display" description="Affiche / masque un widget">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="displayed" description="true si le composant doit etre affiche, false s'il doit etre masque">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+        <methods name="enable" description="Rend le widget modifiable ou non">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="enabled" description="true si le composant doit etre modifiable, false sinon">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Void" description="Type vide" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="String" description="Chaine de caracteres" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </methods>
+        <methods name="isEmpty" description="Indique si la chaine est vide" returnDescription="true si la chaine est vide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="isNotEmpty" description="Indique si la chaine n'est pas vide" returnDescription="true si la chaine n'est pas vide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="contains" description="Indique si la chaine contient la valeur" returnDescription="true si la chaine contient la valeur">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Test de valeur contenue">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="startsWith" description="Indique si la chaine commence par la valeur">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+          <params name="endsWith" description="Indique si la chaine finit par la valeur">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Integer" description="Entier" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+        </methods>
+        <methods name="greaterThan" description="Indique si la valeur est strictement superieure a l'argument" returnDescription="true si la valeur est strictement superieure a l'argument">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Valeur de comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="orEquals" description="Indique si superieur ou egal, sinon superieur strict">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="lessThan" description="Indique si la valeur est strictement inferieure a l'argument" returnDescription="true si la valeur est strictement inferieure a l'argument">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Valeur de comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="orEquals" description="Indique si inferieur ou egal, sinon inferieur strict">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="increment" description="Incremente la valeur (increment de 1 par defaut)" returnDescription="La valeur incrementee">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="increment (defaut 1)" description="Valeur d'increment">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+        </methods>
+        <methods name="decrement" description="Decremente la valeur (decrement de 1 par defaut)" returnDescription="La valeur decrementee">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="decrement (defaut 1)" description="Valeur de decrement">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Decimal" description="Decimal" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.7"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.7"/>
+        </methods>
+        <methods name="greaterThan" description="Indique si la valeur est strictement superieure a l'argument" returnDescription="true si la valeur est strictement superieure a l'argument">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Valeur de comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.7"/>
+          </params>
+          <params name="orEquals" description="Indique si superieur ou egal, sinon superieur strict">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="lessThan" description="Indique si la valeur est strictement inferieure a l'argument" returnDescription="true si la valeur est strictement inferieure a l'argument">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Valeur de comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.7"/>
+          </params>
+          <params name="orEquals" description="Indique si inferieur ou egal, sinon inferieur strict">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Boolean" description="Booléen" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="isTrue" description="Indique si l'expression booleene est vraie" returnDescription="true si l'expression booleene est vraie">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="isFalse" description="Indique si l'expression booleene est fausse" returnDescription="true si l'expression booleene est fausse">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Date" description="Date" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+        </methods>
+        <methods name="greaterThan" description="Indique si la valeur est une date strictement superieure a l'argument" returnDescription="true si la valeur est une date strictement superieure a l'argument">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Valeur de comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+          </params>
+          <params name="orEquals" description="Indique si superieur ou egal, sinon superieur strict">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="lessThan" description="Indique si la valeur est une date strictement inferieure a l'argument" returnDescription="true si la valeur est une date strictement inferieure a l'argument">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Valeur de comparaison">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+          </params>
+          <params name="orEquals" description="Indique si inferieur ou egal, sinon inferieur strict">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Binary" description="Contenu binaire" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.10"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.10"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Exception" description="Exception" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.11"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.11"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="List" description="Liste d'éléments" isAPI="true" packageName="" genericParams="//@modules.0/@layers.0/@simpleTypes.1">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+          <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </dataType>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+          <params name="&lt;T>">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="add" description="Ajoute un element dans la liste">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="element" description="Element à ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="addAll" description="Ajoute la liste d'éléments à la liste">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="elements" description="Eléments à ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+              <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+            </dataType>
+          </params>
+        </methods>
+        <methods name="createWithElements" description="Instanciation d'une liste avec des elements" isStatic="true" returnDescription="La liste instanciee">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+          <params name="&lt;T>" description="Type de liste">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="element1" description="Element ajoute a la liste">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="element2" description="Element ajoute a la liste">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="element3" description="Element ajoute a la liste">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="element4" description="Element ajoute a la liste">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="element5" description="Element ajoute a la liste">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="contains" description="Indique si la liste contient la valeur en parametre" returnDescription="true si la liste contient la valeur en parametre">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Objet dont on souhaite vérifier la présence">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="containsAll" description="Indique si la liste contient tous les objets de la liste en parametre" returnDescription="true si la liste contient tous les objets de la liste en parametre">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="values" description="Liste d'objets dont on souhaite vérifier la présence">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+              <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+            </dataType>
+          </params>
+        </methods>
+        <methods name="first" description="Renvoie le 1er élément de la liste" returnDescription="le 1er élément de la liste">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </methods>
+        <methods name="filter" description="Filtre la liste ou renvoie une liste filtree selon les predicats indiques" returnDescription="la liste filtree" methodQueryPolicy="QUERY_TYPE_FROM_CALLED_OBJECT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+        </methods>
+        <methods name="filterOne" description="Renvoie le 1er element de la liste respectant les predicats indiques" returnDescription="le 1er element de la liste respectant les predicats indiques" methodQueryPolicy="QUERY_TYPE_FROM_CALLED_OBJECT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </methods>
+        <methods name="isEmpty" description="Indique si la liste est vide" returnDescription="true si la liste est vide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="isNotEmpty" description="Indique si la liste n'est pas vide" returnDescription="true si la liste n'est pas vide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="last" description="Renvoie le dernier élément de la liste" returnDescription="le dernier élément de la liste">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </methods>
+        <methods name="remove" description="Supprime un element de la liste">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="element" description="Element à supprimer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Map" description="Map d'éléments rangés par clé / valeur" isAPI="true" packageName="" genericParams="//@modules.0/@layers.0/@simpleTypes.1 //@modules.0/@layers.0/@simpleTypes.2">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.13">
+          <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.2"/>
+        </dataType>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.13">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.2"/>
+          </dataType>
+          <params name="&lt;T>">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="&lt;V>">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.2"/>
+          </params>
+        </methods>
+        <methods name="isEmpty" description="Indique si la map est vide" returnDescription="true si la map est vide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="isNotEmpty" description="Indique si la map n'est pas vide" returnDescription="true si la map n'est pas vide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+        <methods name="put" description="Ajoute un element dans la map">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="cle" description="Cle de l'element a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="valeur" description="Valeur de l'element a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.2"/>
+          </params>
+        </methods>
+        <methods name="get" description="Recupere un element de la map">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.2"/>
+          <params name="cle" description="Cle de l'element a recuperer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="remove" description="Supprime un element de la map">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="cle" description="Cle de l'element a supprimer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="contains" description="Indique si la map contient la cle en parametre" returnDescription="true si la map contient la cle en parametre">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="cle" description="Cle dont on souhaite vérifier la présence dans la map">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="Activity" description="Activite" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="WidgetOutput" description="Composant graphique simple d'affichage" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.3"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+        </methods>
+        <methods name="getText" description="Recupere le texte de l'output">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </methods>
+        <methods name="setText" description="Met a jour le texte de l'output">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="text" description="Le texte a afficher sur l'output">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="WidgetPanel" description="Composant graphique jouant le role de conteneur pour d'autres composants" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.16"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.3"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.16"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="WidgetEditor" description="Composant graphique jouant le role d'editeur pour un certain type" isAPI="true" packageName="" genericParams="//@modules.0/@layers.0/@simpleTypes.1">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.17">
+          <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </dataType>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.3"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.17">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+          <params name="&lt;T>">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="getValue" description="Recupere l'objet en cours d'edition">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </methods>
+        <methods name="setValue" description="Met a jour l'editeur avec l'objet">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="value" description="L'objet a passer dans l'editeur">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="updateModel" description="Met a jour le model avec les valeurs saisies">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="skipValidation" description="Saute la phase de validation des champs">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="isInvalid" description="Indique si le formulaire est invalide">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="WidgetInput" description="Composant graphique permettant d'effectuer de la saisie" isAPI="true" packageName="" genericParams="//@modules.0/@layers.0/@simpleTypes.1">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.18">
+          <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </dataType>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.3"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.18">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+          <params name="&lt;T>">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="getValue" description="Recupere la valeur du champ de saisi">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </methods>
+        <methods name="setValue" description="Met a jour la valeur du champ de saisi">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="value" description="La nouvelle valeur pour le champ">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="fireEvent" description="Indique si les ecouteurs de changement de valeur doivent etre notifies">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="WidgetViewer" description="Composant graphique permettant de visualiser des donnees d'un certain type" isAPI="true" packageName="" genericParams="//@modules.0/@layers.0/@simpleTypes.1">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.19">
+          <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </dataType>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.3"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.19">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+          <params name="&lt;T>">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="refreshDatas" description="Rafraichit le viewer avec les donnees">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="datas" description="Les donnees du viewer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+              <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+            </dataType>
+          </params>
+        </methods>
+        <methods name="getSelection" description="Recupere l'element selectionne du viewer">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="AppEvent" description="Evenement applicatif" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.20"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.20"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="BasicAPI" description="API pour certaines mehtodes basiques du langage" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.21"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="setValue" description="Met a jour une variable" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="variable" description="L'expression de la variable">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="newValue" description="Nouvelle valeur pour la variable">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="LogicAPI" description="API pour les instructions de logique AND, OR ..." isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.22"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="and" description="Gestion du ET logique" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="1er element du and">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+          <params name="value" description="2eme element du and">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+          <params name="value" description="3eme element du and">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="or" description="Gestion du OR logique" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="1er element du or">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+          <params name="value" description="2eme element du or">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+          <params name="value" description="3eme element du or">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="not" description="Gestion du NOT logique" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          <params name="value" description="Expression du not">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="TraceAPI" description="API utilitaire pour tracer / loguer" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.23"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="sysout" description="Trace dans la console" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="value" description="Chaîne de caractères à tracer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="MessageAPI" description="API utilitaire pour les messages et les erreurs" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.24"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="throwBusinessError" description="Lance une erreur métier" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="errorMessage" description="Message d'erreur à lancer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="TestAPI" description="API pour les tests" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.25"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="assertTrue" description="Verifie que la valeur est vraie" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="clause" description="Clause à vérifier">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="assertFalse" description="Verifie que la valeur est fausse" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="clause" description="Clause à vérifier">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="assertEquals" description="Verifie que la valeur est vraie" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="expected" description="Objet attendu">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+          <params name="actual" description="Objet courant">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="assertError" description="Verifie que l'erreur indiquee se produit" isStatic="true" isCallWithInstructions="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="expectedError" description="Erreur attendue">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="PersistenceAPI" description="API de persistence" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.26"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="persist" description="Insert l'entite en base de donnees" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="entity" description="Entite a persister">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="merge" description="Met a jour ou insert l'entite en base de donnees" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          <params name="entity" description="Entite a merger">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="remove" description="Supprime l'entite en base de donnees" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="&lt;T>" description="Classe de l'entite a supprimer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="primaryKey" description="Suppression par clé sur le type indiqué">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="findById" description="Recupère l'entité pour la clé" isStatic="true" returnDescription="L'entité correspondant a la clé">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          <params name="&lt;T>" description="Classe de l'entite recherchee">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="primaryKey" description="Clé primaire">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="search" description="Recherche une liste d'entite par requete" isStatic="true" returnDescription="La liste des entites pour la requete" methodQueryPolicy="QUERY_TYPE_FROM_METHOD_GENERIC">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+            <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </dataType>
+          <params name="&lt;T>" description="Classe d'entite recherchee">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="openTransaction" description="Ouvre un transaction" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="UiAPI" description="API de presentation" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.27"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="getModel" description="Acquiere la variable de modele" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="modelVariable" description="Variable de modele a recuperer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+        <methods name="gotoActivity" description="Affiche la vue" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="activity" description="Activite sur laquelle naviguer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
+          </params>
+          <params name="inputValue" description="Valeur a passer a l'activite">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="gotoUrl" description="Redirige vers l'URL" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="targetUrl" description="L'URL cible">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="internalUrl" description="URL interne au site">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="goBack" description="Retourner sur l'activite precedente" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <methods name="goForward" description="Retourner sur l'activite suivante" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <methods name="refresh" description="Rafraichit la vue courante" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="fullPage" description="Indique si toute la page doit etre rechargee, sinon seule la vue principale le sera">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+        </methods>
+        <methods name="showInfo" description="Affiche un message d'information" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="message" description="Le message d'information a afficher">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+        <methods name="showWarning" description="Affiche un message d'avertissement" isStatic="true" isCallWithInstructions="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="title" description="Le titre du dialogue">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="message" description="Le message d'avertissement a afficher">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="okFunction" description="La fonction a executer sur confirmation">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+          </params>
+        </methods>
+        <methods name="showError" description="Affiche un message d'erreur" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="message" description="Le message d'erreur a afficher">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+        <methods name="showActionFeedback" description="Affiche l'action effectue" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="message" description="Le message d'action a afficher">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+        <methods name="updateModel" description="Met a jour une variable de modele" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="modelVariable" description="Variable de modele a mettre a jour">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+          <params name="newValue" description="Nouvelle valeur pour le modele">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="DateAPI" description="API de gestion de dates" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.28"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="getCurrentDate" description="Recupere la date du moment present avec la precision horaire" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+        </methods>
+        <methods name="getCurrentDayDate" description="Recupere la date du jour sans la precision horaire" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+        </methods>
+        <methods name="formatDate" description="Transforme la date en chaine selon le pattern ou avec le format par defaut si pas de pattern" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          <params name="inputDate" description="Date a transformer">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+          </params>
+          <params name="patttern" description="Pattern de transformation en chaine">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+        <methods name="parseDate" description="Transforme la chaine en date selon le pattern ou avec le format par defaut si pas de pattern" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+          <params name="inputString" description="Chaine a passer en date">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="patttern" description="Pattern de lecture de la chaine">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+        <methods name="addToDate" description="Permet de recuperer une date avec du temps en plus ou en moins (si valeur negative) par rapport a une date de reference" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+          <params name="inputDate" description="Date de reference">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+          </params>
+          <params name="milliseconds" description="Nb de millisecondes a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="months" description="Nb de mois a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="years" description="Nb d'annees a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="hours" description="Nb d'heures a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="minutes" description="Nb de minutes a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="seconds" description="Nb de secondes a ajouter">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params/>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="StringAPI" description="API de gestion de dates" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.29"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="getEmptyIfNull" description="Renvoi une chaine vide au lieu de null ou la valeur sinon" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          <params name="value" description="Valeur a imprimer si non null">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="checkNullExpression" description="expression soumise au test si null">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="TemplateAPI" description="API de gestion de templates, d'include ..." isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.30"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="insert" description="Permet de declarer une zone d'insertion de contenu" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <params name="areaName" description="Nom de la zone d'insertion de contenu">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+        </methods>
+      </simpleTypes>
+      <simpleTypes name="ChoregieAPI" description="API specifique Choregie" isStatic="true" isAPI="true" packageName="">
+        <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.31"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="getLogin" description="Recupere le login (l'id d'inscription) de l'utilisateur connecte" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </methods>
+        <methods name="getIdIndividu" description="Recupere l'id individu de l'utilisateur connecte" isStatic="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </methods>
+      </simpleTypes>
+    </layers>
+  </modules>
+  <modules name="main" description="" projectCommonName="croissants" packageCommonName="fr.forfun.croissants" projectServerName="croissants" packageServerName="fr.forfun.croissants" projectClientName="croissants" packageClientName="fr.forfun.croissants" webContentPath="" packageTestName="fr.forfun.croissants.test">
+    <layers xsi:type="app:DataLayer" generatorConfigs="Standard" entityPackageName="fr.forfun.croissants.entity" dataSource="//@configuration/@dataSources.0" databaseSchema="">
+      <entities name="Utilisateur" description="utilisateur du site" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" tableName="utilisateur" databaseSchema="" indexExpression="" volumetrie="">
+        <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <properties name="idUtilisateur" description="Identifiant technique de l'utilisateur" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_utilisateur" isPk="true" pkGenerationStrategy="AUTO" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+        </properties>
+        <properties name="nom" description="Nom affiche pour l'utilisateur" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="nom" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <properties name="email" description="email de l'utilisateur" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="email" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <properties name="motDePasse" description="mot de passe de connexion" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="mot_de_passe" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <properties name="dateCreation" description="date de creation de l'utilisateur" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="date_creation" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+        </properties>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </entities>
+      <entities name="Groupe" description="Groupe d'utilisateurs" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" tableName="groupe" databaseSchema="" indexExpression="" volumetrie="">
+        <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <properties name="idGroupe" description="Identifiant technique du groupe" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_groupe" isPk="true" pkGenerationStrategy="AUTO" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+        </properties>
+        <properties name="jeton" description="Cle technique pour joindre le groupe" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="jeton" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <properties name="motDePasse" description="Mot de passe pour rejoindre le groupe" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="mot_de_passe" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <properties name="dateCreation" description="Date de creation du groupe" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="date_creation" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+        </properties>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </entities>
+      <queryDefinitions/>
+    </layers>
+    <layers xsi:type="app:ServiceLayer" generatorConfigs="Standard,SDEV_REST" serviceContextRoot="rest">
+      <services name="UtilisateurService" description="Services lie a l'utilisateur et aux groupes" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="fr.forfun.croissants.service" interfacePackageName="fr.forfun.croissants.service" interfaceClassName="" uri="utilisateurService">
+        <dataType appClassRef="//@modules.1/@layers.1/@services.0"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.1/@layers.1/@services.0"/>
+        </methods>
+        <methods xsi:type="app:ServiceMethod" name="connecterUtilisateur" description="" visibility="PUBLIC" annotations="" returnDescription="L'utilisateur connecte ou une exception sinon" callTemplate="" uri="connecterUtilisateur" httpMethodType="GET">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+          <params name="email" description="" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <params name="motDePasse" description="" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+          </params>
+          <instructions xsi:type="app:InstructionCall" description="Recuperation de l'utilisateur pour l'email et mot de passe">
+            <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.4">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+                <genericsType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              </dataType>
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.4/@params.0">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              </methodParamValues>
+            </callValue>
+            <returnVariableNew name="utilisateurs" description="" variableScope="LOCAL">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+                <genericsType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              </dataType>
+            </returnVariableNew>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText="">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                </expressionValue>
+                <expressionVariable name="utilisateur" description="" variableScope="LOCAL">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                </expressionVariable>
+              </fromExpression>
+              <predicates predicateCompose="AND" predicateApplyRule="IF_NOT_EMPTY">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.0/@properties.2 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.1/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                  </methodParamValues>
+                </predicateValue>
+                <predicateApplyValue freeText="">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateApplyValue>
+              </predicates>
+              <predicates predicateCompose="AND" predicateApplyRule="IF_NOT_EMPTY">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.0/@properties.3 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.1/@params.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                  </methodParamValues>
+                </predicateValue>
+                <predicateApplyValue freeText="">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateApplyValue>
+              </predicates>
+            </query>
+          </instructions>
+          <instructions xsi:type="app:InstructionCondition" description="Cas ou aucun utilisateur n'est trouve" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                <methodParamValues freeText="Aucun utilisateur pour cet email / mot de passe" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </methodParamValues>
+              </callValue>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.12/@methods.9">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="Retour du 1er utilisateur (normalement il n'y en a qu'un)">
+            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.12/@methods.6">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </returnValue>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ServiceMethod" name="creerUtilisateur" description="Creer un utilisateur" visibility="PUBLIC" annotations="" returnDescription="" callTemplate="" uri="creerUtilisateur" httpMethodType="POST">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+          <params name="utilisateur" description="" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+          </params>
+          <instructions xsi:type="app:InstructionGroup" description="Test de l'existance d'un utilisateur avec cet email" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.4">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+                  <genericsType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                </dataType>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.4/@params.0">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                </methodParamValues>
+              </callValue>
+              <returnVariableNew name="utilisateursPourEmail" description="" variableScope="LOCAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.12">
+                  <genericsType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                </dataType>
+              </returnVariableNew>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText="">
+                    <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                  </expressionValue>
+                  <expressionVariable name="utilisateurTable" description="" variableScope="LOCAL">
+                    <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                  </expressionVariable>
+                </fromExpression>
+                <predicates predicateCompose="AND" predicateApplyRule="IF_NOT_EMPTY">
+                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.0/@properties.2 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.2/@params.0 //@modules.1/@layers.0/@entities.0/@properties.2" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                      <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                    </methodParamValues>
+                  </predicateValue>
+                  <predicateApplyValue freeText="">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  </predicateApplyValue>
+                </predicates>
+              </query>
+            </instructions>
+            <instructions xsi:type="app:InstructionCondition" description="" templateLabel="">
+              <instructions xsi:type="app:InstructionCall" description="">
+                <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                  <methodParamValues freeText="Il y a deja un utilisateur enregistre pour cet email" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                  </methodParamValues>
+                </callValue>
+                <query freeText="">
+                  <fromExpression>
+                    <expressionValue freeText=""/>
+                    <expressionVariable name="" description="" variableScope="LOCAL"/>
+                  </fromExpression>
+                </query>
+              </instructions>
+              <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.12/@methods.10">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateValue>
+                <predicateApplyValue freeText=""/>
+              </predicates>
+            </instructions>
+          </instructions>
+          <instructions xsi:type="app:InstructionCall" description="Persistence de l'utilisateur">
+            <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.0">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.2/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.0/@params.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+              </methodParamValues>
+            </callValue>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText=""/>
+                <expressionVariable name="" description="" variableScope="LOCAL"/>
+              </fromExpression>
+            </query>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="">
+            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.2/@params.0">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </returnValue>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ServiceMethod" name="getUtilisateurSession" description="Recuperation de l'utilisateur connecte" visibility="PUBLIC" annotations="" returnDescription="L'utilisateur connecte ou une exception si aucun utilisateur" callTemplate="" uri="getUtilisateurSession" httpMethodType="GET">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+          <instructions xsi:type="app:InstructionCall" description="">
+            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.0 //@modules.1/@layers.0/@entities.0/@methods.0">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </callValue>
+            <returnVariableNew name="utilisateur" description="" variableScope="LOCAL">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </returnVariableNew>
+            <updateVariableValues freeText="1L" targetVariable="//@modules.1/@layers.0/@entities.0/@properties.0">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+            </updateVariableValues>
+            <updateVariableValues freeText="Toto" targetVariable="//@modules.1/@layers.0/@entities.0/@properties.1">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+            </updateVariableValues>
+            <updateVariableValues freeText="toto@gmail.com" targetVariable="//@modules.1/@layers.0/@entities.0/@properties.2">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+            </updateVariableValues>
+            <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.0/@properties.3">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+            </updateVariableValues>
+            <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.0/@properties.4">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+            </updateVariableValues>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText=""/>
+                <expressionVariable name="" description="" variableScope="LOCAL"/>
+              </fromExpression>
+            </query>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="">
+            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@methods.3/@instructions.0/@returnVariableNew">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </returnValue>
+          </instructions>
+        </methods>
+        <instanceVariable name="utilisateurService" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.1/@layers.1/@services.0"/>
+        </instanceVariable>
+      </services>
+      <services name="CycleService" description="Services lies au cycle" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="fr.forfun.croissants.service" interfacePackageName="fr.forfun.croissants.service" interfaceClassName="" uri="cycleService">
+        <dataType appClassRef="//@modules.1/@layers.1/@services.1"/>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+        <methods name="create" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.1/@layers.1/@services.1"/>
+        </methods>
+        <instanceVariable name="cycleService">
+          <dataType appClassRef="//@modules.1/@layers.1/@services.1"/>
+        </instanceVariable>
+      </services>
+    </layers>
+    <layers xsi:type="app:UILayer" generatorConfigs="Standard,SDEV_ANGULAR" contextRoot="croissants" viewFolder="views" controllerFolder="controllers" imageFolder="images" appCssFiles="" appJsFiles="">
+      <views xsi:type="app:Activity" name="GuestTemplate" description="Page parente en mode hors connexion pour l'authentification et l'inscription" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="guest.html" isTemplate="true" defaultTemplateActivity="//@modules.1/@layers.2/@views.2">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.0"/>
+        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionCall" description="">
+            <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.30 //@modules.0/@layers.0/@simpleTypes.30/@methods.0">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+              <methodParamValues freeText="" targetVariable="//@modules.0/@layers.0/@simpleTypes.30/@methods.0/@params.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </methodParamValues>
+            </callValue>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText=""/>
+                <expressionVariable name="" description="" variableScope="LOCAL"/>
+              </fromExpression>
+            </query>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
+      <views xsi:type="app:Activity" name="CroissantsTemplate" description="Page parente en mode connecte" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="croissants.html" isTemplate="true" defaultTemplateActivity="//@modules.1/@layers.2/@views.4">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
+        <properties name="utilisateur" description="" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_utilisateur" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+        </properties>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionFree" description="Menu" code="&lt;div class=&quot;navbar navbar-inverse navbar-fixed-top&quot; role=&quot;navigation&quot;>&#xD;&#xA;&#x9;&lt;div class=&quot;container-fluid&quot;>&#xD;&#xA;&#x9;&#x9;&lt;div class=&quot;navbar-header&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;.navbar-collapse&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;sr-only&quot;>Toggle navigation&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;/button>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;a class=&quot;navbar-brand navLink&quot; href=&quot;/croissants/views/croissants.html#/home&quot;>FaisPeterLesCroissants&lt;/a>&#xD;&#xA;&#x9;&#x9;&lt;/div>&#xD;&#xA;&#x9;&#x9;&lt;div class=&quot;navbar-collapse collapse&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;template:define name=&quot;navLeft&quot;/>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;template:define name=&quot;navRight&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;/div>&#xD;&#xA;&#x9;&lt;/div>&#xD;&#xA;&lt;/div>">
+            <instructions xsi:type="app:InstructionGroup" description="" templateLabel="navLeft">
+              <instructions xsi:type="app:InstructionFree" description="" code="&lt;ul class=&quot;nav navbar-nav&quot;>&#xD;&#xA;&#x9;&lt;template:foreachInstruction>&#xD;&#xA;&#x9;&lt;li>&#xD;&#xA;&#x9;&#x9;&lt;template:evalInstruction/>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/template:foreachInstruction>&#xD;&#xA;&lt;/ul>">
+                <freeNewVariable name="" description="" variableScope="LOCAL"/>
+              </instructions>
+            </instructions>
+            <instructions xsi:type="app:InstructionGroup" description="" templateLabel="navRight">
+              <instructions xsi:type="app:InstructionFree" description="" code="&lt;ul class=&quot;nav navbar-nav navbar-right&quot;>&#xD;&#xA;&#x9;&lt;template:foreachInstruction>&#xD;&#xA;&#x9;&lt;li>&#xD;&#xA;&#x9;&#x9;&lt;template:evalInstruction/>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/template:foreachInstruction>&#xD;&#xA;&lt;/ul>">
+                <freeNewVariable name="" description="" variableScope="LOCAL"/>
+              </instructions>
+            </instructions>
+            <freeNewVariable name="" description="" variableScope="LOCAL"/>
+          </instructions>
+          <instructions xsi:type="app:InstructionFree" description="Bloc central" code="&lt;div class=&quot;container-fluid&quot;>&#xD;&#xA;&#x9;&lt;div class=&quot;row&quot;>&#xD;&#xA;&#x9;&#x9;&lt;div ng-view class=&quot;col-sm-12 mainView&quot;>&lt;/div>&#xD;&#xA;&#x9;&lt;/div>&#xD;&#xA;&lt;/div>">
+            <freeNewVariable name="" description="" variableScope="LOCAL"/>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionCall" description="Recuperation de l'utilisateur en session" returnVariableRef="//@modules.1/@layers.2/@views.1/@properties.0">
+            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@instanceVariable //@modules.1/@layers.1/@services.0/@methods.3">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </callValue>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText=""/>
+                <expressionVariable name="" description="" variableScope="LOCAL"/>
+              </fromExpression>
+            </query>
+          </instructions>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
+      <views xsi:type="app:Activity" name="LoginView" description="Page d'authentification" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="login.html">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.2"/>
+        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.0"/>
+        <properties name="email" description="" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="email" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <properties name="motDePasse" description="" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="mot_de_passe" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </properties>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionEditor" description="Formulaire de connexion" displayData="" freeAttributes="" editorLayout="DEFAULT" labelWidth="">
+            <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Title1" displayData="" freeAttributes="">
+              <widgetVariable name="" description="" variableScope="LOCAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+              </widgetVariable>
+              <titleValue freeText="Connectez-vous">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </titleValue>
+              <styleClassValue freeText=""/>
+              <styleFreeValue freeText=""/>
+              <imagePathValue freeText=""/>
+            </instructions>
+            <instructions xsi:type="app:InstructionInput" description="" widgetSubType="TextBox" displayData="" freeAttributes="" labelWidgetVariableRef="//@modules.1/@layers.0/@entities.0/@instanceVariable" labelWidth="" fieldWidth="">
+              <widgetVariable name="emailField" description="" variableScope="GLOBAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.18">
+                  <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </dataType>
+              </widgetVariable>
+              <styleClassValue freeText=""/>
+              <styleFreeValue freeText=""/>
+              <modelBindingValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </modelBindingValue>
+              <placeholderValue freeText="Email"/>
+              <selectionChoicesBindingValue freeText=""/>
+              <selectionVariable name="" description="" variableScope="LOCAL"/>
+              <selectionLabelValue freeText=""/>
+              <selectionValueValue freeText=""/>
+            </instructions>
+            <instructions xsi:type="app:InstructionInput" description="" widgetSubType="PasswordBox" displayData="" freeAttributes="" labelWidgetVariableRef="//@modules.1/@layers.0/@entities.0/@instanceVariable" labelWidth="" fieldWidth="">
+              <widgetVariable name="motDePasseField" description="" variableScope="GLOBAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.18">
+                  <genericsType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </dataType>
+              </widgetVariable>
+              <styleClassValue freeText=""/>
+              <styleFreeValue freeText=""/>
+              <modelBindingValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.1">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </modelBindingValue>
+              <placeholderValue freeText="Mot de passe"/>
+              <selectionChoicesBindingValue freeText=""/>
+              <selectionVariable name="" description="" variableScope="LOCAL"/>
+              <selectionLabelValue freeText=""/>
+              <selectionValueValue freeText=""/>
+            </instructions>
+            <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Button" displayData="" freeAttributes="">
+              <instructions xsi:type="app:InstructionWidgetEventBinding" description="" templateLabel="" widgetEventType="click" widgetVariableRef="//@modules.1/@layers.0/@entities.0/@instanceVariable">
+                <instructions xsi:type="app:InstructionCall" description="">
+                  <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@methods.2">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                  </callValue>
+                  <updateVariableValues freeText=""/>
+                  <updateVariableValues freeText=""/>
+                  <query freeText="">
+                    <fromExpression>
+                      <expressionValue freeText=""/>
+                      <expressionVariable name="" description="" variableScope="LOCAL"/>
+                    </fromExpression>
+                  </query>
+                </instructions>
+              </instructions>
+              <widgetVariable name="" description="" variableScope="GLOBAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+              </widgetVariable>
+              <titleValue freeText="Connexion">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </titleValue>
+              <styleClassValue freeText=""/>
+              <styleFreeValue freeText=""/>
+              <imagePathValue freeText=""/>
+            </instructions>
+            <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Button" displayData="" freeAttributes="">
+              <instructions xsi:type="app:InstructionWidgetEventBinding" description="" templateLabel="" widgetEventType="click" widgetVariableRef="//@modules.1/@layers.0/@entities.0/@instanceVariable">
+                <instructions xsi:type="app:InstructionCall" description="">
+                  <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@methods.3">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                  </callValue>
+                  <updateVariableValues freeText=""/>
+                  <updateVariableValues freeText=""/>
+                  <query freeText="">
+                    <fromExpression>
+                      <expressionValue freeText=""/>
+                      <expressionVariable name="" description="" variableScope="LOCAL"/>
+                    </fromExpression>
+                  </query>
+                </instructions>
+              </instructions>
+              <widgetVariable name="" description="" variableScope="GLOBAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+              </widgetVariable>
+              <titleValue freeText="Creer un compte">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </titleValue>
+              <styleClassValue freeText=""/>
+              <styleFreeValue freeText=""/>
+              <imagePathValue freeText=""/>
+            </instructions>
+            <widgetVariable name="" description="" variableScope="GLOBAL">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.17"/>
+            </widgetVariable>
+            <styleClassValue freeText="login-form"/>
+            <styleFreeValue freeText=""/>
+            <modelBindingValue freeText=""/>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="connexion" description="" visibility="PROTECTED" annotations="" returnDescription="" callTemplate="">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionCall" description="">
+            <instructions xsi:type="app:InstructionNavigation" description="Navigation vers l'appli connectee" targetActivity="//@modules.1/@layers.2/@views.1">
+              <targetMethodCallValue freeText=""/>
+              <targetUrlValue freeText=""/>
+            </instructions>
+            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@instanceVariable //@modules.1/@layers.1/@services.0/@methods.1">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.0" targetVariable="//@modules.1/@layers.1/@services.0/@methods.1/@params.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </methodParamValues>
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.1" targetVariable="//@modules.1/@layers.1/@services.0/@methods.1/@params.1">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </methodParamValues>
+            </callValue>
+            <returnVariableNew name="utilisateur" description="" variableScope="LOCAL">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </returnVariableNew>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText=""/>
+                <expressionVariable name="" description="" variableScope="LOCAL"/>
+              </fromExpression>
+            </query>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="gotoInscription" description="" visibility="PROTECTED" annotations="" returnDescription="" callTemplate="">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionNavigation" description="Navigation vers l'inscription" targetActivity="//@modules.1/@layers.2/@views.3">
+            <targetMethodCallValue freeText=""/>
+            <targetUrlValue freeText=""/>
+          </instructions>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
+      <views xsi:type="app:Activity" name="InscriptionView" description="Page d'inscription" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="inscriptionView.html">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.3"/>
+        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.0"/>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionEditor" description="Formulaire de creation de compte" displayData="" freeAttributes="" editorLayout="DEFAULT" labelWidth="">
+            <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Title1" displayData="" freeAttributes="">
+              <widgetVariable name="" description="" variableScope="LOCAL">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+              </widgetVariable>
+              <titleValue freeText="Creer un compte">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </titleValue>
+              <styleClassValue freeText=""/>
+              <styleFreeValue freeText=""/>
+              <imagePathValue freeText=""/>
+            </instructions>
+            <widgetVariable name="" description="" variableScope="GLOBAL">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.17"/>
+            </widgetVariable>
+            <styleClassValue freeText="inscription-form"/>
+            <styleFreeValue freeText=""/>
+            <modelBindingValue freeText=""/>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
+      <views xsi:type="app:Activity" name="AccueilView" description="Page d'accueil" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="accueilView.html">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.4"/>
+        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Label" displayData="" freeAttributes="">
+            <widgetVariable name="" description="" variableScope="LOCAL">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.15"/>
+            </widgetVariable>
+            <titleValue freeText="Bienvenue ${0}">
+              <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@properties.0 //@modules.1/@layers.0/@entities.0/@properties.1">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+              </freeTextValues>
+            </titleValue>
+            <styleClassValue freeText=""/>
+            <styleFreeValue freeText=""/>
+            <imagePathValue freeText=""/>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
+    </layers>
+  </modules>
+  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-17T14:56:57.200+0100"/>
+  <modelMonitorings modelElement="//@configuration" isGenerated="true" dateCreateModel="2014-11-10T16:53:44.400+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100" dateLastGenerate="2014-11-10T18:02:17.133+0100"/>
+  <modelMonitorings modelElement="//@configuration/@dataSources.0" dateCreateModel="2014-11-10T16:54:44.779+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0" dateCreateModel="2014-11-10T16:55:28.728+0100" dateUpdateModel="2014-11-10T16:57:46.445+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.0" dateCreateModel="2014-11-10T16:56:40.041+0100" dateUpdateModel="2014-11-10T16:56:40.041+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.1" dateCreateModel="2014-11-10T16:56:55.473+0100" dateUpdateModel="2014-11-10T16:56:55.473+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.2" dateCreateModel="2014-11-10T16:57:04.771+0100" dateUpdateModel="2014-11-17T11:25:57.021+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.3" dateCreateModel="2014-11-10T16:57:16.206+0100" dateUpdateModel="2014-11-17T11:26:07.008+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.4" dateCreateModel="2014-11-10T16:57:46.445+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-17T14:56:28.875+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0" isGenerated="true" dateCreateModel="2014-11-10T17:32:19.454+0100" dateUpdateModel="2014-11-17T14:56:28.875+0100" dateLastGenerate="2014-11-17T11:48:55.590+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" dateCreateModel="2014-11-10T17:32:42.670+0100" dateUpdateModel="2014-11-10T17:32:42.670+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1" dateCreateModel="2014-11-10T17:34:19.244+0100" dateUpdateModel="2014-11-10T17:52:17.128+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.0" dateCreateModel="2014-11-10T17:36:08.849+0100" dateUpdateModel="2014-11-10T17:46:39.345+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1" isGenerated="true" dateCreateModel="2014-11-10T17:36:27.359+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100" dateLastGenerate="2014-11-10T17:42:31.460+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.0" dateCreateModel="2014-11-10T17:36:53.615+0100" dateUpdateModel="2014-11-10T17:36:53.615+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.1" dateCreateModel="2014-11-10T17:37:17.884+0100" dateUpdateModel="2014-11-10T17:37:17.884+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.1" dateCreateModel="2014-11-10T17:45:34.461+0100" dateUpdateModel="2014-11-10T17:47:18.325+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-10T17:46:09.608+0100" dateUpdateModel="2014-11-10T17:46:09.608+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.2" dateCreateModel="2014-11-10T17:46:21.748+0100" dateUpdateModel="2014-11-10T17:47:31.055+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2" dateCreateModel="2014-11-10T17:52:58.814+0100" dateUpdateModel="2014-11-10T17:57:20.159+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0" dateCreateModel="2014-11-10T17:54:14.734+0100" dateUpdateModel="2014-11-10T17:56:26.790+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.0" dateCreateModel="2014-11-10T17:55:57.591+0100" dateUpdateModel="2014-11-10T17:55:57.591+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.1" dateCreateModel="2014-11-10T17:56:04.737+0100" dateUpdateModel="2014-11-10T17:56:26.790+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-10T17:56:26.790+0100" dateUpdateModel="2014-11-10T17:56:26.790+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.1" dateCreateModel="2014-11-10T17:57:08.802+0100" dateUpdateModel="2014-11-10T17:57:20.159+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.2" dateCreateModel="2014-11-10T17:57:12.905+0100" dateUpdateModel="2014-11-10T17:57:12.905+0100"/>
+  <modelMonitorings modelElement="/" dateCreateModel="2014-11-10T18:02:13.138+0100" dateUpdateModel="2014-11-17T14:54:55.108+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2" dateCreateModel="2014-11-17T11:07:22.086+0100" dateUpdateModel="2014-11-17T14:56:57.200+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0" isGenerated="true" dateCreateModel="2014-11-17T11:09:58.149+0100" dateUpdateModel="2014-11-17T11:45:50.216+0100" dateLastGenerate="2014-11-17T14:54:59.625+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1" isGenerated="true" dateCreateModel="2014-11-17T11:10:24.493+0100" dateUpdateModel="2014-11-17T14:56:57.200+0100" dateLastGenerate="2014-11-17T14:55:01.549+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:12:16.772+0100" dateUpdateModel="2014-11-17T11:12:16.772+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0/@methods.0" dateCreateModel="2014-11-17T11:12:16.772+0100" dateUpdateModel="2014-11-17T11:12:16.772+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:17:37.463+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:15:58.819+0100" dateUpdateModel="2014-11-17T11:16:03.352+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:16:03.352+0100" dateUpdateModel="2014-11-17T11:16:03.352+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.1" dateCreateModel="2014-11-17T11:16:33.574+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-17T11:16:36.933+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.1" dateCreateModel="2014-11-17T11:17:37.463+0100" dateUpdateModel="2014-11-17T11:17:37.463+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2" isGenerated="true" dateCreateModel="2014-11-17T11:18:46.504+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100" dateLastGenerate="2014-11-17T14:55:09.046+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3" isGenerated="true" dateCreateModel="2014-11-17T11:19:04.854+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100" dateLastGenerate="2014-11-17T14:55:09.732+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:24:59.799+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0" dateCreateModel="2014-11-17T11:24:59.799+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:25:17.942+0100" dateUpdateModel="2014-11-17T11:25:17.942+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.1" dateCreateModel="2014-11-17T11:34:02.146+0100" dateUpdateModel="2014-11-17T11:34:02.146+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.2" dateCreateModel="2014-11-17T11:34:15.486+0100" dateUpdateModel="2014-11-17T11:34:15.486+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.3" dateCreateModel="2014-11-17T11:34:37.407+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.2" dateCreateModel="2014-11-17T11:34:57.518+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.3" dateCreateModel="2014-11-17T11:35:14.462+0100" dateUpdateModel="2014-11-17T11:36:55.016+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.2/@instructions.0" dateCreateModel="2014-11-17T11:35:59.256+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.2/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:36:23.814+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.3/@instructions.0" dateCreateModel="2014-11-17T11:36:55.016+0100" dateUpdateModel="2014-11-17T11:36:55.016+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.3/@instructions.0" dateCreateModel="2014-11-17T11:37:01.382+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.3/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:37:07.405+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.4" dateCreateModel="2014-11-17T11:37:45.129+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.4/@instructions.0" dateCreateModel="2014-11-17T11:37:48.748+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.4/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:37:55.957+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:39:04.325+0100" dateUpdateModel="2014-11-17T11:39:04.325+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4" isGenerated="true" dateCreateModel="2014-11-17T11:45:02.945+0100" dateUpdateModel="2014-11-17T14:55:32.081+0100" dateLastGenerate="2014-11-17T14:55:10.543+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@properties.0" dateCreateModel="2014-11-17T11:46:03.524+0100" dateUpdateModel="2014-11-17T11:46:03.524+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3" dateCreateModel="2014-11-17T11:47:02.063+0100" dateUpdateModel="2014-11-17T11:48:53.015+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3/@instructions.1" dateCreateModel="2014-11-17T11:47:20.503+0100" dateUpdateModel="2014-11-17T11:48:53.015+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3/@instructions.0" dateCreateModel="2014-11-17T11:48:42.888+0100" dateUpdateModel="2014-11-17T11:48:47.740+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4/@methods.0/@instructions.0" dateCreateModel="2014-11-17T14:55:32.081+0100" dateUpdateModel="2014-11-17T14:55:32.081+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4/@methods.0" dateCreateModel="2014-11-17T14:55:32.081+0100" dateUpdateModel="2014-11-17T14:55:32.081+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.1/@instructions.0" dateCreateModel="2014-11-17T14:56:57.200+0100" dateUpdateModel="2014-11-17T14:56:57.200+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.1" dateCreateModel="2014-11-17T14:56:57.200+0100" dateUpdateModel="2014-11-17T14:56:57.200+0100"/>
+</app:Application>
