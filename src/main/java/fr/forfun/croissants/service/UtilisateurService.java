@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import fr.forfun.croissants.core.BusinessException;
 import fr.forfun.croissants.entity.Utilisateur;
@@ -50,16 +51,21 @@ public class UtilisateurService {
 			tx = em.getTransaction();
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controles de surface
+			//L'email est obligatoire
+			if(StringUtils.isEmpty(email)){
+				throw new BusinessException("L'email est obligatoire");
+			}
+			//Le mot de passe est obligatoire
+			if(StringUtils.isEmpty(motDePasse)){
+				throw new BusinessException("Le mot de passe est obligatoire");
+			}
 			//Recuperation de l'utilisateur pour l'email et mot de passe
 			CriteriaQuery<Utilisateur> utilisateurCriteriaQuery = qb.createQuery(Utilisateur.class);
 			Root<Utilisateur> utilisateur = utilisateurCriteriaQuery.from(Utilisateur.class);
 			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
-			if(email != null){
-				utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.email), email));
-			}
-			if(motDePasse != null){
-				utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.motDePasse), motDePasse));
-			}
+			utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.email), email));
+			utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.motDePasse), motDePasse));
 			if(utilisateurPredicates.size() > 0){
 				utilisateurCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
 			}
@@ -93,13 +99,24 @@ public class UtilisateurService {
 			tx = em.getTransaction();
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controles de surface
+			//Le mail est obligatoire
+			if(StringUtils.isEmpty(utilisateur.getEmail())){
+				throw new BusinessException("Le mail est obligatoire");
+			}
+			//Le mot de passe est obligatoire
+			if(StringUtils.isEmpty(utilisateur.getMotDePasse())){
+				throw new BusinessException("Le mot de passe est obligatoire");
+			}
+			//Le nom est obligatoire
+			if(StringUtils.isEmpty(utilisateur.getNom())){
+				throw new BusinessException("Le nom est obligatoire");
+			}
 			//Test de l'existance d'un utilisateur avec cet email
 			CriteriaQuery<Utilisateur> utilisateurTableCriteriaQuery = qb.createQuery(Utilisateur.class);
 			Root<Utilisateur> utilisateurTable = utilisateurTableCriteriaQuery.from(Utilisateur.class);
 			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
-			if(utilisateur.getEmail() != null){
-				utilisateurPredicates.add(qb.equal(utilisateurTable.get(Utilisateur_.email), utilisateur.getEmail()));
-			}
+			utilisateurPredicates.add(qb.equal(utilisateurTable.get(Utilisateur_.email), utilisateur.getEmail()));
 			if(utilisateurPredicates.size() > 0){
 				utilisateurTableCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
 			}
