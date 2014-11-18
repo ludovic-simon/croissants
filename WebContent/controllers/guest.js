@@ -16,7 +16,7 @@ guestTemplateApp.config(['$routeProvider',
        controller: 'LoginViewCtrl'
      }).
      when('/inscriptionView', {
-       templateUrl: 'inscriptionView.html',
+       templateUrl: 'inscription.html',
        controller: 'InscriptionViewCtrl'
      }).
      otherwise({

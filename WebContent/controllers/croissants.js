@@ -11,7 +11,7 @@ croissantsTemplateApp.config(['$routeProvider',
    function($routeProvider) {
    $routeProvider.
      when('/accueilView', {
-       templateUrl: 'accueilView.html',
+       templateUrl: 'accueil.html',
        controller: 'AccueilViewCtrl'
      }).
      otherwise({
@@ -33,7 +33,7 @@ function CroissantsTemplateCtrl($scope, $http, $location, $route) {
 			$scope.utilisateur = extractObjectFromData(data);
 		})
 		.error(function(data, status, headers, config) {
-			handleError(data, status, headers, config);
+			window.location.href = "/croissants/views/guest.html#/loginView";
 		});
 	};
 
