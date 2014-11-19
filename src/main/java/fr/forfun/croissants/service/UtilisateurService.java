@@ -1,6 +1,7 @@
 package fr.forfun.croissants.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -75,8 +76,12 @@ public class UtilisateurService {
 			if(CollectionUtils.isEmpty(utilisateurs)){
 				throw new BusinessException("Aucun utilisateur pour cet email / mot de passe");
 			}
+			Utilisateur utilisateurConnecte = utilisateurs.get(0);
+			//MAJ de la date de derniere connexion
+			utilisateurConnecte.setDateDerniereConnexion(new Date());
+			utilisateurConnecte = em.merge(utilisateurConnecte);
 			//Retour du 1er utilisateur (normalement il n'y en a qu'un)
-			return utilisateurs.get(0);
+			return utilisateurConnecte;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -125,6 +130,8 @@ public class UtilisateurService {
 			if(CollectionUtils.isNotEmpty(utilisateursPourEmail)){
 				throw new BusinessException("Il y a deja un utilisateur enregistre pour cet email");
 			}
+			//Affectation de la date de creation
+			utilisateur.setDateCreation(new Date());
 			//Persistence de l'utilisateur
 			em.persist(utilisateur);
 			return utilisateur;

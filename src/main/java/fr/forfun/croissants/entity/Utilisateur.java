@@ -27,28 +27,27 @@ public class Utilisateur implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id_utilisateur")
-	
 	protected Long idUtilisateur;
 	
 	/** Nom affiche pour l'utilisateur */
 	@Column(name = "nom")
-	
 	protected String nom;
 	
 	/** email de l'utilisateur */
 	@Column(name = "email")
-	
 	protected String email;
 	
 	/** mot de passe de connexion */
 	@Column(name = "mot_de_passe")
-	
 	protected String motDePasse;
 	
 	/** date de creation de l'utilisateur */
 	@Column(name = "date_creation")
-	
 	protected Date dateCreation;
+	
+	/** Date de derniere connexion */
+	@Column(name = "date_derniere_connexion")
+	protected Date dateDerniereConnexion;
 	
 	{/* GETTERS & SETTERS */}
 
@@ -90,6 +89,14 @@ public class Utilisateur implements Serializable {
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+
+	public Date getDateDerniereConnexion() {
+		return dateDerniereConnexion;
+	}
+
+	public void setDateDerniereConnexion(Date dateDerniereConnexion) {
+		this.dateDerniereConnexion = dateDerniereConnexion;
 	}
 
 }

@@ -12,5 +12,6 @@ public class Utilisateur_ {
 	public static volatile SingularAttribute<Utilisateur, String> email;	
 	public static volatile SingularAttribute<Utilisateur, String> motDePasse;	
 	public static volatile SingularAttribute<Utilisateur, Date> dateCreation;	
+	public static volatile SingularAttribute<Utilisateur, Date> dateDerniereConnexion;	
 
 }

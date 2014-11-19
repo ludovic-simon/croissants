@@ -27,22 +27,22 @@ public class Groupe implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id_groupe")
-	
 	protected Long idGroupe;
+	
+	/** Nom du groupe */
+	@Column(name = "nom")
+	protected String nom;
 	
 	/** Cle technique pour joindre le groupe */
 	@Column(name = "jeton")
-	
 	protected String jeton;
 	
 	/** Mot de passe pour rejoindre le groupe */
 	@Column(name = "mot_de_passe")
-	
 	protected String motDePasse;
 	
 	/** Date de creation du groupe */
 	@Column(name = "date_creation")
-	
 	protected Date dateCreation;
 	
 	{/* GETTERS & SETTERS */}
@@ -53,6 +53,14 @@ public class Groupe implements Serializable {
 
 	public void setIdGroupe(Long idGroupe) {
 		this.idGroupe = idGroupe;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public String getJeton() {
