@@ -2,6 +2,7 @@ package fr.forfun.croissants.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,7 +20,7 @@ import fr.forfun.croissants.entity.Utilisateur;
 @Path("/utilisateurService")
 @Singleton
 public class UtilisateurServiceRest {
-
+ 
 	protected UtilisateurService utilisateurService = new UtilisateurService();
 
 	@Context
