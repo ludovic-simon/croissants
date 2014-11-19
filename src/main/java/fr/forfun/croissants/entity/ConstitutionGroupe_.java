@@ -12,6 +12,9 @@ public class ConstitutionGroupe_ {
 	public static volatile SingularAttribute<ConstitutionGroupe, Long> idUtilisateur;	
 	public static volatile SingularAttribute<ConstitutionGroupe, Boolean> admin;	
 	public static volatile SingularAttribute<ConstitutionGroupe, Boolean> parDefaut;	
+	public static volatile SingularAttribute<ConstitutionGroupe, Date> dateArriveeGroupe;	
 	public static volatile SingularAttribute<ConstitutionGroupe, Date> dateSortieGroupe;	
+	public static volatile SingularAttribute<ConstitutionGroupe, Groupe> groupe;	
+	public static volatile SingularAttribute<ConstitutionGroupe, Utilisateur> utilisateur;	
 
 }

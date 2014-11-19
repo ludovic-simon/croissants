@@ -13,6 +13,7 @@ import com.sun.jersey.spi.resource.Singleton;
 
 import fr.forfun.croissants.core.SDevRestDoBeforeSerialization;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
+import fr.forfun.croissants.entity.Groupe;
 
 @Path("/cycleService")
 @Singleton
@@ -32,8 +33,26 @@ public class CycleServiceRest {
 	@POST
 	@Path("rejoindreGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public ConstitutionGroupe rejoindreGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
-		ConstitutionGroupe res = cycleService.rejoindreGroupe(idUtilisateur, idGroupe);
+	public ConstitutionGroupe rejoindreGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe, @QueryParam("jeton") String jeton, @QueryParam("motDePasse") String motDePasse){
+		ConstitutionGroupe res = cycleService.rejoindreGroupe(idUtilisateur, idGroupe, jeton, motDePasse);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@GET
+	@Path("creerGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public Groupe creerGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("nomGroupe") String nomGroupe){
+		Groupe res = cycleService.creerGroupe(idUtilisateur, nomGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@POST
+	@Path("affecterDroitAdministrateur")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public ConstitutionGroupe affecterDroitAdministrateur(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe, @QueryParam("admin") boolean admin){
+		ConstitutionGroupe res = cycleService.affecterDroitAdministrateur(idUtilisateur, idGroupe, admin);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
 	}
