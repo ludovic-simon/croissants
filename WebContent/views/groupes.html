@@ -1,1 +1,40 @@
-<div>Bienvenue {{utilisateur.nom}}</div>
+<div class="center-div">
+
+	<div class="bottom-space title-page">
+		<h1>
+			<i class="fa fa-users logo-titre"></i>Groupes
+		</h1>
+	</div>
+
+
+	<div class="bottom-space">Voici tous les groupes auxquels vous appartenez. Quel est votre préféré ?</div>
+
+	<div ng-hide="constitutionsGroupe.length">Vous n'appartenez à aucun groupe.</div>
+	<div ng-show="constitutionsGroupe.length">
+		<table class="table table-hover bottom-space">
+			<thead>
+				<tr>
+					<th style="width: 80%;">Nom</th>
+					<th style="text-align:center;">Préféré</th>
+				</tr>
+			</thead>
+			<tbody class="table-hover">
+
+				<tr ng-repeat='constitutionGroupe in constitutionsGroupe'>
+
+					<td ng-click="goToGroupe(constitutionGroupe.groupe.idGroupe)">{{constitutionGroupe.groupe.nom}}</td>
+
+					<td style="text-align:center;"><input type="radio" name="defaultGroup"
+						value="{{constitutionGroupe.parDefaut}}" ng-click="setDefautGroupe(constitutionGroupe.idUtilisateur, constitutionGroupe.groupe.idGroupe)"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="button-bar">
+		<button type="submit" class="btn btn-primary">Créer un groupe</button>
+		<button type="submit" class="btn btn-primary">Rejoindre un groupe</button>
+
+	</div>
+
+</div>

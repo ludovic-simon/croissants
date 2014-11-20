@@ -18,10 +18,9 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 	
 		if(isUserValid()) {
 			$scope.spinnerClass = 'active';
-			console.log($scope.user);
+			console.log("Sauvegarde de l'utilisateur : " + $scope.user);
 			$http.post('/croissants/rest/utilisateurService/creerUtilisateur', $scope.user).
 			  success(function(data, status, headers, config) {
-				  alert("Success ! Data : "+ data);
 				   $scope.spinnerClass = '';
 				   window.location.href = "/croissants/views/guest.html#/loginView";
 			  }).

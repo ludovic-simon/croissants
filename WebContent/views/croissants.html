@@ -17,9 +17,11 @@
 		<script src="/croissants/js/croissants_utils.js"></script>
 		<script src="/croissants/controllers/croissants.js"></script>
 		<script src="/croissants/controllers/accueil.js"></script>
+		<script src="/croissants/controllers/groupes.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="/croissants/css/jquery-ui.css"></link>
 		<link rel="stylesheet" type="text/css" href="/croissants/css/select2.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="/croissants/css/font-awesome.min.css"></link>
 		<link rel="stylesheet" type="text/css" href="/croissants/css/bootstrap.min.css"></link>
 		<link rel="stylesheet" type="text/css" href="/croissants/css/bootstrap-theme.min.css"></link>
 		<link rel="stylesheet" type="text/css" href="/croissants/css/croissants.css"></link>
@@ -27,8 +29,8 @@
 	
 	<body ng-controller="CroissantsTemplateCtrl">
 		<!-- Menu -->
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
@@ -36,20 +38,25 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand navLink" href="/croissants/views/croissants.html#/home">FaisPeterLesCroissants</a>
+				<a class="navbar-brand navLink" href="/croissants/views/croissants.html#/home">Cycles</a>
+				
 			</div>
+			
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-				
+					<li><a href="/croissants/views/croissants.html#/groupesView">Groupes</a></li>
+					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-				
+					<li><a href=""><i class="fa fa-user"></i></a></li>
+					<li><a href="">Deconnexion</a></li>
 				</ul>
 			</div>
+			
 		</div>
 	</div>
 	<!-- Bloc central -->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div ng-view class="col-sm-12 mainView"></div>
 		</div>

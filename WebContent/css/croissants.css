@@ -89,7 +89,7 @@ input[type="checkbox"] {
 .mainView {
 	height: 100%;
 	overflow: auto;
-	padding: 0;
+	padding: 15px;
 }
 
 
@@ -284,4 +284,20 @@ input.dateTimeField {
 	margin-right:15px;
 }
 
-.
+.center-div {
+	max-width: 700px;
+	margin : 0 auto;
+}
+
+.bottom-space {
+	margin-bottom: 30px;
+}
+
+.button-bar {
+	display: table;
+	margin: 0 auto;
+}
+
+.button-bar button:not(:last-child) {
+	margin-right:10px;
+}
