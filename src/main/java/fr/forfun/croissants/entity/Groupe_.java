@@ -11,6 +11,7 @@ public class Groupe_ {
 	public static volatile SingularAttribute<Groupe, String> nom;	
 	public static volatile SingularAttribute<Groupe, String> jeton;	
 	public static volatile SingularAttribute<Groupe, String> motDePasse;	
+	public static volatile SingularAttribute<Groupe, String> message;	
 	public static volatile SingularAttribute<Groupe, Date> dateCreation;	
 
 }

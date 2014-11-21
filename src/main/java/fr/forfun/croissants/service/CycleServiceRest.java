@@ -22,6 +22,15 @@ public class CycleServiceRest {
 	protected CycleService cycleService = new CycleService();
 
 	@GET
+	@Path("rechercherGroupeParId")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public Groupe rechercherGroupeParId(@QueryParam("idGroupe") Long idGroupe){
+		Groupe res = cycleService.rechercherGroupeParId(idGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@GET
 	@Path("rechercherGroupesUtilisateur")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public List<ConstitutionGroupe> rechercherGroupesUtilisateur(@QueryParam("idUtilisateur") Long idUtilisateur){
@@ -40,10 +49,10 @@ public class CycleServiceRest {
 	}
 	
 	@GET
-	@Path("creerGroupe")
+	@Path("editerGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Groupe creerGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("nomGroupe") String nomGroupe){
-		Groupe res = cycleService.creerGroupe(idUtilisateur, nomGroupe);
+	public Groupe editerGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, Groupe groupe){
+		Groupe res = cycleService.editerGroupe(idUtilisateur, groupe);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
 	}

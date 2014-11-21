@@ -40,6 +40,34 @@ public class CycleService {
 	{/* SERVICES */}
 	
 	/**
+	 * Recherche d'un groupe par son identifiant
+	 * @param idGroupe	Identifiant du groupe
+	 * 
+	 * @return Le groupe pour l'identifiant
+	 */
+	public Groupe rechercherGroupeParId(Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			//Controle de l'existance du groupe
+			controleGroupeExistant(idGroupe, false);
+			//Recuperation du groupe pour l'identifiant
+			Groupe groupe = em.find(Groupe.class, idGroupe);
+			return groupe;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
 	 * Recherche les groupes d'un utilisateur
 	 * @param idUtilisateur	Identifiant de l'utilisateur
 	 * 
@@ -137,11 +165,11 @@ public class CycleService {
 	/**
 	 * Permet de creer un groupe
 	 * @param idUtilisateur	Utilisateur creant le groupe
-	 * @param nomGroupe	Nom du groupe
+	 * @param groupe	Le groupe a editer
 	 * 
 	 * @return Le groupe cree
 	 */
-	public Groupe creerGroupe(Long idUtilisateur, String nomGroupe) {
+	public Groupe editerGroupe(Long idUtilisateur, Groupe groupe) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -150,28 +178,43 @@ public class CycleService {
 			tx.begin();
 			//Controles de surface
 			controleUtilisateurExistant(idUtilisateur, false);
+			//Le groupe est obligatoire
+			if(groupe == null){
+				throw new BusinessException("Le groupe est obligatoire");
+			}
+			//Controle de l'existance du groupe en modification
+			controleGroupeExistant(groupe.getIdGroupe(), true);
 			//Le nom du groupe doit etre renseigne
-			if(StringUtils.isEmpty(nomGroupe)){
+			if(StringUtils.isEmpty(groupe.getNom())){
 				throw new BusinessException("Le nom du groupe doit etre renseigne");
 			}
-			//Creation et persistence du groupe
-			//Determination d'un jeton aleatoire pour le groupe
-			String jeton = RandomStringUtils.randomAlphanumeric(10);
-			//Determination d'un mot de passe aleatoire pour le groupe
-			String motDePasse = RandomStringUtils.randomAlphanumeric(10);
-			Groupe groupe = new Groupe();
-			groupe.setNom(nomGroupe);
-			groupe.setJeton(jeton);
-			groupe.setMotDePasse(motDePasse);
-			groupe.setDateCreation(new Date());
-			em.persist(groupe);
-			//Creation d'une constitution de groupe pour ce groupe et l'utilisateur et affectation du droit administrateur
-			ConstitutionGroupe constitutionGroupe = new ConstitutionGroupe();
-			constitutionGroupe.setIdGroupe(groupe.getIdGroupe());
-			constitutionGroupe.setIdUtilisateur(idUtilisateur);
-			constitutionGroupe.setAdmin(true);
-			constitutionGroupe.setDateArriveeGroupe(new Date());
-			em.persist(constitutionGroupe);
+			//Gestion de l'ajout ou modification du groupe
+			if(groupe.getIdGroupe() != null){
+				//Recuperation du groupe en base
+				Groupe groupeBdd = em.find(Groupe.class, groupe.getIdGroupe());
+				//Modification du nom et du message
+				groupeBdd.setNom(groupe.getNom());
+				groupeBdd.setMessage(groupe.getMessage());
+				//Merge du groupe en base avec les modifs saisies
+				groupe = em.merge(groupeBdd);
+			} else {
+				//Gestion du jeton et mdp et persistence du groupe
+				//Determination d'un jeton aleatoire pour le groupe
+				String jeton = "" + new Date().getTime();
+				//Determination d'un mot de passe aleatoire pour le groupe
+				String motDePasse = RandomStringUtils.randomAlphanumeric(10);
+				groupe.setJeton(jeton);
+				groupe.setMotDePasse(motDePasse);
+				groupe.setDateCreation(new Date());
+				em.persist(groupe);
+				//Creation d'une constitution de groupe pour ce groupe et l'utilisateur et affectation du droit administrateur
+				ConstitutionGroupe constitutionGroupe = new ConstitutionGroupe();
+				constitutionGroupe.setIdGroupe(groupe.getIdGroupe());
+				constitutionGroupe.setIdUtilisateur(idUtilisateur);
+				constitutionGroupe.setAdmin(true);
+				constitutionGroupe.setDateArriveeGroupe(new Date());
+				em.persist(constitutionGroupe);
+			}
 			return groupe;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -326,7 +369,7 @@ public class CycleService {
 			tx.begin();
 			//Cas ou l'identifiant du groupe devrait etre renseigne
 			if(!autoriseNull && idGroupe == null){
-				throw new BusinessException("Cas ou l'identifiant du groupe devrait etre renseigne");
+				throw new BusinessException("L'identifiant du groupe est obligatoire");
 			}
 			//Controle de l'existance du groupe
 			if(idGroupe != null){

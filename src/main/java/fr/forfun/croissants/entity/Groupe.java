@@ -41,6 +41,10 @@ public class Groupe implements Serializable {
 	@Column(name = "mot_de_passe")
 	protected String motDePasse;
 	
+	/** Message libre associ� au groupe */
+	@Column(name = "message")
+	protected String message;
+	
 	/** Date de creation du groupe */
 	@Column(name = "date_creation")
 	protected Date dateCreation;
@@ -77,6 +81,14 @@ public class Groupe implements Serializable {
 
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public Date getDateCreation() {
