@@ -48,7 +48,7 @@ public class CycleServiceRest {
 		return res;
 	}
 	
-	@GET
+	@POST
 	@Path("editerGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Groupe editerGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, Groupe groupe){
