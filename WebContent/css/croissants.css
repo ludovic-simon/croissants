@@ -1,7 +1,9 @@
 /******************** BOOTSTRAP *******************/
 
+
 body {
 	padding-top: 50px;
+	font-family: 'Raleway', sans-serif;
 }
 
 .mainSection {
@@ -74,12 +76,6 @@ input[type="checkbox"] {
 
 .login-form {
 	max-width: 330px;
-	padding-top: 50px;
-	margin: 0 auto;
-}
-
-.inscription-form {
-	max-width: 600px;
 	padding-top: 50px;
 	margin: 0 auto;
 }
@@ -298,6 +294,6 @@ input.dateTimeField {
 	margin: 0 auto;
 }
 
-.button-bar button:not(:last-child) {
+.button-bar a:not(:last-child) {
 	margin-right:10px;
 }

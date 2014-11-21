@@ -13,6 +13,7 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 	$scope.user = new Object();
 	$scope.motDePasseBis;
 	$scope.spinnerClass = '';
+	$scope.inscriptionOk = false;
 	
 	$scope.creerUtilisateur = function () {
 	
@@ -22,7 +23,7 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 			$http.post('/croissants/rest/utilisateurService/creerUtilisateur', $scope.user).
 			  success(function(data, status, headers, config) {
 				   $scope.spinnerClass = '';
-				   window.location.href = "/croissants/views/guest.html#/loginView";
+				   $scope.inscriptionOk = true;
 			  }).
 			  error(function(data, status, headers, config) {
 				  $scope.spinnerClass = '';
