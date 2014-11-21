@@ -4,6 +4,20 @@
 body {
 	padding-top: 50px;
 	font-family: 'Raleway', sans-serif;
+	min-height:300px;
+}
+
+.body-background-logo {
+	background-repeat:no-repeat;
+	background-position:bottom left;
+}
+
+.guest-logo {
+	background-image:url(/croissants/img/Croissant_tourne_nb_transp_resize_centre.png)
+}
+
+.logged-logo {
+	background-image:url(/croissants/img/Croissant_tourne_couleur_transp_resize_centre.png)
 }
 
 .mainSection {
