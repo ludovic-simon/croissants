@@ -2646,8 +2646,19 @@
         </methods>
         <instanceVariable name="" description="" variableScope="LOCAL"/>
       </views>
-      <views xsi:type="app:Activity" name="GroupeView" description="Page de gestion du cycle en cours et des utilisateurs du groupe" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="groupe.html">
+      <views xsi:type="app:Activity" name="GroupesView" description="Page des groupes de l'utilisateur" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="groupes.html">
         <dataType appClassRef="//@modules.1/@layers.2/@views.5"/>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
+      <views xsi:type="app:Activity" name="GroupeView" description="Page de gestion du cycle en cours et des utilisateurs du groupe" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="groupe.html">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.6"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
@@ -2667,7 +2678,7 @@
         <instanceVariable name="" description="" variableScope="LOCAL"/>
       </views>
       <views xsi:type="app:Activity" name="EditerGroupeView" description="Page de creation / modification d'un groupe" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="editerGroupe.html">
-        <dataType appClassRef="//@modules.1/@layers.2/@views.6"/>
+        <dataType appClassRef="//@modules.1/@layers.2/@views.7"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
@@ -2687,7 +2698,7 @@
         <instanceVariable name="" description="" variableScope="LOCAL"/>
       </views>
       <views xsi:type="app:Activity" name="RejoindreGroupeView" description="Page pour rejoindre un groupe" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="rejoindreGroupe.html">
-        <dataType appClassRef="//@modules.1/@layers.2/@views.7"/>
+        <dataType appClassRef="//@modules.1/@layers.2/@views.8"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
@@ -2705,7 +2716,7 @@
       </views>
     </layers>
   </modules>
-  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-21T16:44:13.102+0100"/>
+  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100"/>
   <modelMonitorings modelElement="//@configuration" isGenerated="true" dateCreateModel="2014-11-10T16:53:44.400+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100" dateLastGenerate="2014-11-10T18:02:17.133+0100"/>
   <modelMonitorings modelElement="//@configuration/@dataSources.0" dateCreateModel="2014-11-10T16:54:44.779+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-19T14:00:48.787+0100"/>
@@ -2733,9 +2744,9 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.3" dateCreateModel="2014-11-10T17:57:08.802+0100" dateUpdateModel="2014-11-18T16:49:55.346+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.4" dateCreateModel="2014-11-10T17:57:12.905+0100" dateUpdateModel="2014-11-18T16:49:53.833+0100"/>
   <modelMonitorings modelElement="/" dateCreateModel="2014-11-10T18:02:13.138+0100" dateUpdateModel="2014-11-17T14:54:55.108+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2" dateCreateModel="2014-11-17T11:07:22.086+0100" dateUpdateModel="2014-11-21T16:44:13.102+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2" dateCreateModel="2014-11-17T11:07:22.086+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0" isGenerated="true" dateCreateModel="2014-11-17T11:09:58.149+0100" dateUpdateModel="2014-11-17T11:45:50.216+0100" dateLastGenerate="2014-11-18T15:18:36.104+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1" isGenerated="true" dateCreateModel="2014-11-17T11:10:24.493+0100" dateUpdateModel="2014-11-21T16:44:13.102+0100" dateLastGenerate="2014-11-21T16:15:21.581+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1" isGenerated="true" dateCreateModel="2014-11-17T11:10:24.493+0100" dateUpdateModel="2014-11-21T16:44:13.102+0100" dateLastGenerate="2014-11-21T16:53:50.977+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:12:16.772+0100" dateUpdateModel="2014-11-17T11:12:16.772+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0/@methods.0" dateCreateModel="2014-11-17T11:12:16.772+0100" dateUpdateModel="2014-11-17T11:12:16.772+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
@@ -2766,7 +2777,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:39:04.325+0100" dateUpdateModel="2014-11-17T11:39:04.325+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4" isGenerated="true" dateCreateModel="2014-11-17T11:45:02.945+0100" dateUpdateModel="2014-11-17T17:44:37.016+0100" dateLastGenerate="2014-11-17T14:55:10.543+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4" isGenerated="true" dateCreateModel="2014-11-17T11:45:02.945+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100" dateLastGenerate="2014-11-17T14:55:10.543+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@properties.0" dateCreateModel="2014-11-17T11:46:03.524+0100" dateUpdateModel="2014-11-19T09:34:45.807+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3" dateCreateModel="2014-11-17T11:47:02.063+0100" dateUpdateModel="2014-11-17T11:48:53.015+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3/@instructions.1" dateCreateModel="2014-11-17T11:47:20.503+0100" dateUpdateModel="2014-11-17T11:48:53.015+0100"/>
@@ -2885,8 +2896,9 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.5/@instructions.1/@instructions.2/@instructions.0" dateCreateModel="2014-11-19T17:36:30.248+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.5/@instructions.2" dateCreateModel="2014-11-19T17:36:59.224+0100" dateUpdateModel="2014-11-19T17:36:59.224+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.5/@instructions.3" dateCreateModel="2014-11-19T17:47:21.738+0100" dateUpdateModel="2014-11-19T17:47:21.738+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.5" isGenerated="true" dateCreateModel="2014-11-21T15:42:53.213+0100" dateUpdateModel="2014-11-21T15:54:05.828+0100" dateLastGenerate="2014-11-21T16:13:42.094+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.6" isGenerated="true" dateCreateModel="2014-11-21T15:44:28.889+0100" dateUpdateModel="2014-11-21T16:13:08.050+0100" dateLastGenerate="2014-11-21T16:13:56.320+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.7" isGenerated="true" dateCreateModel="2014-11-21T15:51:31.413+0100" dateUpdateModel="2014-11-21T15:51:44.807+0100" dateLastGenerate="2014-11-21T16:14:31.962+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.6" isGenerated="true" dateCreateModel="2014-11-21T15:42:53.213+0100" dateUpdateModel="2014-11-21T15:54:05.828+0100" dateLastGenerate="2014-11-21T16:13:42.094+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.7" isGenerated="true" dateCreateModel="2014-11-21T15:44:28.889+0100" dateUpdateModel="2014-11-21T16:13:08.050+0100" dateLastGenerate="2014-11-21T16:13:56.320+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.8" isGenerated="true" dateCreateModel="2014-11-21T15:51:31.413+0100" dateUpdateModel="2014-11-21T15:51:44.807+0100" dateLastGenerate="2014-11-21T16:14:31.962+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T16:06:19.471+0100" dateUpdateModel="2014-11-21T16:06:23.684+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.5" dateCreateModel="2014-11-21T16:54:40.615+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100"/>
 </app:Application>
