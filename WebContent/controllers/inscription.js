@@ -46,11 +46,11 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 		
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if( $scope.user.email == null || ! re.test($scope.user.email)) {
-			var mailDiv = $('#mailInput').closest('.form-group');
+			var mailDiv = $('#inputEmail').closest('.form-group');
 			displayFormatError(mailDiv, 'Format invalide');
 			ok = false;
 		} else {
-			displayFormatOk( $('#mailInput').parent());
+			displayFormatOk( $('#inputEmail').parent());
 		}
 		
 		//validité du mot de passe		

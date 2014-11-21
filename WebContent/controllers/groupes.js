@@ -32,8 +32,8 @@ function GroupesViewCtrl($scope, $http, $location, $route, $timeout) {
 	};
 	
 	$scope.goToGroupe = function(idGroupe) {
-		alert("Goto : /croissants/views/croissants.html#/groupe?groupeId="+idGroupe);
-		//window.location.href = "/croissants/views/croissants.html#/groupe?groupeId="+idGroupe;
+		//alert("Goto : /croissants/views/croissants.html#/groupe?groupeId="+idGroupe);
+		window.location.href = "/croissants/views/croissants.html#/editerGroupeView?idGroupe="+idGroupe;
 	};
 	
 	$scope.setDefautGroupe = function(idUtilisateur, idGroupe) {
