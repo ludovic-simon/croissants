@@ -3,7 +3,9 @@ var croissantsTemplateApp = angular.module('croissants',
                                    'ui.select2',
                                    'angular-jquery-ui',
                                    'accueilViewController',
-                                   'groupesViewController',
+                                   'groupeViewController',
+                                   'editerGroupeViewController',
+                                   'rejoindreGroupeViewController',
                                    'croissantsTemplateController'
                                  ]
 );
@@ -15,10 +17,18 @@ croissantsTemplateApp.config(['$routeProvider',
        templateUrl: 'accueil.html',
        controller: 'AccueilViewCtrl'
      }).
-     when('/groupesView', {
-         templateUrl: 'groupes.html',
-         controller: 'GroupesViewCtrl'
-       }).
+     when('/groupeView', {
+       templateUrl: 'groupe.html',
+       controller: 'GroupeViewCtrl'
+     }).
+     when('/editerGroupeView', {
+       templateUrl: 'editerGroupe.html',
+       controller: 'EditerGroupeViewCtrl'
+     }).
+     when('/rejoindreGroupeView', {
+       templateUrl: 'rejoindreGroupe.html',
+       controller: 'RejoindreGroupeViewCtrl'
+     }).
      otherwise({
        redirectTo: '/accueilView'
      });

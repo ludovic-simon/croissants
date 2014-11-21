@@ -33,8 +33,8 @@ public class CycleServiceRest {
 	@POST
 	@Path("rejoindreGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public ConstitutionGroupe rejoindreGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe, @QueryParam("jeton") String jeton, @QueryParam("motDePasse") String motDePasse){
-		ConstitutionGroupe res = cycleService.rejoindreGroupe(idUtilisateur, idGroupe, jeton, motDePasse);
+	public ConstitutionGroupe rejoindreGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("jeton") String jeton, @QueryParam("motDePasse") String motDePasse){
+		ConstitutionGroupe res = cycleService.rejoindreGroupe(idUtilisateur, jeton, motDePasse);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
 	}
@@ -55,6 +55,13 @@ public class CycleServiceRest {
 		ConstitutionGroupe res = cycleService.affecterDroitAdministrateur(idUtilisateur, idGroupe, admin);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
+	}
+	
+	@POST
+	@Path("supprimerGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void supprimerGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
+		cycleService.supprimerGroupe(idUtilisateur, idGroupe);
 	}
 	
 }

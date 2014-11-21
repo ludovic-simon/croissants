@@ -22,6 +22,7 @@ import fr.forfun.croissants.core.BusinessException;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.ConstitutionGroupe_;
 import fr.forfun.croissants.entity.Groupe;
+import fr.forfun.croissants.entity.Groupe_;
 import fr.forfun.croissants.entity.Utilisateur;
 
 public class CycleService {
@@ -77,22 +78,21 @@ public class CycleService {
 	/**
 	 * Permet a un utilisateur de rejoindre un groupe existant
 	 * @param idUtilisateur	Identifiant de l'utilisateur
-	 * @param idGroupe	Identifiant du groupe
 	 * @param jeton	Jeton du groupe
 	 * @param motDePasse	Mot de passe du groupe
 	 * 
 	 * @return la constitution de groupe
 	 */
-	public ConstitutionGroupe rejoindreGroupe(Long idUtilisateur, Long idGroupe, String jeton, String motDePasse) {
+	public ConstitutionGroupe rejoindreGroupe(Long idUtilisateur, String jeton, String motDePasse) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
 			//Controles de surface et d'existance
 			controleUtilisateurExistant(idUtilisateur, false);
-			controleGroupeExistant(idGroupe, false);
 			//Le jeton du groupe est obligatoire
 			if(StringUtils.isEmpty(jeton)){
 				throw new BusinessException("Le jeton du groupe est obligatoire");
@@ -102,13 +102,23 @@ public class CycleService {
 				throw new BusinessException("Le mot de passe du groupe est obligatoire");
 			}
 			//Controle du couple jeton / mot de passe pour le groupe
-			Groupe groupe = em.find(Groupe.class, idGroupe);
-			if(!groupe.getJeton().equals(jeton) || !groupe.getMotDePasse().equals(motDePasse)){
+			//Recuperation du groupe pour le jeton et le mot de passe
+			CriteriaQuery<Groupe> groupeIteCriteriaQuery = qb.createQuery(Groupe.class);
+			Root<Groupe> groupeIte = groupeIteCriteriaQuery.from(Groupe.class);
+			List<Predicate> groupePredicates = new ArrayList<Predicate>();
+			groupePredicates.add(qb.equal(groupeIte.get(Groupe_.jeton), jeton));
+			groupePredicates.add(qb.equal(groupeIte.get(Groupe_.motDePasse), motDePasse));
+			if(groupePredicates.size() > 0){
+				groupeIteCriteriaQuery.where(groupePredicates.toArray(new Predicate[groupePredicates.size()]));
+			}
+			TypedQuery<Groupe> groupeIteQuery = em.createQuery(groupeIteCriteriaQuery);
+			Groupe groupePourJeton = groupeIteQuery.getSingleResult();
+			if(groupePourJeton == null){
 				throw new BusinessException("Le couple jeton et mot du passe du groupe est incorrect");
 			}
 			//Creation d'une constitution groupe pour l'utilisateur et le groupe
 			ConstitutionGroupe constitutionGroupe = new ConstitutionGroupe();
-			constitutionGroupe.setIdGroupe(idGroupe);
+			constitutionGroupe.setIdGroupe(groupePourJeton.getIdGroupe());
 			constitutionGroupe.setIdUtilisateur(idUtilisateur);
 			constitutionGroupe.setDateArriveeGroupe(new Date());
 			//Persistence en base
@@ -212,6 +222,53 @@ public class CycleService {
 			constitutionGroupe.setAdmin(admin);
 			constitutionGroupe = em.merge(constitutionGroupe);
 			return constitutionGroupe;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet a un administrateur de supprimer un groupe
+	 * @param idUtilisateur	Identifiant de l'utilisateur sollicitant la suppression du groupe
+	 * @param idGroupe	Identifiant du groupe
+	 */
+	public void supprimerGroupe(Long idUtilisateur, Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controles de surface et d'existance
+			controleUtilisateurExistant(idUtilisateur, false);
+			controleGroupeExistant(idGroupe, false);
+			//Controle que l'utilisateur est administrateur du groupe
+			CriteriaQuery<ConstitutionGroupe> constitutionGroupeTableCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
+			Root<ConstitutionGroupe> constitutionGroupeTable = constitutionGroupeTableCriteriaQuery.from(ConstitutionGroupe.class);
+			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeTable.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeTable.get(ConstitutionGroupe_.idGroupe), idGroupe));
+			if(constitutionGroupePredicates.size() > 0){
+				constitutionGroupeTableCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
+			}
+			TypedQuery<ConstitutionGroupe> constitutionGroupeTableQuery = em.createQuery(constitutionGroupeTableCriteriaQuery);
+			ConstitutionGroupe constitutionGroupe = constitutionGroupeTableQuery.getSingleResult();
+			//Cas ou l'utilisateur ne fait pas partie du groupe
+			if(constitutionGroupe == null){
+				throw new BusinessException("L'utilisateur " + idUtilisateur + " ne fait pas partie du groupe " + idGroupe);
+			}
+			//Cas ou l'utilisateur n'est pas administrateur du groupe
+			if(!constitutionGroupe.getAdmin()){
+				throw new BusinessException("L'utilisateur n'est pas administrateur du groupe, il ne peut pas le supprimer");
+			}
+			//Suppression du groupe
+			em.remove(em.find(Groupe.class, idGroupe));
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
