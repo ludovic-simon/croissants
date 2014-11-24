@@ -58,5 +58,15 @@ function CroissantsTemplateCtrl($scope, $http, $location, $route) {
 	};
 
 	$scope.init();
+	
+	$scope.seDeconnecter = function() {
+		$http.post('/croissants/rest/utilisateurService/seDeconnecter' ).
+		  success(function(data, status, headers, config) {
+			  window.location.href = "/croissants/views/guest.html#/loginView";
+		  }).
+		  error(function(data, status, headers, config) {
+			  handleError(data, status, headers, config);
+		  });
+	}
 
 }]);

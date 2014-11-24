@@ -34,6 +34,11 @@ function RejoindreGroupeViewCtrl($scope, $http, $location, $route) {
 	/* Validation de la sasie du formulaire */
 	var isRejoindreGroupeValid = function () {
 		var isOkay = true;
+		
+		//on supprime tous les messages d'erreurs précédents.
+		$('.format-error-message').remove();
+		
+		
 		if(isNull($scope.groupeToJoin.jeton)) {
 			var mailDiv = $('#jetonGroupe').closest('.form-group');
 			displayFormatError(mailDiv, 'Le jeton ne peut pas être vide');

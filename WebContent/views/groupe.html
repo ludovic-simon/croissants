@@ -2,10 +2,20 @@
 
 	<div class="bottom-space title-page">
 		<h1>
-			<i class="fa fa-users logo-titre"></i>Groupe {{groupe.nom}}
+			<i class="fa fa-user logo-titre"></i>Groupe {{groupe.nom}}
 		</h1>
 	</div>
-	<div class="bottom-space">Petit blabla....</div>
+	<div class="bottom-space panel panel-info" ng-show="groupe.message">
+		 <div class="panel-body message-groupe">
+		 	<b>{{groupe.message}}</b>
+		 </div>
+	</div>
+	
+	<div ng-show="!groupe.tours" >
+	
+	</div>
+	<h2>Cycle en cours</h2>
+	<div>Tableau..</div>
 	
 
 	

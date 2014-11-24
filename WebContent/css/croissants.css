@@ -330,3 +330,12 @@ textarea {
 	font-weight: bold;
 	color: red;
 }
+
+.message-groupe{
+	font-style: italic;
+	font-size:15px;
+}
+
+h2 {
+	font-size:20px;
+}
