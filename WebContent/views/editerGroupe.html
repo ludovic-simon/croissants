@@ -5,6 +5,7 @@
 			<i class="fa fa-users logo-titre"></i>Editer groupe
 		</h1>
 	</div>
+	<div class="bottom-space">Petit blabla....</div>
 
 
 <form novalidate class="form-horizontal" name="groupeForm">
@@ -24,7 +25,8 @@
 			<label for="occurence" class="col-sm-4 control-label">Jour d'occurence</label>
 			<div class="col-sm-8">
 				<select name="occurence" ng-model="groupe.occurence" form="groupeForm"
-				 class="form-control" id="occurence"  ng-options=" a.nom for a in jours">                
+				ng-init="groupe.occurence = jours[0].id"
+				 class="form-control" id="occurence"  ng-options="jour.id as jour.nom for jour in jours">                
 	       		</select>
 			
 			</div>

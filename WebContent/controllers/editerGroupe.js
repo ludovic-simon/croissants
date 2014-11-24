@@ -22,7 +22,10 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 	
 	$scope.init = function() {
 		if(!isNull($scope.idGroupe)) {
-			loadGroupe();
+			loadGroupe($scope.idGroupe);
+			if(!isNull( $scope.groupe)) {
+				$scope.nouveauGroupe = false;
+			}
 		} else {
 			
 		}
@@ -30,44 +33,56 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 
 	$scope.init();
 	
-	var loadGroupe = new function() {
-		/*$http.get('/croissants/rest/cycleService/rechercherGroupesUtilisateur?idUtilisateur='+$scope.utilisateur.idUtilisateur).
+	var loadGroupe = function(idGroupe) {
+		$http.get('/croissants/rest/cycleService/rechercherGroupeParId?idGroupe='+idGroupe).
 		  success(function(data, status, headers, config) {
-			  console.log(data);
-			  $scope.constitutionsGroupe = data;
-			  $timeout(function(){
-				  initDefaultGroup();
-			  });
+			  $scope.groupe=data;
 		  }).
 		  error(function(data, status, headers, config) {
 			  handleError(data, status, headers, config);
-		  });*/
+		  });
 	};
 	
 	$scope.editerGroupe = function() {
-		if($scope.nouveauGroupe) {
-			if(isGroupValid()) {
-				$http.get('/croissants/rest/cycleService/creerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur+"&nomGroupe="+$scope.groupe.nom).
-				  success(function(data, status, headers, config) {
-					  alert('Success creation groupe');
-					  console.log(data);
-				  }).
-				  error(function(data, status, headers, config) {
-					  handleError(data, status, headers, config);
-				  });
-				}
-		}
+		console.log($scope.groupe);
+		if(isGroupValid()) {
+			$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.groupe ).
+			  success(function(data, status, headers, config) {
+				  alert('Success creation groupe');
+				  console.log(data);
+			  }).
+			  error(function(data, status, headers, config) {
+				  handleError(data, status, headers, config);
+			  });
+			}
 	};
 	
 	var isGroupValid = function () {
 		var isOkay = true;
+		
+		//on supprime tous les messages d'erreurs précédents.
+		$('.format-error-message').remove();
+		
+		$('#nomGroupe').removeClass("format-ok-message");
+		$('#nomGroupe').removeClass("format-error-message-input");
+		
 		if($scope.groupe.nom == null) {
-			alert('alert error nom null!');
+			var parentDiv = $('#nomGroupe').closest('.form-group');
+			displayFormatError(parentDiv, 'Le nom du groupe ne peut être vide');
 			isOkay = false;
+		} else {
+			displayFormatOk($('#nomGroupe').parent());
 		}
 		return isOkay;
 	}
 	
+	var displayFormatOk = function(parentDiv) {
+		parentDiv.children('input').addClass("format-ok-message");
+	}
 	
+	var displayFormatError = function(parentDiv, message) {
+		parentDiv.append('<div class=\'col-sm-offset-4 col-sm-8 format-error-message\'>' + message + '</div>');
+		parentDiv.children('input').addClass("format-error-message-input");
+	}
 	
 }]);
