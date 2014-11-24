@@ -1792,7 +1792,7 @@
                   </fromExpression>
                 </query>
               </instructions>
-              <instructions xsi:type="app:InstructionCall" description="Modification du nom et du message">
+              <instructions xsi:type="app:InstructionCall" description="Modification du nom, message et jour">
                 <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.0/@returnVariableNew">
                   <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
                 </callValue>
@@ -1810,6 +1810,9 @@
                 </updateVariableValues>
                 <updateVariableValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.1 //@modules.1/@layers.0/@entities.1/@properties.4" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.4">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </updateVariableValues>
+                <updateVariableValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.1 //@modules.1/@layers.0/@entities.1/@properties.5" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.5">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </updateVariableValues>
                 <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.6">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
@@ -2754,7 +2757,7 @@
       </services>
     </layers>
     <layers xsi:type="app:UILayer" generatorConfigs="Standard,SDEV_ANGULAR" contextRoot="croissants" viewFolder="views" controllerFolder="controllers" imageFolder="images" appCssFiles="" appJsFiles="">
-      <views xsi:type="app:Activity" name="GuestTemplate" description="Page parente en mode hors connexion pour l'authentification et l'inscription" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="guest.html" isTemplate="true" defaultTemplateActivity="//@modules.1/@layers.2/@views.2">
+      <views xsi:type="app:Activity" name="GuestTemplate" description="Page parente en mode hors connexion pour l'authentification et l'inscription" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="guest.html" isTemplate="true" defaultTemplateActivity="//@modules.1/@layers.2/@views.1">
         <dataType appClassRef="//@modules.1/@layers.2/@views.0"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
@@ -2785,55 +2788,8 @@
         </methods>
         <instanceVariable name="" description="" variableScope="LOCAL"/>
       </views>
-      <views xsi:type="app:Activity" name="CroissantsTemplate" description="Page parente en mode connecte" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="croissants.html" isTemplate="true" defaultTemplateActivity="//@modules.1/@layers.2/@views.4">
-        <dataType appClassRef="//@modules.1/@layers.2/@views.1"/>
-        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
-          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-        </generatorConfigFreeVariables>
-        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
-          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-        </generatorConfigFreeVariables>
-        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
-        <properties name="utilisateur" description="" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_utilisateur" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="OUT">
-          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
-        </properties>
-        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
-          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-          <instructions xsi:type="app:InstructionFree" description="Menu" code="&lt;div class=&quot;navbar navbar-inverse navbar-fixed-top&quot; role=&quot;navigation&quot;>&#xD;&#xA;&#x9;&lt;div class=&quot;container-fluid&quot;>&#xD;&#xA;&#x9;&#x9;&lt;div class=&quot;navbar-header&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;.navbar-collapse&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;sr-only&quot;>Toggle navigation&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;/button>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;a class=&quot;navbar-brand navLink&quot; href=&quot;/croissants/views/croissants.html#/home&quot;>FaisPeterLesCroissants&lt;/a>&#xD;&#xA;&#x9;&#x9;&lt;/div>&#xD;&#xA;&#x9;&#x9;&lt;div class=&quot;navbar-collapse collapse&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;template:define name=&quot;navLeft&quot;/>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;template:define name=&quot;navRight&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;/div>&#xD;&#xA;&#x9;&lt;/div>&#xD;&#xA;&lt;/div>">
-            <instructions xsi:type="app:InstructionGroup" description="" templateLabel="navLeft">
-              <instructions xsi:type="app:InstructionFree" description="" code="&lt;ul class=&quot;nav navbar-nav&quot;>&#xD;&#xA;&#x9;&lt;template:foreachInstruction>&#xD;&#xA;&#x9;&lt;li>&#xD;&#xA;&#x9;&#x9;&lt;template:evalInstruction/>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/template:foreachInstruction>&#xD;&#xA;&lt;/ul>">
-                <freeNewVariable name="" description="" variableScope="LOCAL"/>
-              </instructions>
-            </instructions>
-            <instructions xsi:type="app:InstructionGroup" description="" templateLabel="navRight">
-              <instructions xsi:type="app:InstructionFree" description="" code="&lt;ul class=&quot;nav navbar-nav navbar-right&quot;>&#xD;&#xA;&#x9;&lt;template:foreachInstruction>&#xD;&#xA;&#x9;&lt;li>&#xD;&#xA;&#x9;&#x9;&lt;template:evalInstruction/>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/template:foreachInstruction>&#xD;&#xA;&lt;/ul>">
-                <freeNewVariable name="" description="" variableScope="LOCAL"/>
-              </instructions>
-            </instructions>
-            <freeNewVariable name="" description="" variableScope="LOCAL"/>
-          </instructions>
-          <instructions xsi:type="app:InstructionFree" description="Bloc central" code="&lt;div class=&quot;container-fluid&quot;>&#xD;&#xA;&#x9;&lt;div class=&quot;row&quot;>&#xD;&#xA;&#x9;&#x9;&lt;div ng-view class=&quot;col-sm-12 mainView&quot;>&lt;/div>&#xD;&#xA;&#x9;&lt;/div>&#xD;&#xA;&lt;/div>">
-            <freeNewVariable name="" description="" variableScope="LOCAL"/>
-          </instructions>
-        </methods>
-        <methods xsi:type="app:ViewMethod" name="init">
-          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-          <instructions xsi:type="app:InstructionCall" description="Recuperation de l'utilisateur en session" returnVariableRef="//@modules.1/@layers.2/@views.1/@properties.0">
-            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@instanceVariable //@modules.1/@layers.1/@services.0/@methods.3">
-              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
-            </callValue>
-            <query freeText="">
-              <fromExpression>
-                <expressionValue freeText=""/>
-                <expressionVariable name="" description="" variableScope="LOCAL"/>
-              </fromExpression>
-            </query>
-          </instructions>
-        </methods>
-        <instanceVariable name="" description="" variableScope="LOCAL"/>
-      </views>
       <views xsi:type="app:Activity" name="LoginView" description="Page d'authentification" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="login.html">
-        <dataType appClassRef="//@modules.1/@layers.2/@views.2"/>
+        <dataType appClassRef="//@modules.1/@layers.2/@views.1"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
@@ -2869,7 +2825,7 @@
               </widgetVariable>
               <styleClassValue freeText=""/>
               <styleFreeValue freeText=""/>
-              <modelBindingValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.0">
+              <modelBindingValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@properties.0">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
               </modelBindingValue>
               <placeholderValue freeText="Email"/>
@@ -2886,7 +2842,7 @@
               </widgetVariable>
               <styleClassValue freeText=""/>
               <styleFreeValue freeText=""/>
-              <modelBindingValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.1">
+              <modelBindingValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@properties.1">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
               </modelBindingValue>
               <placeholderValue freeText="Mot de passe"/>
@@ -2898,7 +2854,7 @@
             <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Button" displayData="" freeAttributes="">
               <instructions xsi:type="app:InstructionWidgetEventBinding" description="" templateLabel="" widgetEventType="click" widgetVariableRef="//@modules.1/@layers.0/@entities.0/@instanceVariable">
                 <instructions xsi:type="app:InstructionCall" description="">
-                  <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@methods.2">
+                  <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@methods.2">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
                   </callValue>
                   <updateVariableValues freeText=""/>
@@ -2924,7 +2880,7 @@
             <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Button" displayData="" freeAttributes="">
               <instructions xsi:type="app:InstructionWidgetEventBinding" description="" templateLabel="" widgetEventType="click" widgetVariableRef="//@modules.1/@layers.0/@entities.0/@instanceVariable">
                 <instructions xsi:type="app:InstructionCall" description="">
-                  <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@methods.3">
+                  <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@methods.3">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
                   </callValue>
                   <updateVariableValues freeText=""/>
@@ -2961,16 +2917,16 @@
         <methods xsi:type="app:ViewMethod" name="connexion" description="" visibility="PROTECTED" annotations="" returnDescription="" callTemplate="">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
           <instructions xsi:type="app:InstructionCall" description="">
-            <instructions xsi:type="app:InstructionNavigation" description="Navigation vers l'appli connectee" targetActivity="//@modules.1/@layers.2/@views.1">
+            <instructions xsi:type="app:InstructionNavigation" description="Navigation vers l'appli connectee" targetActivity="//@modules.1/@layers.2/@views.3">
               <targetMethodCallValue freeText=""/>
               <targetUrlValue freeText=""/>
             </instructions>
             <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@instanceVariable //@modules.1/@layers.1/@services.0/@methods.1">
               <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
-              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.0" targetVariable="//@modules.1/@layers.1/@services.0/@methods.1/@params.0">
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@properties.0" targetVariable="//@modules.1/@layers.1/@services.0/@methods.1/@params.0">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
               </methodParamValues>
-              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.2/@properties.1" targetVariable="//@modules.1/@layers.1/@services.0/@methods.1/@params.1">
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@properties.1" targetVariable="//@modules.1/@layers.1/@services.0/@methods.1/@params.1">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
               </methodParamValues>
             </callValue>
@@ -2987,7 +2943,7 @@
         </methods>
         <methods xsi:type="app:ViewMethod" name="gotoInscription" description="" visibility="PROTECTED" annotations="" returnDescription="" callTemplate="">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-          <instructions xsi:type="app:InstructionNavigation" description="Navigation vers l'inscription" targetActivity="//@modules.1/@layers.2/@views.3">
+          <instructions xsi:type="app:InstructionNavigation" description="Navigation vers l'inscription" targetActivity="//@modules.1/@layers.2/@views.2">
             <targetMethodCallValue freeText=""/>
             <targetUrlValue freeText=""/>
           </instructions>
@@ -2995,7 +2951,7 @@
         <instanceVariable name="" description="" variableScope="LOCAL"/>
       </views>
       <views xsi:type="app:Activity" name="InscriptionView" description="Page d'inscription" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="inscription.html">
-        <dataType appClassRef="//@modules.1/@layers.2/@views.3"/>
+        <dataType appClassRef="//@modules.1/@layers.2/@views.2"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
@@ -3030,6 +2986,65 @@
         </methods>
         <instanceVariable name="" description="" variableScope="LOCAL"/>
       </views>
+      <views xsi:type="app:Activity" name="CroissantsTemplate" description="Page parente en mode connecte" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="croissants.html" isTemplate="true" defaultTemplateActivity="//@modules.1/@layers.2/@views.4">
+        <dataType appClassRef="//@modules.1/@layers.2/@views.3"/>
+        <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+        </generatorConfigFreeVariables>
+        <parentType appClassRef="//@modules.0/@layers.0/@simpleTypes.14"/>
+        <properties name="utilisateur" description="" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_utilisateur" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+        </properties>
+        <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionFree" description="Menu" code="&lt;div class=&quot;navbar navbar-inverse navbar-fixed-top&quot; role=&quot;navigation&quot;>&#xD;&#xA;&#x9;&lt;div class=&quot;container-fluid&quot;>&#xD;&#xA;&#x9;&#x9;&lt;div class=&quot;navbar-header&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;.navbar-collapse&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;sr-only&quot;>Toggle navigation&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;span class=&quot;icon-bar&quot;>&lt;/span>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;/button>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;a class=&quot;navbar-brand navLink&quot; href=&quot;/croissants/views/croissants.html#/home&quot;>FaisPeterLesCroissants&lt;/a>&#xD;&#xA;&#x9;&#x9;&lt;/div>&#xD;&#xA;&#x9;&#x9;&lt;div class=&quot;navbar-collapse collapse&quot;>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;template:define name=&quot;navLeft&quot;/>&#xD;&#xA;&#x9;&#x9;&#x9;&lt;template:define name=&quot;navRight&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;/div>&#xD;&#xA;&#x9;&lt;/div>&#xD;&#xA;&lt;/div>">
+            <instructions xsi:type="app:InstructionGroup" description="" templateLabel="navLeft">
+              <instructions xsi:type="app:InstructionFree" description="" code="&lt;ul class=&quot;nav navbar-nav&quot;>&#xD;&#xA;&#x9;&lt;template:foreachInstruction>&#xD;&#xA;&#x9;&lt;li>&#xD;&#xA;&#x9;&#x9;&lt;template:evalInstruction/>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/template:foreachInstruction>&#xD;&#xA;&lt;/ul>">
+                <freeNewVariable name="" description="" variableScope="LOCAL"/>
+              </instructions>
+            </instructions>
+            <instructions xsi:type="app:InstructionGroup" description="" templateLabel="navRight">
+              <instructions xsi:type="app:InstructionFree" description="" code="&lt;ul class=&quot;nav navbar-nav navbar-right&quot;>&#xD;&#xA;&#x9;&lt;template:foreachInstruction>&#xD;&#xA;&#x9;&lt;li>&#xD;&#xA;&#x9;&#x9;&lt;template:evalInstruction/>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/template:foreachInstruction>&#xD;&#xA;&lt;/ul>">
+                <freeNewVariable name="" description="" variableScope="LOCAL"/>
+              </instructions>
+            </instructions>
+            <freeNewVariable name="" description="" variableScope="LOCAL"/>
+          </instructions>
+          <instructions xsi:type="app:InstructionFree" description="Bloc central" code="&lt;div class=&quot;container-fluid&quot;>&#xD;&#xA;&#x9;&lt;div class=&quot;row&quot;>&#xD;&#xA;&#x9;&#x9;&lt;div ng-view class=&quot;col-sm-12 mainView&quot;>&lt;/div>&#xD;&#xA;&#x9;&lt;/div>&#xD;&#xA;&lt;/div>">
+            <freeNewVariable name="" description="" variableScope="LOCAL"/>
+          </instructions>
+        </methods>
+        <methods xsi:type="app:ViewMethod" name="init">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <instructions xsi:type="app:InstructionCall" description="Recuperation de l'utilisateur en session" returnVariableRef="//@modules.1/@layers.2/@views.3/@properties.0">
+            <instructions xsi:type="app:InstructionMethod">
+              <instructions xsi:type="app:InstructionNavigation" description="" targetActivity="//@modules.1/@layers.2/@views.1">
+                <targetMethodCallValue freeText=""/>
+                <targetUrlValue freeText=""/>
+              </instructions>
+              <innerMethod name="onException">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                <params name="e">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.11"/>
+                </params>
+              </innerMethod>
+            </instructions>
+            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.0/@instanceVariable //@modules.1/@layers.1/@services.0/@methods.3">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </callValue>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText=""/>
+                <expressionVariable name="" description="" variableScope="LOCAL"/>
+              </fromExpression>
+            </query>
+          </instructions>
+        </methods>
+        <instanceVariable name="" description="" variableScope="LOCAL"/>
+      </views>
       <views xsi:type="app:Activity" name="AccueilView" description="Page d'accueil" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="accueil.html">
         <dataType appClassRef="//@modules.1/@layers.2/@views.4"/>
         <generatorConfigFreeVariables name="AngularVariables" description="" variableScope="LOCAL">
@@ -3038,7 +3053,7 @@
         <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
-        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.3"/>
         <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
           <instructions xsi:type="app:InstructionOutput" description="" widgetSubType="Label" displayData="" freeAttributes="">
@@ -3047,7 +3062,7 @@
             </widgetVariable>
             <titleValue freeText="Bienvenue ${0}">
               <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-              <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.1/@properties.0 //@modules.1/@layers.0/@entities.0/@properties.1">
+              <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.2/@views.3/@properties.0 //@modules.1/@layers.0/@entities.0/@properties.1">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
               </freeTextValues>
             </titleValue>
@@ -3063,7 +3078,7 @@
       </views>
       <views xsi:type="app:Activity" name="GroupesView" description="Page des groupes de l'utilisateur" visibility="PUBLIC" annotations="" generatorConfigs="" packageName="" interfacePackageName="" interfaceClassName="" webContentPath="" uri="groupes.html">
         <dataType appClassRef="//@modules.1/@layers.2/@views.5"/>
-        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.3"/>
         <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
         </methods>
@@ -3080,7 +3095,7 @@
         <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
-        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.3"/>
         <properties name="idGroupe" description="Identifiant du groupe par passage de parametre" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_groupe" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="IN">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
         </properties>
@@ -3100,7 +3115,7 @@
         <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
-        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.3"/>
         <properties name="idGroupe" description="Identifiant du groupe en parametre" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="id_groupe" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" isModel="true" modelScope="LOCAL" inOut="IN">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
         </properties>
@@ -3120,7 +3135,7 @@
         <generatorConfigFreeVariables name="AngularComponents" description="" variableScope="LOCAL">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </generatorConfigFreeVariables>
-        <parentType appClassRef="//@modules.1/@layers.2/@views.1"/>
+        <parentType appClassRef="//@modules.1/@layers.2/@views.3"/>
         <methods xsi:type="app:ViewMethod" name="createContent" isStatic="true" isCreateMethod="true">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
         </methods>
@@ -3131,7 +3146,7 @@
       </views>
     </layers>
   </modules>
-  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
+  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
   <modelMonitorings modelElement="//@configuration" isGenerated="true" dateCreateModel="2014-11-10T16:53:44.400+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100" dateLastGenerate="2014-11-10T18:02:17.133+0100"/>
   <modelMonitorings modelElement="//@configuration/@dataSources.0" dateCreateModel="2014-11-10T16:54:44.779+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
@@ -3141,11 +3156,11 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.2" dateCreateModel="2014-11-10T16:57:04.771+0100" dateUpdateModel="2014-11-17T11:25:57.021+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.3" dateCreateModel="2014-11-10T16:57:16.206+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.4" dateCreateModel="2014-11-10T16:57:46.445+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0" isGenerated="true" dateCreateModel="2014-11-10T17:32:19.454+0100" dateUpdateModel="2014-11-18T17:42:20.409+0100" dateLastGenerate="2014-11-18T17:41:36.512+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1" dateCreateModel="2014-11-10T17:34:19.244+0100" dateUpdateModel="2014-11-18T17:42:20.409+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.1" dateCreateModel="2014-11-10T17:36:08.849+0100" dateUpdateModel="2014-11-18T15:47:14.206+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1" isGenerated="true" dateCreateModel="2014-11-10T17:36:27.359+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100" dateLastGenerate="2014-11-21T17:13:20.435+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1" isGenerated="true" dateCreateModel="2014-11-10T17:36:27.359+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100" dateLastGenerate="2014-11-24T10:59:44.726+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.0" dateCreateModel="2014-11-10T17:36:53.615+0100" dateUpdateModel="2014-11-21T16:13:08.050+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.2" dateCreateModel="2014-11-10T17:37:17.884+0100" dateUpdateModel="2014-11-18T17:46:10.900+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.2" dateCreateModel="2014-11-10T17:45:34.461+0100" dateUpdateModel="2014-11-10T17:47:18.325+0100"/>
@@ -3159,48 +3174,48 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.3" dateCreateModel="2014-11-10T17:57:08.802+0100" dateUpdateModel="2014-11-18T16:49:55.346+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.4" dateCreateModel="2014-11-10T17:57:12.905+0100" dateUpdateModel="2014-11-18T16:49:53.833+0100"/>
   <modelMonitorings modelElement="/" dateCreateModel="2014-11-10T18:02:13.138+0100" dateUpdateModel="2014-11-17T14:54:55.108+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2" dateCreateModel="2014-11-17T11:07:22.086+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2" dateCreateModel="2014-11-17T11:07:22.086+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0" isGenerated="true" dateCreateModel="2014-11-17T11:09:58.149+0100" dateUpdateModel="2014-11-17T11:45:50.216+0100" dateLastGenerate="2014-11-18T15:18:36.104+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1" isGenerated="true" dateCreateModel="2014-11-17T11:10:24.493+0100" dateUpdateModel="2014-11-21T16:44:13.102+0100" dateLastGenerate="2014-11-21T16:53:50.977+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3" isGenerated="true" dateCreateModel="2014-11-17T11:10:24.493+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100" dateLastGenerate="2014-11-24T12:06:57.680+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:12:16.772+0100" dateUpdateModel="2014-11-17T11:12:16.772+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.0/@methods.0" dateCreateModel="2014-11-17T11:12:16.772+0100" dateUpdateModel="2014-11-17T11:12:16.772+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:17:37.463+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:15:58.819+0100" dateUpdateModel="2014-11-17T11:16:03.352+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:16:03.352+0100" dateUpdateModel="2014-11-17T11:16:03.352+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.1" dateCreateModel="2014-11-17T11:16:33.574+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-17T11:16:36.933+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.1" dateCreateModel="2014-11-17T11:17:37.463+0100" dateUpdateModel="2014-11-17T11:17:37.463+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2" isGenerated="true" dateCreateModel="2014-11-17T11:18:46.504+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100" dateLastGenerate="2014-11-17T14:55:09.046+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3" isGenerated="true" dateCreateModel="2014-11-17T11:19:04.854+0100" dateUpdateModel="2014-11-17T17:44:31.821+0100" dateLastGenerate="2014-11-17T14:55:09.732+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:24:59.799+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0" dateCreateModel="2014-11-17T11:24:59.799+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:25:17.942+0100" dateUpdateModel="2014-11-17T11:25:17.942+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.1" dateCreateModel="2014-11-17T11:34:02.146+0100" dateUpdateModel="2014-11-17T11:34:02.146+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.2" dateCreateModel="2014-11-17T11:34:15.486+0100" dateUpdateModel="2014-11-17T11:34:15.486+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.3" dateCreateModel="2014-11-17T11:34:37.407+0100" dateUpdateModel="2014-11-17T15:10:24.578+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.2" dateCreateModel="2014-11-17T11:34:57.518+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.3" dateCreateModel="2014-11-17T11:35:14.462+0100" dateUpdateModel="2014-11-17T11:36:55.016+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.2/@instructions.0" dateCreateModel="2014-11-17T11:35:59.256+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.2/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:36:23.814+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.3/@instructions.0" dateCreateModel="2014-11-17T11:36:55.016+0100" dateUpdateModel="2014-11-17T11:36:55.016+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.3/@instructions.0" dateCreateModel="2014-11-17T11:37:01.382+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.3/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:37:07.405+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.4" dateCreateModel="2014-11-17T11:37:45.129+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.4/@instructions.0" dateCreateModel="2014-11-17T11:37:48.748+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.4/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:37:55.957+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:39:04.325+0100" dateUpdateModel="2014-11-17T11:39:04.325+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4" isGenerated="true" dateCreateModel="2014-11-17T11:45:02.945+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100" dateLastGenerate="2014-11-17T14:55:10.543+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@properties.0" dateCreateModel="2014-11-17T11:46:03.524+0100" dateUpdateModel="2014-11-19T09:34:45.807+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0" dateCreateModel="2014-11-17T11:14:55.908+0100" dateUpdateModel="2014-11-17T11:17:37.463+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:15:58.819+0100" dateUpdateModel="2014-11-17T11:16:03.352+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:16:03.352+0100" dateUpdateModel="2014-11-17T11:16:03.352+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.1" dateCreateModel="2014-11-17T11:16:33.574+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-17T11:16:36.933+0100" dateUpdateModel="2014-11-17T11:16:36.933+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.0/@instructions.1" dateCreateModel="2014-11-17T11:17:37.463+0100" dateUpdateModel="2014-11-17T11:17:37.463+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1" isGenerated="true" dateCreateModel="2014-11-17T11:18:46.504+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100" dateLastGenerate="2014-11-17T14:55:09.046+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2" isGenerated="true" dateCreateModel="2014-11-17T11:19:04.854+0100" dateUpdateModel="2014-11-17T17:44:31.821+0100" dateLastGenerate="2014-11-17T14:55:09.732+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:24:59.799+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0" dateCreateModel="2014-11-17T11:24:59.799+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:25:17.942+0100" dateUpdateModel="2014-11-17T11:25:17.942+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.1" dateCreateModel="2014-11-17T11:34:02.146+0100" dateUpdateModel="2014-11-17T11:34:02.146+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.2" dateCreateModel="2014-11-17T11:34:15.486+0100" dateUpdateModel="2014-11-17T11:34:15.486+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.3" dateCreateModel="2014-11-17T11:34:37.407+0100" dateUpdateModel="2014-11-17T15:10:24.578+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.2" dateCreateModel="2014-11-17T11:34:57.518+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.3" dateCreateModel="2014-11-17T11:35:14.462+0100" dateUpdateModel="2014-11-17T11:36:55.016+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.2/@instructions.0" dateCreateModel="2014-11-17T11:35:59.256+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.2/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:36:23.814+0100" dateUpdateModel="2014-11-17T11:36:38.510+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.3/@instructions.0" dateCreateModel="2014-11-17T11:36:55.016+0100" dateUpdateModel="2014-11-17T11:36:55.016+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.3/@instructions.0" dateCreateModel="2014-11-17T11:37:01.382+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.3/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:37:07.405+0100" dateUpdateModel="2014-11-17T11:37:07.405+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.4" dateCreateModel="2014-11-17T11:37:45.129+0100" dateUpdateModel="2014-11-17T15:10:30.009+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.4/@instructions.0" dateCreateModel="2014-11-17T11:37:48.748+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.0/@instructions.0/@instructions.4/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:37:55.957+0100" dateUpdateModel="2014-11-17T11:37:55.957+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0" dateCreateModel="2014-11-17T11:38:55.433+0100" dateUpdateModel="2014-11-17T11:41:29.100+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.2/@methods.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-17T11:39:04.325+0100" dateUpdateModel="2014-11-17T11:39:04.325+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4" isGenerated="true" dateCreateModel="2014-11-17T11:45:02.945+0100" dateUpdateModel="2014-11-24T11:55:11.077+0100" dateLastGenerate="2014-11-17T14:55:10.543+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@properties.0" dateCreateModel="2014-11-17T11:46:03.524+0100" dateUpdateModel="2014-11-19T09:34:45.807+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3" dateCreateModel="2014-11-17T11:47:02.063+0100" dateUpdateModel="2014-11-17T11:48:53.015+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3/@instructions.1" dateCreateModel="2014-11-17T11:47:20.503+0100" dateUpdateModel="2014-11-17T11:48:53.015+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.3/@instructions.0" dateCreateModel="2014-11-17T11:48:42.888+0100" dateUpdateModel="2014-11-17T11:48:47.740+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4/@methods.0/@instructions.0" dateCreateModel="2014-11-17T14:55:32.081+0100" dateUpdateModel="2014-11-17T14:55:32.081+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.4/@methods.0" dateCreateModel="2014-11-17T14:55:32.081+0100" dateUpdateModel="2014-11-17T14:55:32.081+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.1/@instructions.0" dateCreateModel="2014-11-17T14:56:57.200+0100" dateUpdateModel="2014-11-17T14:56:57.200+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.1/@methods.1" dateCreateModel="2014-11-17T14:56:57.200+0100" dateUpdateModel="2014-11-21T16:44:13.102+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.1/@instructions.0" dateCreateModel="2014-11-17T14:56:57.200+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.1" dateCreateModel="2014-11-17T14:56:57.200+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0" dateCreateModel="2014-11-18T15:36:50.646+0100" dateUpdateModel="2014-11-18T15:38:38.567+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.0" dateCreateModel="2014-11-18T15:37:14.638+0100" dateUpdateModel="2014-11-18T15:37:49.109+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.2/@instructions.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-18T15:37:34.348+0100" dateUpdateModel="2014-11-18T15:37:40.372+0100"/>
@@ -3224,7 +3239,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.3" dateCreateModel="2014-11-18T17:53:26.745+0100" dateUpdateModel="2014-11-18T17:53:26.745+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.4" dateCreateModel="2014-11-18T17:53:47.682+0100" dateUpdateModel="2014-11-18T17:59:47.899+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.6" dateCreateModel="2014-11-18T17:54:38.360+0100" dateUpdateModel="2014-11-19T11:07:31.545+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100" dateLastGenerate="2014-11-21T17:58:29.147+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100" dateLastGenerate="2014-11-21T17:58:29.147+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2" dateCreateModel="2014-11-19T09:33:45.405+0100" dateUpdateModel="2014-11-21T17:24:35.855+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.7" dateCreateModel="2014-11-19T09:34:07.393+0100" dateUpdateModel="2014-11-19T09:34:18.303+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T09:35:51.458+0100" dateUpdateModel="2014-11-19T10:29:10.617+0100"/>
@@ -3266,7 +3281,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.5" dateCreateModel="2014-11-19T11:07:26.568+0100" dateUpdateModel="2014-11-19T11:07:31.545+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.3" dateCreateModel="2014-11-19T11:08:21.898+0100" dateUpdateModel="2014-11-19T11:08:21.898+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.4" dateCreateModel="2014-11-19T11:08:27.915+0100" dateUpdateModel="2014-11-19T11:08:27.915+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4" dateCreateModel="2014-11-19T11:13:46.920+0100" dateUpdateModel="2014-11-21T17:58:25.853+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4" dateCreateModel="2014-11-19T11:13:46.920+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0" dateCreateModel="2014-11-19T11:14:03.123+0100" dateUpdateModel="2014-11-21T17:48:13.103+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T11:14:23.112+0100" dateUpdateModel="2014-11-19T11:14:23.112+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.3" dateCreateModel="2014-11-19T11:14:55.058+0100" dateUpdateModel="2014-11-21T17:15:23.465+0100"/>
@@ -3316,7 +3331,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.8" isGenerated="true" dateCreateModel="2014-11-21T15:51:31.413+0100" dateUpdateModel="2014-11-21T15:51:44.807+0100" dateLastGenerate="2014-11-21T16:14:31.962+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T16:06:19.471+0100" dateUpdateModel="2014-11-21T16:06:23.684+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.5" dateCreateModel="2014-11-21T16:54:40.615+0100" dateUpdateModel="2014-11-21T16:54:43.048+0100"/>
-  <modelMonitorings modelElement="//@shortcutsDefinitions" dateCreateModel="2014-11-21T17:05:31.949+0100" dateUpdateModel="2014-11-21T17:06:39.135+0100"/>
+  <modelMonitorings modelElement="//@shortcutsDefinitions" dateCreateModel="2014-11-21T17:05:31.949+0100" dateUpdateModel="2014-11-24T11:54:55.565+0100"/>
   <modelMonitorings modelElement="//@shortcutsDefinitions/@shortcuts.0" dateCreateModel="2014-11-21T17:05:52.140+0100" dateUpdateModel="2014-11-21T17:05:52.140+0100"/>
   <modelMonitorings modelElement="//@shortcutsDefinitions/@shortcuts.1" dateCreateModel="2014-11-21T17:06:25.390+0100" dateUpdateModel="2014-11-21T17:06:25.390+0100"/>
   <modelMonitorings modelElement="//@shortcutsDefinitions/@shortcuts.2" dateCreateModel="2014-11-21T17:06:32.817+0100" dateUpdateModel="2014-11-21T17:06:32.817+0100"/>
@@ -3328,13 +3343,13 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.4" dateCreateModel="2014-11-21T17:11:16.874+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.1" dateCreateModel="2014-11-21T17:13:54.366+0100" dateUpdateModel="2014-11-21T17:48:09.515+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T17:14:16.650+0100" dateUpdateModel="2014-11-21T17:14:16.650+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T17:17:17.072+0100" dateUpdateModel="2014-11-21T17:54:46.433+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1" dateCreateModel="2014-11-21T17:18:56.524+0100" dateUpdateModel="2014-11-21T17:54:46.433+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T17:17:17.072+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1" dateCreateModel="2014-11-21T17:18:56.524+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.1" dateCreateModel="2014-11-21T17:19:16.353+0100" dateUpdateModel="2014-11-21T17:44:13.594+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.2" dateCreateModel="2014-11-21T17:19:38.836+0100" dateUpdateModel="2014-11-21T17:54:46.433+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.0" dateCreateModel="2014-11-21T17:48:03.727+0100" dateUpdateModel="2014-11-21T17:48:13.103+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.0" dateCreateModel="2014-11-21T17:53:17.690+0100" dateUpdateModel="2014-11-21T17:53:44.280+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.1" dateCreateModel="2014-11-21T17:54:08.010+0100" dateUpdateModel="2014-11-21T17:54:36.807+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.1" dateCreateModel="2014-11-21T17:54:08.010+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6" dateCreateModel="2014-11-21T18:06:32.918+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0" dateCreateModel="2014-11-21T18:06:45.899+0100" dateUpdateModel="2014-11-21T18:24:46.327+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.2" dateCreateModel="2014-11-21T18:09:59.337+0100" dateUpdateModel="2014-11-21T18:09:59.337+0100"/>
@@ -3357,10 +3372,17 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.2/@instructions.1" dateCreateModel="2014-11-21T18:33:15.532+0100" dateUpdateModel="2014-11-21T18:33:36.752+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.2" dateCreateModel="2014-11-21T18:33:31.510+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.5" dateCreateModel="2014-11-24T10:59:35.006+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
+  <modelMonitorings dateCreateModel="2014-11-24T11:31:16.584+0100" dateUpdateModel="2014-11-24T11:31:16.584+0100"/>
+  <modelMonitorings modelElement="//@shortcutsDefinitions/@shortcuts.4" dateCreateModel="2014-11-24T11:54:49.294+0100" dateUpdateModel="2014-11-24T11:54:49.294+0100"/>
+  <modelMonitorings modelElement="//@shortcutsDefinitions/@shortcuts.5" dateCreateModel="2014-11-24T11:54:55.565+0100" dateUpdateModel="2014-11-24T11:54:55.565+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.1/@instructions.0/@instructions.0/@instructions.0" dateCreateModel="2014-11-24T12:01:11.331+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.1/@instructions.0/@instructions.0" dateCreateModel="2014-11-24T12:01:11.331+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100"/>
   <shortcutsDefinitions>
     <shortcuts title="Utilisateur" shortcutTo="//@modules.1/@layers.0/@entities.0"/>
     <shortcuts title="Groupe" shortcutTo="//@modules.1/@layers.0/@entities.1"/>
     <shortcuts title="UtilisateurService" shortcutTo="//@modules.1/@layers.1/@services.0"/>
     <shortcuts title="CycleService" shortcutTo="//@modules.1/@layers.1/@services.1"/>
+    <shortcuts title="CroissantsTemplate" shortcutTo="//@modules.1/@layers.2/@views.3"/>
+    <shortcuts title="GuestTemplate" shortcutTo="//@modules.1/@layers.2/@views.0"/>
   </shortcutsDefinitions>
 </app:Application>

@@ -192,9 +192,10 @@ public class CycleService {
 			if(groupe.getIdGroupe() != null){
 				//Recuperation du groupe en base
 				Groupe groupeBdd = em.find(Groupe.class, groupe.getIdGroupe());
-				//Modification du nom et du message
+				//Modification du nom, message et jour
 				groupeBdd.setNom(groupe.getNom());
 				groupeBdd.setMessage(groupe.getMessage());
+				groupeBdd.setJourOccurence(groupe.getJourOccurence());
 				//Merge du groupe en base avec les modifs saisies
 				groupe = em.merge(groupeBdd);
 			} else {
