@@ -303,6 +303,11 @@ input.dateTimeField {
 	margin-bottom: 30px;
 }
 
+.small-bottom-space {
+	margin-bottom: 15px;
+}
+
+
 .button-bar {
 	display: table;
 	margin: 0 auto;
@@ -310,4 +315,18 @@ input.dateTimeField {
 
 .button-bar a:not(:last-child) {
 	margin-right:10px;
+}
+
+.form-control[readonly]{
+     cursor: auto;
+}
+
+textarea {
+	resize: none;
+}
+
+.error-div {
+	font-size:16px;	
+	font-weight: bold;
+	color: red;
 }

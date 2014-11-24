@@ -32,11 +32,16 @@ function GroupesViewCtrl($scope, $http, $location, $route, $timeout) {
 	};
 	
 	$scope.goToGroupe = function(idGroupe) {
-		//alert("Goto : /croissants/views/croissants.html#/groupe?groupeId="+idGroupe);
-		window.location.href = "/croissants/views/croissants.html#/editerGroupeView?idGroupe="+idGroupe;
+		window.location.href = "/croissants/views/croissants.html#/groupeView?idGroupe="+idGroupe;
 	};
 	
 	$scope.setDefautGroupe = function(idUtilisateur, idGroupe) {
-		alert("Rest to  : /croissants/rest/cycleService/setDefaultGroupe?idUtilisateur="+idUtilisateur+"&idGroupe="+idGroupe);
+		$http.post('/croissants/rest/cycleService/affecterGoupeParDefaut?idUtilisateur='+idUtilisateur+"&idGroupe="+idGroupe).
+		  success(function(data, status, headers, config) {
+			  console.log(data);
+		  }).
+		  error(function(data, status, headers, config) {
+			  handleError(data, status, headers, config);
+		  });
 	};
 }]);

@@ -1,1 +1,41 @@
-<h1>Rejoindre Groupe</h1>
+<div class="center-div">
+
+	<div class="bottom-space title-page">
+		<h1>
+			<i class="fa fa-plus-circle logo-titre"></i>Rejoindre un groupe
+		</h1>
+	</div>
+	<div class="bottom-space">Petit blabla....</div>
+
+
+	<form novalidate class="form-horizontal" name="groupeForm">
+			<div ng-show="errorMessage" class="col-sm-offset-4 col-sm-8 error-div small-bottom-space">
+				{{errorMessage}}
+			</div>	
+
+			<div class="form-group">
+				<label for="jetonGroupe" class="col-sm-4 control-label">Jeton</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="jetonGroupe" ng-model="groupeToJoin.jeton">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="passwordGroupe" class="col-sm-4 control-label">Mot de passe</label>
+				<div class="col-sm-8">
+					<input form="groupeForm" type="password" class="form-control" id="passwordGroupe" ng-model="groupeToJoin.password">
+				</div>
+			</div>
+			
+			
+			<!-- Valider bouton -->
+		<div class="form-group">
+		    <div class="col-sm-offset-4 col-sm-8 has-spinner">
+		      <button type="submit" class="btn btn-primary has-spinner {{spinnerClass}}" ng-click="rejoindreGroupe()">
+		      	<span class="spinner"><i class="fa fa-spinner fa-spin"></i></span>Rejoindre !
+		      </button>
+		    </div>
+	  	</div>
+	</form>
+
+
+</div>

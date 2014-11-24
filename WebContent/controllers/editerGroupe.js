@@ -5,56 +5,63 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 
 	$scope.idGroupe = ($location.search()['idGroupe'] != null)? $location.search()['idGroupe'] : null;
 
+	$scope.selectedOption = 0;
 	$scope.groupe = new Object();
+	$scope.spinnerClass = '';
 	
-	$scope.nouveauGroupe = true;
-	
-	 $scope.jours =
+	$scope.jours =
 		    [
-		        { id: 1, nom: "Lundi" },
-		        { id: 2, nom: "Mardi" }, 
-		        { id: 3, nom: "Mercredi" },
-		        { id: 4, nom: "Jeudi" },
-		        { id: 5, nom: "Vendredi" },
-		        { id: 6, nom: "Samedi" },
-		        { id: 7, nom: "Dimanche" },
+		        { id: "0", nom: "Lundi" },
+		        { id: "1", nom: "Mardi" }, 
+		        { id: "2", nom: "Mercredi" },
+		        { id: "3", nom: "Jeudi" },
+		        { id: "4", nom: "Vendredi" },
+		        { id: "5", nom: "Samedi" },
+		        { id: "6", nom: "Dimanche" },
 		    ];        
 	
-	$scope.init = function() {
-		if(!isNull($scope.idGroupe)) {
-			loadGroupe($scope.idGroupe);
-			if(!isNull( $scope.groupe)) {
-				$scope.nouveauGroupe = false;
-			}
-		} else {
-			
-		}
-	};
-
-	$scope.init();
-	
-	var loadGroupe = function(idGroupe) {
-		$http.get('/croissants/rest/cycleService/rechercherGroupeParId?idGroupe='+idGroupe).
-		  success(function(data, status, headers, config) {
-			  $scope.groupe=data;
-		  }).
-		  error(function(data, status, headers, config) {
-			  handleError(data, status, headers, config);
-		  });
-	};
-	
-	$scope.editerGroupe = function() {
-		console.log($scope.groupe);
-		if(isGroupValid()) {
-			$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.groupe ).
+	 
+	 var loadGroupe = function(idGroupe) {
+			$http.get('/croissants/rest/cycleService/rechercherGroupeParId?idGroupe='+idGroupe).
 			  success(function(data, status, headers, config) {
-				  alert('Success creation groupe');
 				  console.log(data);
+				  $scope.groupe=data;
+				  $scope.selectedOption =  $scope.groupe.jourOccurence;
 			  }).
 			  error(function(data, status, headers, config) {
 				  handleError(data, status, headers, config);
 			  });
-			}
+	};
+	 
+	$scope.init = function() {
+		if(!isNull($scope.idGroupe)) {
+			loadGroupe($scope.idGroupe);
+		} else {
+			$scope.selectedOption = 0;
+			
+		} 
+	};
+
+	$scope.init();
+	
+	
+	
+	$scope.editerGroupe = function() {
+		if(isGroupValid()) {
+			
+			$scope.groupe.jourOccurence = $scope.selectedOption;
+			
+			$scope.spinnerClass = 'active';
+			$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.groupe ).
+			  success(function(data, status, headers, config) {
+				  console.log(data);
+				  $scope.spinnerClass = '';
+			  }).
+			  error(function(data, status, headers, config) {
+				  $scope.spinnerClass = '';
+				  handleError(data, status, headers, config);
+			  });
+		}
 	};
 	
 	var isGroupValid = function () {
