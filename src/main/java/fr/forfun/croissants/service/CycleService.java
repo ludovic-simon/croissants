@@ -19,6 +19,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
+import fr.forfun.croissants.core.AppUtils;
 import fr.forfun.croissants.core.BusinessException;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.ConstitutionGroupe_;
@@ -141,7 +142,7 @@ public class CycleService {
 				groupeIteCriteriaQuery.where(groupePredicates.toArray(new Predicate[groupePredicates.size()]));
 			}
 			TypedQuery<Groupe> groupeIteQuery = em.createQuery(groupeIteCriteriaQuery);
-			Groupe groupePourJeton = groupeIteQuery.getSingleResult();
+			Groupe groupePourJeton = AppUtils.first(groupeIteQuery.getResultList());
 			if(groupePourJeton == null){
 				throw new BusinessException("Le couple jeton et mot du passe du groupe est incorrect");
 			}
@@ -339,7 +340,7 @@ public class CycleService {
 				constitutionGroupeTableCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
 			}
 			TypedQuery<ConstitutionGroupe> constitutionGroupeTableQuery = em.createQuery(constitutionGroupeTableCriteriaQuery);
-			ConstitutionGroupe constitutionGroupe = constitutionGroupeTableQuery.getSingleResult();
+			ConstitutionGroupe constitutionGroupe = AppUtils.first(constitutionGroupeTableQuery.getResultList());
 			//Cas ou l'utilisateur ne fait pas partie du groupe
 			if(constitutionGroupe == null){
 				throw new BusinessException("L'utilisateur " + idUtilisateur + " ne fait pas partie du groupe " + idGroupe);
@@ -467,7 +468,7 @@ public class CycleService {
 				constitutionGroupeIteCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
 			}
 			TypedQuery<ConstitutionGroupe> constitutionGroupeIteQuery = em.createQuery(constitutionGroupeIteCriteriaQuery);
-			ConstitutionGroupe constitutionGroupe = constitutionGroupeIteQuery.getSingleResult();
+			ConstitutionGroupe constitutionGroupe = AppUtils.first(constitutionGroupeIteQuery.getResultList());
 			//Aucune constitution de groupe pour l'utilisateur
 			if(constitutionGroupe == null){
 				throw new BusinessException("Aucune constitution de groupe pour l'utilisateur " + idUtilisateur + " et le groupe " + idGroupe);
