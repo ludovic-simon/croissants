@@ -146,6 +146,20 @@ public class CycleService {
 			if(groupePourJeton == null){
 				throw new BusinessException("Le couple jeton et mot du passe du groupe est incorrect");
 			}
+			//Controle que l'utilisateur ne fait pas deja partie de ce groupe
+			CriteriaQuery<ConstitutionGroupe> constitutionGroupeIteCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
+			Root<ConstitutionGroupe> constitutionGroupeIte = constitutionGroupeIteCriteriaQuery.from(ConstitutionGroupe.class);
+			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idGroupe), groupePourJeton.getIdGroupe()));
+			if(constitutionGroupePredicates.size() > 0){
+				constitutionGroupeIteCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
+			}
+			TypedQuery<ConstitutionGroupe> constitutionGroupeIteQuery = em.createQuery(constitutionGroupeIteCriteriaQuery);
+			ConstitutionGroupe constitutionGroupeExistante = AppUtils.first(constitutionGroupeIteQuery.getResultList());
+			if(constitutionGroupeExistante != null){
+				throw new BusinessException("Vous faites deja partie du groupe " + groupePourJeton.getNom());
+			}
 			//Creation d'une constitution groupe pour l'utilisateur et le groupe
 			ConstitutionGroupe constitutionGroupe = new ConstitutionGroupe();
 			constitutionGroupe.setIdGroupe(groupePourJeton.getIdGroupe());

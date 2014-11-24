@@ -1621,6 +1621,76 @@
               </predicates>
             </instructions>
           </instructions>
+          <instructions xsi:type="app:InstructionGroup" description="Controle que l'utilisateur ne fait pas deja partie de ce groupe" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.7">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.2" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.7/@params.0">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                </methodParamValues>
+              </callValue>
+              <returnVariableNew name="constitutionGroupeExistante" description="" variableScope="LOCAL">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+              </returnVariableNew>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText="">
+                    <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                  </expressionValue>
+                  <expressionVariable name="constitutionGroupeIte" description="" variableScope="LOCAL">
+                    <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                  </expressionVariable>
+                </fromExpression>
+                <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.2 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                      <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                    </methodParamValues>
+                  </predicateValue>
+                  <predicateApplyValue freeText="">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  </predicateApplyValue>
+                </predicates>
+                <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.1 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1/@instructions.0/@returnVariableNew //@modules.1/@layers.0/@entities.1/@properties.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                      <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                    </methodParamValues>
+                  </predicateValue>
+                  <predicateApplyValue freeText="">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  </predicateApplyValue>
+                </predicates>
+              </query>
+            </instructions>
+            <instructions xsi:type="app:InstructionCondition" description="" templateLabel="">
+              <instructions xsi:type="app:InstructionCall" description="">
+                <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                  <methodParamValues freeText="Vous faites deja partie du groupe ${0}" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1/@instructions.0/@returnVariableNew //@modules.1/@layers.0/@entities.1/@properties.1">
+                      <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                    </freeTextValues>
+                  </methodParamValues>
+                </callValue>
+                <query freeText="">
+                  <fromExpression>
+                    <expressionValue freeText=""/>
+                    <expressionVariable name="" description="" variableScope="LOCAL"/>
+                  </fromExpression>
+                </query>
+              </instructions>
+              <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.5">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateValue>
+                <predicateApplyValue freeText=""/>
+              </predicates>
+            </instructions>
+          </instructions>
           <instructions xsi:type="app:InstructionCall" description="Creation d'une constitution groupe pour l'utilisateur et le groupe">
             <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.2 //@modules.1/@layers.0/@entities.2/@methods.0">
               <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
@@ -1668,7 +1738,7 @@
           <instructions xsi:type="app:InstructionCall" description="Persistence en base">
             <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.0">
               <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@returnVariableNew" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.0/@params.0">
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.3/@returnVariableNew" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.0/@params.0">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
               </methodParamValues>
             </callValue>
@@ -1680,7 +1750,7 @@
             </query>
           </instructions>
           <instructions xsi:type="app:InstructionReturn" description="">
-            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@returnVariableNew">
+            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.3/@returnVariableNew">
               <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
             </returnValue>
           </instructions>
@@ -3151,7 +3221,7 @@
       </views>
     </layers>
   </modules>
-  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-24T16:42:45.186+0100"/>
+  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
   <modelMonitorings modelElement="//@configuration" isGenerated="true" dateCreateModel="2014-11-10T16:53:44.400+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100" dateLastGenerate="2014-11-10T18:02:17.133+0100"/>
   <modelMonitorings modelElement="//@configuration/@dataSources.0" dateCreateModel="2014-11-10T16:54:44.779+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
@@ -3161,8 +3231,8 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.2" dateCreateModel="2014-11-10T16:57:04.771+0100" dateUpdateModel="2014-11-17T11:25:57.021+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.3" dateCreateModel="2014-11-10T16:57:16.206+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.4" dateCreateModel="2014-11-10T16:57:46.445+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-24T16:42:45.186+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0" isGenerated="true" dateCreateModel="2014-11-10T17:32:19.454+0100" dateUpdateModel="2014-11-24T16:42:45.186+0100" dateLastGenerate="2014-11-18T17:41:36.512+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0" isGenerated="true" dateCreateModel="2014-11-10T17:32:19.454+0100" dateUpdateModel="2014-11-24T16:42:45.186+0100" dateLastGenerate="2014-11-24T17:42:29.997+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1" dateCreateModel="2014-11-10T17:34:19.244+0100" dateUpdateModel="2014-11-18T17:42:20.409+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.1" dateCreateModel="2014-11-10T17:36:08.849+0100" dateUpdateModel="2014-11-18T15:47:14.206+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1" isGenerated="true" dateCreateModel="2014-11-10T17:36:27.359+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100" dateLastGenerate="2014-11-24T10:59:44.726+0100"/>
@@ -3244,13 +3314,13 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.3" dateCreateModel="2014-11-18T17:53:26.745+0100" dateUpdateModel="2014-11-18T17:53:26.745+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.4" dateCreateModel="2014-11-18T17:53:47.682+0100" dateUpdateModel="2014-11-18T17:59:47.899+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.6" dateCreateModel="2014-11-18T17:54:38.360+0100" dateUpdateModel="2014-11-19T11:07:31.545+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-24T16:41:03.086+0100" dateLastGenerate="2014-11-24T16:41:07.129+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100" dateLastGenerate="2014-11-24T17:41:41.301+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2" dateCreateModel="2014-11-19T09:33:45.405+0100" dateUpdateModel="2014-11-21T17:24:35.855+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.7" dateCreateModel="2014-11-19T09:34:07.393+0100" dateUpdateModel="2014-11-19T09:34:18.303+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T09:35:51.458+0100" dateUpdateModel="2014-11-19T10:29:10.617+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2/@instructions.1" dateCreateModel="2014-11-19T09:37:05.794+0100" dateUpdateModel="2014-11-19T10:42:21.084+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2/@instructions.2" dateCreateModel="2014-11-19T09:37:12.646+0100" dateUpdateModel="2014-11-19T09:37:12.646+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3" dateCreateModel="2014-11-19T10:20:02.919+0100" dateUpdateModel="2014-11-21T16:07:05.637+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3" dateCreateModel="2014-11-19T10:20:02.919+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T10:21:02.289+0100" dateUpdateModel="2014-11-19T10:21:23.033+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T10:21:23.033+0100" dateUpdateModel="2014-11-19T10:21:23.033+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T10:21:36.865+0100" dateUpdateModel="2014-11-19T10:21:46.477+0100"/>
@@ -3274,7 +3344,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T10:53:13.463+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:53:43.968+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T11:01:17.895+0100" dateUpdateModel="2014-11-19T11:03:54.094+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1" dateCreateModel="2014-11-19T11:03:16.642+0100" dateUpdateModel="2014-11-21T16:07:00.613+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1" dateCreateModel="2014-11-19T11:03:16.642+0100" dateUpdateModel="2014-11-24T17:45:25.908+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0" dateCreateModel="2014-11-19T11:03:50.756+0100" dateUpdateModel="2014-11-21T16:00:56.313+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0/@instructions.1" dateCreateModel="2014-11-19T11:04:10.975+0100" dateUpdateModel="2014-11-19T11:04:19.433+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T11:04:19.433+0100" dateUpdateModel="2014-11-19T11:04:19.433+0100"/>
@@ -3282,10 +3352,10 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0/@instructions.2/@instructions.0" dateCreateModel="2014-11-19T11:04:44.304+0100" dateUpdateModel="2014-11-19T11:04:44.304+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T11:05:30.171+0100" dateUpdateModel="2014-11-21T16:06:38.380+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T11:06:07.788+0100" dateUpdateModel="2014-11-19T11:06:07.788+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2" dateCreateModel="2014-11-19T11:07:01.527+0100" dateUpdateModel="2014-11-21T16:06:51.096+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.3" dateCreateModel="2014-11-19T11:07:01.527+0100" dateUpdateModel="2014-11-21T16:06:51.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.5" dateCreateModel="2014-11-19T11:07:26.568+0100" dateUpdateModel="2014-11-19T11:07:31.545+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.3" dateCreateModel="2014-11-19T11:08:21.898+0100" dateUpdateModel="2014-11-19T11:08:21.898+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.4" dateCreateModel="2014-11-19T11:08:27.915+0100" dateUpdateModel="2014-11-19T11:08:27.915+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.4" dateCreateModel="2014-11-19T11:08:21.898+0100" dateUpdateModel="2014-11-19T11:08:21.898+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.5" dateCreateModel="2014-11-19T11:08:27.915+0100" dateUpdateModel="2014-11-19T11:08:27.915+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4" dateCreateModel="2014-11-19T11:13:46.920+0100" dateUpdateModel="2014-11-24T14:21:41.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0" dateCreateModel="2014-11-19T11:14:03.123+0100" dateUpdateModel="2014-11-21T17:48:13.103+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T11:14:23.112+0100" dateUpdateModel="2014-11-19T11:14:23.112+0100"/>
@@ -3383,6 +3453,10 @@
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.3/@methods.1/@instructions.0/@instructions.0" dateCreateModel="2014-11-24T12:01:11.331+0100" dateUpdateModel="2014-11-24T12:01:11.331+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1" dateCreateModel="2014-11-24T16:40:50.425+0100" dateUpdateModel="2014-11-24T16:41:01.803+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.4" dateCreateModel="2014-11-24T16:42:45.186+0100" dateUpdateModel="2014-11-24T16:42:45.186+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2" dateCreateModel="2014-11-24T17:45:19.761+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@instructions.0" dateCreateModel="2014-11-24T17:48:31.033+0100" dateUpdateModel="2014-11-24T17:48:31.033+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@instructions.1" dateCreateModel="2014-11-24T17:48:42.865+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.2/@instructions.1/@instructions.0" dateCreateModel="2014-11-24T17:49:03.896+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
   <shortcutsDefinitions>
     <shortcuts title="Utilisateur" shortcutTo="//@modules.1/@layers.0/@entities.0"/>
     <shortcuts title="Groupe" shortcutTo="//@modules.1/@layers.0/@entities.1"/>
