@@ -14,6 +14,7 @@ import com.sun.jersey.spi.resource.Singleton;
 import fr.forfun.croissants.core.SDevRestDoBeforeSerialization;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.Groupe;
+import fr.forfun.croissants.entity.Utilisateur;
 
 @Path("/cycleService")
 @Singleton
@@ -62,6 +63,15 @@ public class CycleServiceRest {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public ConstitutionGroupe affecterDroitAdministrateur(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe, @QueryParam("admin") boolean admin){
 		ConstitutionGroupe res = cycleService.affecterDroitAdministrateur(idUtilisateur, idGroupe, admin);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@POST
+	@Path("affecterGoupeParDefaut")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public ConstitutionGroupe affecterGoupeParDefaut(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
+		ConstitutionGroupe res = cycleService.affecterGoupeParDefaut(idUtilisateur, idGroupe);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
 	}

@@ -877,6 +877,9 @@
         <properties name="message" description="Message libre associé au groupe" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="message" pkGenerationStrategy="NOT_GENERATED" maxLength="-1" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
         </properties>
+        <properties name="jourOccurence" description="Le jour de la semaine de production de l'occurence" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="jour_occurence" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
+          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+        </properties>
         <properties name="dateCreation" description="Date de creation du groupe" visibility="PUBLIC" annotations="" variableScope="GLOBAL" columnName="date_creation" pkGenerationStrategy="NOT_GENERATED" trueStringMapping="" falseStringMapping="" fetchType="EAGER" cascadeType="NONE" oneToManyTargetFkColumn="" noEntityManyToManyTableName="" noEntityManyToManyColumnSrc="" noEntityManyToManyColumnTarget="" modelScope="LOCAL" inOut="OUT">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
         </properties>
@@ -1364,12 +1367,12 @@
             <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
           </params>
           <instructions xsi:type="app:InstructionCall" description="Controle de l'existance du groupe">
-            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
+            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9">
               <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.1/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.1/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.0">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
               </methodParamValues>
-              <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
+              <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.1">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
               </methodParamValues>
             </callValue>
@@ -1414,12 +1417,12 @@
             <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
           </params>
           <instructions xsi:type="app:InstructionCall" description="">
-            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7">
+            <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
               <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.2/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.2/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
               </methodParamValues>
-              <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.1">
+              <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
               </methodParamValues>
             </callValue>
@@ -1487,12 +1490,12 @@
           </params>
           <instructions xsi:type="app:InstructionGroup" description="Controles de surface et d'existance" templateLabel="">
             <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.3/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.1">
+                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -1689,12 +1692,12 @@
           </params>
           <instructions xsi:type="app:InstructionGroup" description="Controles de surface" templateLabel="">
             <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.1">
+                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -1728,12 +1731,12 @@
               </predicates>
             </instructions>
             <instructions xsi:type="app:InstructionCall" description="Controle de l'existance du groupe en modification">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.1 //@modules.1/@layers.0/@entities.1/@properties.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.1 //@modules.1/@layers.0/@entities.1/@properties.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="true" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
+                <methodParamValues freeText="true" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -1808,7 +1811,7 @@
                 <updateVariableValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.4/@params.1 //@modules.1/@layers.0/@entities.1/@properties.4" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.4">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
                 </updateVariableValues>
-                <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.5">
+                <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.6">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
                 </updateVariableValues>
                 <query freeText="">
@@ -1870,7 +1873,7 @@
                   <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.4">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
                   </updateVariableValues>
-                  <updateVariableValues freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.28 //@modules.0/@layers.0/@simpleTypes.28/@methods.0" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.5">
+                  <updateVariableValues freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.28 //@modules.0/@layers.0/@simpleTypes.28/@methods.0" targetVariable="//@modules.1/@layers.0/@entities.1/@properties.6">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
                   </updateVariableValues>
                   <query freeText="">
@@ -1977,12 +1980,12 @@
           </params>
           <instructions xsi:type="app:InstructionGroup" description="Controles de surface et d'existance" templateLabel="">
             <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.5/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.5/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.1">
+                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -1994,12 +1997,12 @@
               </query>
             </instructions>
             <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.5/@params.1" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.5/@params.1" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
+                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -2160,6 +2163,100 @@
             </returnValue>
           </instructions>
         </methods>
+        <methods xsi:type="app:ServiceMethod" name="affecterGoupeParDefaut" description="Permet d'affecter un groupe par defaut a un utilisateur" visibility="PUBLIC" annotations="" returnDescription="La constitution de groupe modifiee" callTemplate="" uri="affecterGoupeParDefaut" httpMethodType="POST">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+          <params name="idUtilisateur" description="Identifiant de l'utilisateur" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="idGroupe" description="Identifiant du groupe" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <instructions xsi:type="app:InstructionGroup" description="Controles de surface" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.10/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+                </methodParamValues>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.1" targetVariable="//@modules.1/@layers.1/@services.1/@methods.10/@params.1">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+                </methodParamValues>
+              </callValue>
+              <returnVariableNew name="constitutionGroupe" description="" variableScope="LOCAL">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+              </returnVariableNew>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+          </instructions>
+          <instructions xsi:type="app:InstructionGroup" description="Les constitutions de groupe de l'utilisateur devienne par defaut a false" templateLabel=""/>
+          <instructions xsi:type="app:InstructionGroup" description="Passage a par defaut a true et merge de la constitutionGroupe" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0/@instructions.0/@returnVariableNew">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+              </callValue>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.9">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.1">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.2">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.3">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="true" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.4">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.5">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.6">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.9"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.7">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.8">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              </updateVariableValues>
+              <updateVariableValues freeText="" targetVariable="//@modules.1/@layers.0/@entities.2/@properties.9">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+              </updateVariableValues>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.1">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0/@instructions.0/@returnVariableNew" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.1/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.1"/>
+                </methodParamValues>
+              </callValue>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="">
+            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0/@instructions.0/@returnVariableNew">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+            </returnValue>
+          </instructions>
+        </methods>
         <methods xsi:type="app:ServiceMethod" name="supprimerGroupe" description="Permet a un administrateur de supprimer un groupe" visibility="PUBLIC" annotations="" returnDescription="" callTemplate="" uri="supprimerGroupe" httpMethodType="POST">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
           <params name="idUtilisateur" description="Identifiant de l'utilisateur sollicitant la suppression du groupe" variableScope="LOCAL">
@@ -2170,12 +2267,12 @@
           </params>
           <instructions xsi:type="app:InstructionGroup" description="Controles de surface et d'existance" templateLabel="">
             <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.7/@params.1">
+                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -2187,12 +2284,12 @@
               </query>
             </instructions>
             <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8">
+              <callValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.1" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.1" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                 </methodParamValues>
-                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.8/@params.1">
+                <methodParamValues freeText="false" targetVariable="//@modules.1/@layers.1/@services.1/@methods.9/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </methodParamValues>
               </callValue>
@@ -2225,9 +2322,9 @@
                   </expressionVariable>
                 </fromExpression>
                 <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.2 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.2 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
                       <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
                     </methodParamValues>
                   </predicateValue>
@@ -2236,9 +2333,9 @@
                   </predicateApplyValue>
                 </predicates>
                 <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.1 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                  <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.1 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                    <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
                       <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
                     </methodParamValues>
                   </predicateValue>
@@ -2254,10 +2351,10 @@
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
                   <methodParamValues freeText="L'utilisateur ${0} ne fait pas partie du groupe ${1}" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.0">
+                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
                       <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                     </freeTextValues>
-                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.1">
+                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.1">
                       <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                     </freeTextValues>
                   </methodParamValues>
@@ -2270,7 +2367,7 @@
                 </query>
               </instructions>
               <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </predicateValue>
                 <predicateApplyValue freeText=""/>
@@ -2292,7 +2389,7 @@
                 </query>
               </instructions>
               <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.0/@returnVariableNew //@modules.1/@layers.0/@entities.2/@properties.3 //@modules.0/@layers.0/@simpleTypes.8/@methods.2">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0/@returnVariableNew //@modules.1/@layers.0/@entities.2/@properties.3 //@modules.0/@layers.0/@simpleTypes.8/@methods.2">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </predicateValue>
                 <predicateApplyValue freeText=""/>
@@ -2306,7 +2403,7 @@
               <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.2/@params.0">
                 <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
               </methodParamValues>
-              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.6/@params.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.2/@params.1">
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.2/@params.1">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
               </methodParamValues>
             </callValue>
@@ -2319,7 +2416,7 @@
           </instructions>
         </methods>
         <methods name="controleUtilisateurExistant" description="Controle l'existance d'un utilisateur" visibility="PROTECTED" annotations="" returnDescription="" isCallWithInstructions="true" callTemplate="">
-          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
           <params name="idUtilisateur" description="Identifiant de l'utilisateur" variableScope="LOCAL">
             <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
           </params>
@@ -2331,96 +2428,6 @@
               <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
                 <methodParamValues freeText="L'identifiant utilisateur est obligatoire" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
-                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-                </methodParamValues>
-              </callValue>
-              <query freeText="">
-                <fromExpression>
-                  <expressionValue freeText=""/>
-                  <expressionVariable name="" description="" variableScope="LOCAL"/>
-                </fromExpression>
-              </query>
-            </instructions>
-            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.1 //@modules.0/@layers.0/@simpleTypes.8/@methods.2">
-                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-              </predicateValue>
-              <predicateApplyValue freeText=""/>
-            </predicates>
-            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
-                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-              </predicateValue>
-              <predicateApplyValue freeText=""/>
-            </predicates>
-          </instructions>
-          <instructions xsi:type="app:InstructionCondition" description="Controle de l'existance de l'utilisateur" templateLabel="">
-            <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.3">
-                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.0">
-                  <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
-                </methodParamValues>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.1">
-                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
-                </methodParamValues>
-              </callValue>
-              <returnVariableNew name="utilisateur" description="" variableScope="LOCAL">
-                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
-              </returnVariableNew>
-              <query freeText="">
-                <fromExpression>
-                  <expressionValue freeText=""/>
-                  <expressionVariable name="" description="" variableScope="LOCAL"/>
-                </fromExpression>
-              </query>
-            </instructions>
-            <instructions xsi:type="app:InstructionCondition" description="" templateLabel="">
-              <instructions xsi:type="app:InstructionCall" description="">
-                <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
-                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                  <methodParamValues freeText="Aucun utilisateur pour l'identifiant ${0}" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
-                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0">
-                      <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
-                    </freeTextValues>
-                  </methodParamValues>
-                </callValue>
-                <query freeText="">
-                  <fromExpression>
-                    <expressionValue freeText=""/>
-                    <expressionVariable name="" description="" variableScope="LOCAL"/>
-                  </fromExpression>
-                </query>
-              </instructions>
-              <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
-                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-                </predicateValue>
-                <predicateApplyValue freeText=""/>
-              </predicates>
-            </instructions>
-            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.7/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.5">
-                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-              </predicateValue>
-              <predicateApplyValue freeText=""/>
-            </predicates>
-          </instructions>
-        </methods>
-        <methods name="controleGroupeExistant" description="Controle l'existance d'un groupe" visibility="PROTECTED" annotations="" returnDescription="" isCallWithInstructions="true" callTemplate="">
-          <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-          <params name="idGroupe" description="Identifiant du groupe" variableScope="LOCAL">
-            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
-          </params>
-          <params name="autoriseNull" description="Indique si l'identifiant de groupe peut etre null" variableScope="LOCAL">
-            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
-          </params>
-          <instructions xsi:type="app:InstructionCondition" description="Cas ou l'identifiant du groupe devrait etre renseigne" templateLabel="">
-            <instructions xsi:type="app:InstructionCall" description="">
-              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
-                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
-                <methodParamValues freeText="L'identifiant du groupe est obligatoire" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
                 </methodParamValues>
               </callValue>
@@ -2444,6 +2451,106 @@
               <predicateApplyValue freeText=""/>
             </predicates>
           </instructions>
+          <instructions xsi:type="app:InstructionCondition" description="Controle de l'existance de l'utilisateur" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.3">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.0">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+                </methodParamValues>
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.1">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                </methodParamValues>
+              </callValue>
+              <returnVariableNew name="utilisateur" description="" variableScope="LOCAL">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              </returnVariableNew>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <instructions xsi:type="app:InstructionCondition" description="" templateLabel="">
+              <instructions xsi:type="app:InstructionCall" description="">
+                <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                  <methodParamValues freeText="Aucun utilisateur pour l'identifiant ${0}" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
+                      <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+                    </freeTextValues>
+                  </methodParamValues>
+                </callValue>
+                <query freeText="">
+                  <fromExpression>
+                    <expressionValue freeText=""/>
+                    <expressionVariable name="" description="" variableScope="LOCAL"/>
+                  </fromExpression>
+                </query>
+              </instructions>
+              <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateValue>
+                <predicateApplyValue freeText=""/>
+              </predicates>
+            </instructions>
+            <instructions xsi:type="app:InstructionReturn" description="">
+              <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.0/@returnVariableNew">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+              </returnValue>
+            </instructions>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.5">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="">
+            <returnValue freeText="" isNull="true">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.0"/>
+            </returnValue>
+          </instructions>
+        </methods>
+        <methods name="controleGroupeExistant" description="Controle l'existance d'un groupe" visibility="PROTECTED" annotations="" returnDescription="" isCallWithInstructions="true" callTemplate="">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
+          <params name="idGroupe" description="Identifiant du groupe" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="autoriseNull" description="Indique si l'identifiant de groupe peut etre null" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+          </params>
+          <instructions xsi:type="app:InstructionCondition" description="Cas ou l'identifiant du groupe devrait etre renseigne" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                <methodParamValues freeText="L'identifiant du groupe est obligatoire" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </methodParamValues>
+              </callValue>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@params.1 //@modules.0/@layers.0/@simpleTypes.8/@methods.2">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+          </instructions>
           <instructions xsi:type="app:InstructionCondition" description="Controle de l'existance du groupe" templateLabel="">
             <instructions xsi:type="app:InstructionCall" description="">
               <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.3">
@@ -2451,7 +2558,7 @@
                 <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.0">
                   <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
                 </methodParamValues>
-                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.1">
+                <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.3/@params.1">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
                 </methodParamValues>
               </callValue>
@@ -2475,7 +2582,7 @@
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
                   <methodParamValues freeText="Aucun groupe pour l'identifiant ${0}" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
                     <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
-                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@params.0">
+                    <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@params.0">
                       <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
                     </freeTextValues>
                   </methodParamValues>
@@ -2488,18 +2595,157 @@
                 </query>
               </instructions>
               <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.0/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
                   <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
                 </predicateValue>
                 <predicateApplyValue freeText=""/>
               </predicates>
             </instructions>
+            <instructions xsi:type="app:InstructionReturn" description="">
+              <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.0/@returnVariableNew">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
+              </returnValue>
+            </instructions>
             <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
-              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.8/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.5">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.9/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.5">
                 <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
               </predicateValue>
               <predicateApplyValue freeText=""/>
             </predicates>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="">
+            <returnValue freeText="" isNull="true">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.1"/>
+            </returnValue>
+          </instructions>
+        </methods>
+        <methods name="controleConstitutionGroupeEtUtilisateur" description="Controle que l'utilisateur est bien dans ce groupe" visibility="PROTECTED" annotations="" returnDescription="La constitution de groupe associee" isCallWithInstructions="true" callTemplate="">
+          <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+          <params name="idUtilisateur" description="Identifiant de l'utilisateur" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <params name="idGroupe" description="Identifiant de groupe" variableScope="LOCAL">
+            <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+          </params>
+          <instructions xsi:type="app:InstructionCondition" description="L'identifiant utilisateur est obligatoire" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                <methodParamValues freeText="L'identifiant utilisateur est obligatoire" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </methodParamValues>
+              </callValue>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@params.0 //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+          </instructions>
+          <instructions xsi:type="app:InstructionCondition" description="L'identifiant du groupe est obligatoire" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                <methodParamValues freeText="L'identifiant du groupe est obligatoire" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                </methodParamValues>
+              </callValue>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@params.1 //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+          </instructions>
+          <instructions xsi:type="app:InstructionCall" description="Recuperation de la constitution groupe pour l'utilisateur et le groupe">
+            <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.26 //@modules.0/@layers.0/@simpleTypes.26/@methods.7">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+              <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.0/@entities.2" targetVariable="//@modules.0/@layers.0/@simpleTypes.26/@methods.7/@params.0">
+                <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+              </methodParamValues>
+            </callValue>
+            <returnVariableNew name="constitutionGroupe" description="" variableScope="LOCAL">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+            </returnVariableNew>
+            <query freeText="">
+              <fromExpression>
+                <expressionValue freeText="">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                </expressionValue>
+                <expressionVariable name="constitutionGroupeIte" description="" variableScope="LOCAL">
+                  <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+                </expressionVariable>
+              </fromExpression>
+              <predicates predicateCompose="AND" predicateApplyRule="IF_NOT_EMPTY">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.2/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.2 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@params.0" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                  </methodParamValues>
+                </predicateValue>
+                <predicateApplyValue freeText="">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateApplyValue>
+              </predicates>
+              <predicates predicateCompose="AND" predicateApplyRule="IF_NOT_EMPTY">
+                <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.2/@query/@fromExpression/@expressionVariable //@modules.1/@layers.0/@entities.2/@properties.1 //@modules.0/@layers.0/@simpleTypes.0/@methods.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                  <methodParamValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@params.1" targetVariable="//@modules.0/@layers.0/@simpleTypes.0/@methods.0/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.0"/>
+                  </methodParamValues>
+                </predicateValue>
+                <predicateApplyValue freeText="">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+                </predicateApplyValue>
+              </predicates>
+            </query>
+          </instructions>
+          <instructions xsi:type="app:InstructionCondition" description="Aucune constitution de groupe pour l'utilisateur" templateLabel="">
+            <instructions xsi:type="app:InstructionCall" description="">
+              <callValue freeText="" objectHierarchyRef="//@modules.0/@layers.0/@simpleTypes.24 //@modules.0/@layers.0/@simpleTypes.24/@methods.0">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.4"/>
+                <methodParamValues freeText="Aucune constitution de groupe pour l'utilisateur ${0} et le groupe ${1}" targetVariable="//@modules.0/@layers.0/@simpleTypes.24/@methods.0/@params.0">
+                  <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
+                  <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@params.0">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+                  </freeTextValues>
+                  <freeTextValues freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@params.1">
+                    <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
+                  </freeTextValues>
+                </methodParamValues>
+              </callValue>
+              <query freeText="">
+                <fromExpression>
+                  <expressionValue freeText=""/>
+                  <expressionVariable name="" description="" variableScope="LOCAL"/>
+                </fromExpression>
+              </query>
+            </instructions>
+            <predicates predicateCompose="AND" predicateApplyRule="ALWAYS">
+              <predicateValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.2/@returnVariableNew //@modules.0/@layers.0/@simpleTypes.0/@methods.4">
+                <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.8"/>
+              </predicateValue>
+              <predicateApplyValue freeText=""/>
+            </predicates>
+          </instructions>
+          <instructions xsi:type="app:InstructionReturn" description="">
+            <returnValue freeText="" objectHierarchyRef="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.2/@returnVariableNew">
+              <dataType appClassRef="//@modules.1/@layers.0/@entities.2"/>
+            </returnValue>
           </instructions>
         </methods>
         <instanceVariable name="cycleService">
@@ -2885,21 +3131,21 @@
       </views>
     </layers>
   </modules>
-  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-21T17:58:25.853+0100"/>
+  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
   <modelMonitorings modelElement="//@configuration" isGenerated="true" dateCreateModel="2014-11-10T16:53:44.400+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100" dateLastGenerate="2014-11-10T18:02:17.133+0100"/>
   <modelMonitorings modelElement="//@configuration/@dataSources.0" dateCreateModel="2014-11-10T16:54:44.779+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0" isGenerated="true" dateCreateModel="2014-11-10T16:55:28.728+0100" dateUpdateModel="2014-11-19T13:59:10.013+0100" dateLastGenerate="2014-11-18T17:41:50.188+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.0" dateCreateModel="2014-11-10T16:56:40.041+0100" dateUpdateModel="2014-11-18T17:52:52.170+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.1" dateCreateModel="2014-11-10T16:56:55.473+0100" dateUpdateModel="2014-11-18T17:46:10.900+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.2" dateCreateModel="2014-11-10T16:57:04.771+0100" dateUpdateModel="2014-11-17T11:25:57.021+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.3" dateCreateModel="2014-11-10T16:57:16.206+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.4" dateCreateModel="2014-11-10T16:57:46.445+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-21T17:58:25.853+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0" isGenerated="true" dateCreateModel="2014-11-10T17:32:19.454+0100" dateUpdateModel="2014-11-18T17:42:20.409+0100" dateLastGenerate="2014-11-18T17:41:36.512+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1" dateCreateModel="2014-11-10T17:34:19.244+0100" dateUpdateModel="2014-11-18T17:42:20.409+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.1" dateCreateModel="2014-11-10T17:36:08.849+0100" dateUpdateModel="2014-11-18T15:47:14.206+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1" isGenerated="true" dateCreateModel="2014-11-10T17:36:27.359+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100" dateLastGenerate="2014-11-21T17:13:20.435+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1" isGenerated="true" dateCreateModel="2014-11-10T17:36:27.359+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100" dateLastGenerate="2014-11-21T17:13:20.435+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.0" dateCreateModel="2014-11-10T17:36:53.615+0100" dateUpdateModel="2014-11-21T16:13:08.050+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.2" dateCreateModel="2014-11-10T17:37:17.884+0100" dateUpdateModel="2014-11-18T17:46:10.900+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.2" dateCreateModel="2014-11-10T17:45:34.461+0100" dateUpdateModel="2014-11-10T17:47:18.325+0100"/>
@@ -2978,7 +3224,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.3" dateCreateModel="2014-11-18T17:53:26.745+0100" dateUpdateModel="2014-11-18T17:53:26.745+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.4" dateCreateModel="2014-11-18T17:53:47.682+0100" dateUpdateModel="2014-11-18T17:59:47.899+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.6" dateCreateModel="2014-11-18T17:54:38.360+0100" dateUpdateModel="2014-11-19T11:07:31.545+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-21T17:58:25.853+0100" dateLastGenerate="2014-11-21T17:56:58.680+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100" dateLastGenerate="2014-11-21T17:58:29.147+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2" dateCreateModel="2014-11-19T09:33:45.405+0100" dateUpdateModel="2014-11-21T17:24:35.855+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.7" dateCreateModel="2014-11-19T09:34:07.393+0100" dateUpdateModel="2014-11-19T09:34:18.303+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T09:35:51.458+0100" dateUpdateModel="2014-11-19T10:29:10.617+0100"/>
@@ -2992,21 +3238,21 @@
   <modelMonitorings dateCreateModel="2014-11-19T10:23:02.737+0100" dateUpdateModel="2014-11-19T10:23:02.737+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T10:23:09.879+0100" dateUpdateModel="2014-11-19T10:23:41.888+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T10:23:41.888+0100" dateUpdateModel="2014-11-19T10:23:41.888+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7" dateCreateModel="2014-11-19T10:26:01.005+0100" dateUpdateModel="2014-11-21T17:08:47.071+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.0" dateCreateModel="2014-11-19T10:29:05.624+0100" dateUpdateModel="2014-11-19T10:52:14.596+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T10:29:12.958+0100" dateUpdateModel="2014-11-19T10:29:12.958+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1" dateCreateModel="2014-11-19T10:39:52.164+0100" dateUpdateModel="2014-11-19T10:53:52.298+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:40:12.009+0100" dateUpdateModel="2014-11-19T10:40:12.009+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T10:40:20.774+0100" dateUpdateModel="2014-11-19T10:53:52.298+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:40:36.641+0100" dateUpdateModel="2014-11-19T10:53:52.298+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8" dateCreateModel="2014-11-19T10:26:01.005+0100" dateUpdateModel="2014-11-21T18:10:03.597+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.0" dateCreateModel="2014-11-19T10:29:05.624+0100" dateUpdateModel="2014-11-19T10:52:14.596+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T10:29:12.958+0100" dateUpdateModel="2014-11-19T10:29:12.958+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1" dateCreateModel="2014-11-19T10:39:52.164+0100" dateUpdateModel="2014-11-21T18:09:59.337+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:40:12.009+0100" dateUpdateModel="2014-11-19T10:40:12.009+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T10:40:20.774+0100" dateUpdateModel="2014-11-19T10:53:52.298+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:40:36.641+0100" dateUpdateModel="2014-11-19T10:53:52.298+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.2/@instructions.0" dateCreateModel="2014-11-19T10:42:17.358+0100" dateUpdateModel="2014-11-19T10:42:21.084+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8" dateCreateModel="2014-11-19T10:50:23.827+0100" dateUpdateModel="2014-11-21T17:49:44.260+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.0" dateCreateModel="2014-11-19T10:51:50.039+0100" dateUpdateModel="2014-11-21T17:49:44.260+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T10:51:56.248+0100" dateUpdateModel="2014-11-21T17:49:44.260+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1" dateCreateModel="2014-11-19T10:52:49.013+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:53:04.867+0100" dateUpdateModel="2014-11-19T10:53:04.867+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T10:53:13.463+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:53:43.968+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9" dateCreateModel="2014-11-19T10:50:23.827+0100" dateUpdateModel="2014-11-21T18:10:28.189+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.0" dateCreateModel="2014-11-19T10:51:50.039+0100" dateUpdateModel="2014-11-21T17:49:44.260+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T10:51:56.248+0100" dateUpdateModel="2014-11-21T17:49:44.260+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1" dateCreateModel="2014-11-19T10:52:49.013+0100" dateUpdateModel="2014-11-21T18:10:28.189+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:53:04.867+0100" dateUpdateModel="2014-11-19T10:53:04.867+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T10:53:13.463+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T10:53:43.968+0100" dateUpdateModel="2014-11-19T10:53:43.968+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T11:01:17.895+0100" dateUpdateModel="2014-11-19T11:03:54.094+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.1" dateCreateModel="2014-11-19T11:03:16.642+0100" dateUpdateModel="2014-11-21T16:07:00.613+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3/@instructions.0" dateCreateModel="2014-11-19T11:03:50.756+0100" dateUpdateModel="2014-11-21T16:00:56.313+0100"/>
@@ -3053,18 +3299,18 @@
   <modelMonitorings dateCreateModel="2014-11-19T15:47:33.979+0100" dateUpdateModel="2014-11-19T15:48:06.796+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T16:28:17.104+0100" dateUpdateModel="2014-11-19T16:28:51.621+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T16:28:51.621+0100" dateUpdateModel="2014-11-19T16:28:51.621+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6" dateCreateModel="2014-11-19T16:42:34.612+0100" dateUpdateModel="2014-11-19T17:47:21.738+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0" dateCreateModel="2014-11-19T16:43:27.497+0100" dateUpdateModel="2014-11-19T16:43:53.443+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T16:43:36.772+0100" dateUpdateModel="2014-11-19T16:43:50.559+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0/@instructions.1" dateCreateModel="2014-11-19T16:43:45.267+0100" dateUpdateModel="2014-11-19T16:43:53.443+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1" dateCreateModel="2014-11-19T16:44:16.434+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T17:28:24.742+0100" dateUpdateModel="2014-11-19T17:31:15.652+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T17:31:22.840+0100" dateUpdateModel="2014-11-19T17:33:57.633+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T17:32:14.836+0100" dateUpdateModel="2014-11-19T17:32:14.836+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.2" dateCreateModel="2014-11-19T17:35:52.093+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1/@instructions.2/@instructions.0" dateCreateModel="2014-11-19T17:36:30.248+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.2" dateCreateModel="2014-11-19T17:36:59.224+0100" dateUpdateModel="2014-11-19T17:36:59.224+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.3" dateCreateModel="2014-11-19T17:47:21.738+0100" dateUpdateModel="2014-11-19T17:47:21.738+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7" dateCreateModel="2014-11-19T16:42:34.612+0100" dateUpdateModel="2014-11-21T18:06:35.975+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.0" dateCreateModel="2014-11-19T16:43:27.497+0100" dateUpdateModel="2014-11-19T16:43:53.443+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.0/@instructions.0" dateCreateModel="2014-11-19T16:43:36.772+0100" dateUpdateModel="2014-11-19T16:43:50.559+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.0/@instructions.1" dateCreateModel="2014-11-19T16:43:45.267+0100" dateUpdateModel="2014-11-19T16:43:53.443+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1" dateCreateModel="2014-11-19T16:44:16.434+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T17:28:24.742+0100" dateUpdateModel="2014-11-19T17:31:15.652+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.1" dateCreateModel="2014-11-19T17:31:22.840+0100" dateUpdateModel="2014-11-19T17:33:57.633+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.1/@instructions.0" dateCreateModel="2014-11-19T17:32:14.836+0100" dateUpdateModel="2014-11-19T17:32:14.836+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.2" dateCreateModel="2014-11-19T17:35:52.093+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.1/@instructions.2/@instructions.0" dateCreateModel="2014-11-19T17:36:30.248+0100" dateUpdateModel="2014-11-19T17:36:30.248+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.2" dateCreateModel="2014-11-19T17:36:59.224+0100" dateUpdateModel="2014-11-19T17:36:59.224+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.7/@instructions.3" dateCreateModel="2014-11-19T17:47:21.738+0100" dateUpdateModel="2014-11-19T17:47:21.738+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.6" isGenerated="true" dateCreateModel="2014-11-21T15:42:53.213+0100" dateUpdateModel="2014-11-21T15:54:05.828+0100" dateLastGenerate="2014-11-21T16:13:42.094+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.7" isGenerated="true" dateCreateModel="2014-11-21T15:44:28.889+0100" dateUpdateModel="2014-11-21T16:13:08.050+0100" dateLastGenerate="2014-11-21T16:13:56.320+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.2/@views.8" isGenerated="true" dateCreateModel="2014-11-21T15:51:31.413+0100" dateUpdateModel="2014-11-21T15:51:44.807+0100" dateLastGenerate="2014-11-21T16:14:31.962+0100"/>
@@ -3079,7 +3325,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.1/@instructions.0" dateCreateModel="2014-11-21T17:09:26.129+0100" dateUpdateModel="2014-11-21T17:09:26.129+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.1/@instructions.1" dateCreateModel="2014-11-21T17:09:52.249+0100" dateUpdateModel="2014-11-21T17:09:52.249+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.1/@instructions.2" dateCreateModel="2014-11-21T17:09:59.878+0100" dateUpdateModel="2014-11-21T17:09:59.878+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.4" dateCreateModel="2014-11-21T17:11:16.874+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.4" dateCreateModel="2014-11-21T17:11:16.874+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.1" dateCreateModel="2014-11-21T17:13:54.366+0100" dateUpdateModel="2014-11-21T17:48:09.515+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T17:14:16.650+0100" dateUpdateModel="2014-11-21T17:14:16.650+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T17:17:17.072+0100" dateUpdateModel="2014-11-21T17:54:46.433+0100"/>
@@ -3089,6 +3335,28 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.0/@instructions.0" dateCreateModel="2014-11-21T17:48:03.727+0100" dateUpdateModel="2014-11-21T17:48:13.103+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.0" dateCreateModel="2014-11-21T17:53:17.690+0100" dateUpdateModel="2014-11-21T17:53:44.280+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.4/@instructions.1/@instructions.0/@instructions.1" dateCreateModel="2014-11-21T17:54:08.010+0100" dateUpdateModel="2014-11-21T17:54:36.807+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6" dateCreateModel="2014-11-21T18:06:32.918+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0" dateCreateModel="2014-11-21T18:06:45.899+0100" dateUpdateModel="2014-11-21T18:24:46.327+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.1/@instructions.2" dateCreateModel="2014-11-21T18:09:59.337+0100" dateUpdateModel="2014-11-21T18:09:59.337+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.8/@instructions.2" dateCreateModel="2014-11-21T18:10:03.597+0100" dateUpdateModel="2014-11-21T18:10:03.597+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.2" dateCreateModel="2014-11-21T18:10:21.824+0100" dateUpdateModel="2014-11-21T18:10:21.824+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.9/@instructions.1/@instructions.2" dateCreateModel="2014-11-21T18:10:28.189+0100" dateUpdateModel="2014-11-21T18:10:28.189+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10" dateCreateModel="2014-11-21T18:19:39.159+0100" dateUpdateModel="2014-11-21T18:24:05.596+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.0" dateCreateModel="2014-11-21T18:21:17.216+0100" dateUpdateModel="2014-11-21T18:21:24.486+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.0/@instructions.0" dateCreateModel="2014-11-21T18:21:24.486+0100" dateUpdateModel="2014-11-21T18:21:24.486+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.1" dateCreateModel="2014-11-21T18:21:50.424+0100" dateUpdateModel="2014-11-21T18:21:56.617+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.1/@instructions.0" dateCreateModel="2014-11-21T18:21:56.617+0100" dateUpdateModel="2014-11-21T18:21:56.617+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.2" dateCreateModel="2014-11-21T18:23:12.256+0100" dateUpdateModel="2014-11-21T18:23:12.256+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.3" dateCreateModel="2014-11-21T18:23:34.586+0100" dateUpdateModel="2014-11-21T18:23:58.731+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.3/@instructions.0" dateCreateModel="2014-11-21T18:23:58.731+0100" dateUpdateModel="2014-11-21T18:23:58.731+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.10/@instructions.4" dateCreateModel="2014-11-21T18:24:05.596+0100" dateUpdateModel="2014-11-21T18:24:05.596+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.0/@instructions.0" dateCreateModel="2014-11-21T18:24:38.682+0100" dateUpdateModel="2014-11-21T18:24:42.849+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.1" dateCreateModel="2014-11-21T18:25:34.484+0100" dateUpdateModel="2014-11-21T18:33:04.654+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.3" dateCreateModel="2014-11-21T18:32:51.080+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.2/@instructions.0" dateCreateModel="2014-11-21T18:33:00.723+0100" dateUpdateModel="2014-11-21T18:33:36.752+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.2/@instructions.1" dateCreateModel="2014-11-21T18:33:15.532+0100" dateUpdateModel="2014-11-21T18:33:36.752+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.6/@instructions.2" dateCreateModel="2014-11-21T18:33:31.510+0100" dateUpdateModel="2014-11-21T18:33:39.064+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.1/@properties.5" dateCreateModel="2014-11-24T10:59:35.006+0100" dateUpdateModel="2014-11-24T10:59:38.126+0100"/>
   <shortcutsDefinitions>
     <shortcuts title="Utilisateur" shortcutTo="//@modules.1/@layers.0/@entities.0"/>
     <shortcuts title="Groupe" shortcutTo="//@modules.1/@layers.0/@entities.1"/>

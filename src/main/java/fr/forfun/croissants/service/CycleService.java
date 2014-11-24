@@ -276,6 +276,36 @@ public class CycleService {
 	}
 
 	/**
+	 * Permet d'affecter un groupe par defaut a un utilisateur
+	 * @param idUtilisateur	Identifiant de l'utilisateur
+	 * @param idGroupe	Identifiant du groupe
+	 * 
+	 * @return La constitution de groupe modifiee
+	 */
+	public ConstitutionGroupe affecterGoupeParDefaut(Long idUtilisateur, Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			//Controles de surface
+			ConstitutionGroupe constitutionGroupe = controleConstitutionGroupeEtUtilisateur(idUtilisateur, idGroupe);
+			//Passage a par defaut a true et merge de la constitutionGroupe
+			constitutionGroupe.setParDefaut(true);
+			constitutionGroupe = em.merge(constitutionGroupe);
+			return constitutionGroupe;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
 	 * Permet a un administrateur de supprimer un groupe
 	 * @param idUtilisateur	Identifiant de l'utilisateur sollicitant la suppression du groupe
 	 * @param idGroupe	Identifiant du groupe
@@ -327,7 +357,7 @@ public class CycleService {
 	 * @param idUtilisateur	Identifiant de l'utilisateur
 	 * @param autoriseNull	Indique si la valeur null est autorisee
 	 */
-	protected void controleUtilisateurExistant(Long idUtilisateur, boolean autoriseNull) {
+	protected Utilisateur controleUtilisateurExistant(Long idUtilisateur, boolean autoriseNull) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -344,7 +374,9 @@ public class CycleService {
 				if(utilisateur == null){
 					throw new BusinessException("Aucun utilisateur pour l'identifiant " + idUtilisateur);
 				}
+				return utilisateur;
 			}
+			return null;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -360,7 +392,7 @@ public class CycleService {
 	 * @param idGroupe	Identifiant du groupe
 	 * @param autoriseNull	Indique si l'identifiant de groupe peut etre null
 	 */
-	protected void controleGroupeExistant(Long idGroupe, boolean autoriseNull) {
+	protected Groupe controleGroupeExistant(Long idGroupe, boolean autoriseNull) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -377,7 +409,62 @@ public class CycleService {
 				if(groupe == null){
 					throw new BusinessException("Aucun groupe pour l'identifiant " + idGroupe);
 				}
+				return groupe;
 			}
+			return null;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Controle que l'utilisateur est bien dans ce groupe
+	 * @param idUtilisateur	Identifiant de l'utilisateur
+	 * @param idGroupe	Identifiant de groupe
+	 * 
+	 * @return La constitution de groupe associee
+	 */
+	protected ConstitutionGroupe controleConstitutionGroupeEtUtilisateur(Long idUtilisateur, Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//L'identifiant utilisateur est obligatoire
+			if(idUtilisateur == null){
+				throw new BusinessException("L'identifiant utilisateur est obligatoire");
+			}
+			//L'identifiant du groupe est obligatoire
+			if(idGroupe == null){
+				throw new BusinessException("L'identifiant du groupe est obligatoire");
+			}
+			//Recuperation de la constitution groupe pour l'utilisateur et le groupe
+			CriteriaQuery<ConstitutionGroupe> constitutionGroupeIteCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
+			Root<ConstitutionGroupe> constitutionGroupeIte = constitutionGroupeIteCriteriaQuery.from(ConstitutionGroupe.class);
+			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
+			if(idUtilisateur != null){
+				constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
+			}
+			if(idGroupe != null){
+				constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idGroupe), idGroupe));
+			}
+			if(constitutionGroupePredicates.size() > 0){
+				constitutionGroupeIteCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
+			}
+			TypedQuery<ConstitutionGroupe> constitutionGroupeIteQuery = em.createQuery(constitutionGroupeIteCriteriaQuery);
+			ConstitutionGroupe constitutionGroupe = constitutionGroupeIteQuery.getSingleResult();
+			//Aucune constitution de groupe pour l'utilisateur
+			if(constitutionGroupe == null){
+				throw new BusinessException("Aucune constitution de groupe pour l'utilisateur " + idUtilisateur + " et le groupe " + idGroupe);
+			}
+			return constitutionGroupe;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;

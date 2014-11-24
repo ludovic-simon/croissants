@@ -45,6 +45,10 @@ public class Groupe implements Serializable {
 	@Column(name = "message")
 	protected String message;
 	
+	/** Le jour de la semaine de production de l'occurence */
+	@Column(name = "jour_occurence")
+	protected Long jourOccurence;
+	
 	/** Date de creation du groupe */
 	@Column(name = "date_creation")
 	protected Date dateCreation;
@@ -89,6 +93,14 @@ public class Groupe implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Long getJourOccurence() {
+		return jourOccurence;
+	}
+
+	public void setJourOccurence(Long jourOccurence) {
+		this.jourOccurence = jourOccurence;
 	}
 
 	public Date getDateCreation() {
