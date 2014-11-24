@@ -64,4 +64,15 @@ public class UtilisateurServiceRest {
 		return utilisateur;
 	}
 	
+	@POST
+	@Path("seDeconnecter")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void seDeconnecter(){
+		utilisateurService.seDeconnecter();
+		
+		//Invalidation de la session
+		HttpSession session = request.getSession();
+		session.invalidate();
+	}
+	
 }

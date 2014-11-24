@@ -80,7 +80,6 @@ public class UtilisateurService {
 			//MAJ de la date de derniere connexion
 			utilisateurConnecte.setDateDerniereConnexion(new Date());
 			utilisateurConnecte = em.merge(utilisateurConnecte);
-			//Retour du 1er utilisateur (normalement il n'y en a qu'un)
 			return utilisateurConnecte;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -155,6 +154,13 @@ public class UtilisateurService {
 		utilisateur.setNom("Toto");
 		utilisateur.setEmail("toto@gmail.com");
 		return utilisateur;
+	}
+
+	/**
+	 * Deconnexion de l'utilisateur en session
+	 */
+	public void seDeconnecter() {
+
 	}
 
 }

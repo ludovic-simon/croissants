@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -292,6 +293,12 @@ public class CycleService {
 			tx.begin();
 			//Controles de surface
 			ConstitutionGroupe constitutionGroupe = controleConstitutionGroupeEtUtilisateur(idUtilisateur, idGroupe);
+			//Les constitutions de groupe de l'utilisateur devienne par defaut a false
+			Query query = em.createQuery(
+				"UPDATE ConstitutionGroupe SET parDefaut = false " +
+				"WHERE idUtilisateur = :idUtilisateur");
+			query.setParameter("idUtilisateur", idUtilisateur);
+			query.executeUpdate();
 			//Passage a par defaut a true et merge de la constitutionGroupe
 			constitutionGroupe.setParDefaut(true);
 			constitutionGroupe = em.merge(constitutionGroupe);
