@@ -1,5 +1,6 @@
 package fr.forfun.croissants.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -14,6 +15,7 @@ import com.sun.jersey.spi.resource.Singleton;
 import fr.forfun.croissants.core.SDevRestDoBeforeSerialization;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.Groupe;
+import fr.forfun.croissants.entity.Tour;
 import fr.forfun.croissants.entity.Utilisateur;
 
 @Path("/cycleService")
@@ -81,6 +83,22 @@ public class CycleServiceRest {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public void supprimerGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
 		cycleService.supprimerGroupe(idUtilisateur, idGroupe);
+	}
+	
+	@POST
+	@Path("calculerProchainCycle")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void calculerProchainCycle(@QueryParam("idGroupe") Long idGroupe){
+		cycleService.calculerProchainCycle(idGroupe);
+	}
+	
+	@GET
+	@Path("rechercherCycleEnCours")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public List<Tour> rechercherCycleEnCours(@QueryParam("idGroupe") Long idGroupe){
+		List<Tour> res = cycleService.rechercherCycleEnCours(idGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
 	}
 	
 }

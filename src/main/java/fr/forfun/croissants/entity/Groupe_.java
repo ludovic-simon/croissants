@@ -2,6 +2,7 @@ package fr.forfun.croissants.entity;
 
 import java.util.Date;
 
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 @javax.persistence.metamodel.StaticMetamodel(Groupe.class)
@@ -14,5 +15,6 @@ public class Groupe_ {
 	public static volatile SingularAttribute<Groupe, String> message;	
 	public static volatile SingularAttribute<Groupe, Long> jourOccurence;	
 	public static volatile SingularAttribute<Groupe, Date> dateCreation;	
+	public static volatile ListAttribute<Groupe, ConstitutionGroupe> constitutionGroupes;	
 
 }

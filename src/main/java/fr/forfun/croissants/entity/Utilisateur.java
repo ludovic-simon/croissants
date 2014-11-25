@@ -2,12 +2,16 @@ package fr.forfun.croissants.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -48,6 +52,11 @@ public class Utilisateur implements Serializable {
 	/** Date de derniere connexion */
 	@Column(name = "date_derniere_connexion")
 	protected Date dateDerniereConnexion;
+	
+	/** Les constitutions de groupes de l'utilisateur */
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_utilisateur", insertable = false, updatable = false)
+	protected List<ConstitutionGroupe> constitutionGroupes;
 	
 	{/* GETTERS & SETTERS */}
 
@@ -97,6 +106,14 @@ public class Utilisateur implements Serializable {
 
 	public void setDateDerniereConnexion(Date dateDerniereConnexion) {
 		this.dateDerniereConnexion = dateDerniereConnexion;
+	}
+
+	public List<ConstitutionGroupe> getConstitutionGroupes() {
+		return constitutionGroupes;
+	}
+
+	public void setConstitutionGroupes(List<ConstitutionGroupe> constitutionGroupes) {
+		this.constitutionGroupes = constitutionGroupes;
 	}
 
 }

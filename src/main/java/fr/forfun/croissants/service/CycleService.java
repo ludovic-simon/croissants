@@ -2,7 +2,9 @@ package fr.forfun.croissants.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +14,8 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -19,13 +23,19 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
+import fr.forfun.croissants.CycleUtils;
+import fr.forfun.croissants.DateUtils;
 import fr.forfun.croissants.core.AppUtils;
 import fr.forfun.croissants.core.BusinessException;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.ConstitutionGroupe_;
 import fr.forfun.croissants.entity.Groupe;
 import fr.forfun.croissants.entity.Groupe_;
+import fr.forfun.croissants.entity.StatutTour;
+import fr.forfun.croissants.entity.Tour;
+import fr.forfun.croissants.entity.Tour_;
 import fr.forfun.croissants.entity.Utilisateur;
+import fr.forfun.croissants.entity.Utilisateur_;
 
 public class CycleService {
 
@@ -365,6 +375,164 @@ public class CycleService {
 			}
 			//Suppression du groupe
 			em.remove(em.find(Groupe.class, idGroupe));
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Calcule les tours du groupe pour que le cycle en cours comporte une fois chaque utilisateur
+	 * @param idGroupe	L'identifiant du groupe pour lequel calculer le cycle
+	 */
+	public void calculerProchainCycle(Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controle de surface
+			controleGroupeExistant(idGroupe, false);
+			//Determination des utilisateurs du groupe et de leur nombre
+			//Recuperation des utilisateurs du groupe
+			CriteriaQuery<Utilisateur> utilisateurIteCriteriaQuery = qb.createQuery(Utilisateur.class);
+			Root<Utilisateur> utilisateurIte = utilisateurIteCriteriaQuery.from(Utilisateur.class);
+			ListJoin<Utilisateur, ConstitutionGroupe> constitutionGroupeJoin = utilisateurIte.join(Utilisateur_.constitutionGroupes); 
+			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
+			utilisateurPredicates.add(qb.equal(constitutionGroupeJoin.get(ConstitutionGroupe_.idGroupe), idGroupe));
+			if(utilisateurPredicates.size() > 0){
+				utilisateurIteCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
+			}
+			List<Order> utilisateurIteOrderBy = new ArrayList<Order>();
+			utilisateurIteOrderBy.add(qb.asc(utilisateurIte.get(Utilisateur_.nom)));
+			if(utilisateurIteOrderBy.size() > 0){
+				utilisateurIteCriteriaQuery.orderBy(utilisateurIteOrderBy);
+			}
+			TypedQuery<Utilisateur> utilisateurIteQuery = em.createQuery(utilisateurIteCriteriaQuery);
+			List<Utilisateur> utilisateursDuGroupe = utilisateurIteQuery.getResultList();
+			//Cas ou il n'y a pas d'utilisateur dans le groupe, il n'y a aucun cycle a generer
+			if(CollectionUtils.isEmpty(utilisateursDuGroupe)){
+				return;
+			}
+			int nbUtilisateurs = utilisateursDuGroupe.size();
+			//Recuperation des derniers tours pour le groupe, recupere autant de tour que d'utilisateurs
+			CriteriaQuery<Tour> tourIteCriteriaQuery = qb.createQuery(Tour.class);
+			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
+			List<Predicate> tourPredicates = new ArrayList<Predicate>();
+			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), idGroupe));
+			if(tourPredicates.size() > 0){
+				tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
+			}
+			List<Order> tourIteOrderBy = new ArrayList<Order>();
+			tourIteOrderBy.add(qb.desc(tourIte.get(Tour_.dateTour)));
+			if(tourIteOrderBy.size() > 0){
+				tourIteCriteriaQuery.orderBy(tourIteOrderBy);
+			}
+			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
+			tourIteQuery.setMaxResults(nbUtilisateurs);
+			List<Tour> derniersTours = tourIteQuery.getResultList();
+			//Determination des tours existants en cours
+			List<Tour> toursExistantsEnCours = new ArrayList<Tour>();
+			Date dateJour = DateUtils.getCurrentDayDate();
+			Map<Long, Tour> mapUtilisateurTourExistant = new HashMap<Long, Tour>();
+			Map<Long, Integer> mapUtilisateurOrdre = new HashMap<Long, Integer>();
+			int ordre = 1;
+			if(derniersTours != null){
+				for(Tour tour : derniersTours) {
+					if(tour.getDateTour().before(dateJour)||tour.getDateTour().equals(dateJour)){
+						toursExistantsEnCours.add(tour);
+						mapUtilisateurTourExistant.put(tour.getIdUtilisateur(), tour);
+					}
+					mapUtilisateurOrdre.put(tour.getIdUtilisateur(), ordre);
+					ordre++;
+				}
+			}
+			//Determination des utilisateurs n'ayant pas de tour
+			List<Utilisateur> utilisateursSansTours = new ArrayList<Utilisateur>();
+			if(utilisateursDuGroupe != null){
+				for(Utilisateur utilisateur : utilisateursDuGroupe) {
+					if(!mapUtilisateurTourExistant.containsKey(utilisateur.getIdUtilisateur())){
+						utilisateursSansTours.add(utilisateur);
+					}
+				}
+			}
+			//Cas ou il n'y a pas d'utilisateurs sans tour, le cycle est deja calcule
+			if(CollectionUtils.isEmpty(utilisateursSansTours)){
+				return;
+			}
+			//Determination de la date a partir de laquelle generer les nouveaux tours
+			Date dateDepart = DateUtils.getCurrentDayDate();
+			if(CollectionUtils.isNotEmpty(toursExistantsEnCours)){
+				Tour dernierTourExistant = toursExistantsEnCours.get(0);
+				dateDepart = dernierTourExistant.getDateTour();
+			}
+			Groupe groupe = em.find(Groupe.class, idGroupe);
+			dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
+			//Creation des tours manquant a partir de la date de depart pour chaque utilisateur n'ayant pas de tour
+			if(utilisateursSansTours != null){
+				for(Utilisateur utilisateurSansTour : utilisateursSansTours) {
+					//Creation du tour pour l'utilisateur
+					Tour nouveauTour = new Tour();
+					nouveauTour.setIdGroupe(idGroupe);
+					nouveauTour.setIdUtilisateur(utilisateurSansTour.getIdUtilisateur());
+					nouveauTour.setNomTour(utilisateurSansTour.getNom());
+					nouveauTour.setDateTour(dateDepart);
+					nouveauTour.setStatutTour(StatutTour.ACTIF);
+					em.persist(nouveauTour);
+					dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
+				}
+			}
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet de recuperer le cycle en cours d'un groupe
+	 * @param idGroupe	Identifiant du groupe
+	 * 
+	 * @return Les tours a venir pour ce groupe
+	 */
+	public List<Tour> rechercherCycleEnCours(Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			controleGroupeExistant(idGroupe, false);
+			Date dateJour = DateUtils.getCurrentDayDate();
+			//Recuperation des tours du groupe avec une date superieure a celle du jour
+			CriteriaQuery<Tour> tourIteCriteriaQuery = qb.createQuery(Tour.class);
+			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
+			List<Predicate> tourPredicates = new ArrayList<Predicate>();
+			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), idGroupe));
+			if(dateJour != null){
+				tourPredicates.add(qb.greaterThan(tourIte.get(Tour_.dateTour), dateJour));
+			}
+			if(tourPredicates.size() > 0){
+				tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
+			}
+			List<Order> tourIteOrderBy = new ArrayList<Order>();
+			tourIteOrderBy.add(qb.asc(tourIte.get(Tour_.dateTour)));
+			if(tourIteOrderBy.size() > 0){
+				tourIteCriteriaQuery.orderBy(tourIteOrderBy);
+			}
+			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
+			List<Tour> tours = tourIteQuery.getResultList();
+			return tours;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;

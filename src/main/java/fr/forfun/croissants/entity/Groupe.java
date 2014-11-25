@@ -2,12 +2,16 @@ package fr.forfun.croissants.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -52,6 +56,11 @@ public class Groupe implements Serializable {
 	/** Date de creation du groupe */
 	@Column(name = "date_creation")
 	protected Date dateCreation;
+	
+	/** Les constitutions de groupe pour ce groupe */
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_groupe", insertable = false, updatable = false)
+	protected List<ConstitutionGroupe> constitutionGroupes;
 	
 	{/* GETTERS & SETTERS */}
 
@@ -109,6 +118,14 @@ public class Groupe implements Serializable {
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+
+	public List<ConstitutionGroupe> getConstitutionGroupes() {
+		return constitutionGroupes;
+	}
+
+	public void setConstitutionGroupes(List<ConstitutionGroupe> constitutionGroupes) {
+		this.constitutionGroupes = constitutionGroupes;
 	}
 
 }
