@@ -2,7 +2,7 @@
 
 	<div class="bottom-space title-page">
 		<h1>
-			<i class="fa fa-users logo-titre"></i>Editer groupe
+			<i class="fa fa-users logo-titre"></i>{{titrePage}} groupe
 		</h1>
 	</div>
 	<div class="bottom-space">Petit blabla....</div>
@@ -26,8 +26,7 @@
 			<div class="col-sm-8">
 			{{selectedOption}}
 				<select name="jourOccurence" ng-model="selectedOption" form="groupeForm"
-				ng-init="selectedOption=jours[0].id"
-				 class="form-control" id="jourOccurence"  ng-options="jour.id as jour.nom for jour in jours">                
+				 class="form-control" id="jourOccurence"  ng-options=" jour.nom for jour in jours track by jour.id">                
 	       		</select>
 			
 			</div>

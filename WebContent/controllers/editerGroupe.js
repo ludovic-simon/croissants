@@ -5,7 +5,8 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 
 	$scope.idGroupe = ($location.search()['idGroupe'] != null)? $location.search()['idGroupe'] : null;
 
-	$scope.selectedOption = 0;
+	
+	$scope.titrePage = 'Nouveau';
 	$scope.groupe = new Object();
 	$scope.spinnerClass = '';
 	
@@ -18,28 +19,29 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 		        { id: "4", nom: "Vendredi" },
 		        { id: "5", nom: "Samedi" },
 		        { id: "6", nom: "Dimanche" },
-		    ];        
-	
-	 
+		    ];      
+	//on met vendredi par défaut.
+	$scope.selectedOption = $scope.jours[4];
+		
 	 var loadGroupe = function(idGroupe) {
 			$http.get('/croissants/rest/cycleService/rechercherGroupeParId?idGroupe='+idGroupe).
 			  success(function(data, status, headers, config) {
 				  console.log(data);
 				  $scope.groupe=data;
-				  $scope.selectedOption =  $scope.groupe.jourOccurence;
+				  $scope.selectedOption = $scope.jours[data.jourOccurence];
 			  }).
 			  error(function(data, status, headers, config) {
 				  handleError(data, status, headers, config);
 			  });
 	};
+	
+	
 	 
 	$scope.init = function() {
 		if(!isNull($scope.idGroupe)) {
+			$scope.titrePage = 'Editer';
 			loadGroupe($scope.idGroupe);
-		} else {
-			$scope.selectedOption = 0;
-			
-		} 
+		}
 	};
 
 	$scope.init();
@@ -48,10 +50,8 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 	
 	$scope.editerGroupe = function() {
 		if(isGroupValid()) {
-			
-			$scope.groupe.jourOccurence = $scope.selectedOption;
-			
 			$scope.spinnerClass = 'active';
+			$scope.groupe.jourOccurence= $scope.selectedOption.id;
 			$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.groupe ).
 			  success(function(data, status, headers, config) {
 				  console.log(data);
