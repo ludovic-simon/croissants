@@ -51,6 +51,15 @@ public class CycleServiceRest {
 		return res;
 	}
 	
+	@GET
+	@Path("rechercherUtilisateursGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public List<ConstitutionGroupe> rechercherUtilisateursGroupe(@QueryParam("idGroupe") Long idGroupe){
+		List<ConstitutionGroupe> res = cycleService.rechercherUtilisateursGroupe(idGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
 	@POST
 	@Path("rejoindreGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -58,6 +67,13 @@ public class CycleServiceRest {
 		ConstitutionGroupe res = cycleService.rejoindreGroupe(idUtilisateur, jeton, motDePasse);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
+	}
+	
+	@POST
+	@Path("quitterGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void quitterGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
+		cycleService.quitterGroupe(idUtilisateur, idGroupe);
 	}
 	
 	@POST

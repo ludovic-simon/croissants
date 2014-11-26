@@ -130,6 +130,44 @@ public class CycleService {
 	}
 
 	/**
+	 * Recherche les constitution de groupe des utilisateurs de ce groupe
+	 * @param idGroupe	Identifiant du groupe
+	 * 
+	 * @return Les constitution de groupe de ce groupe
+	 */
+	public List<ConstitutionGroupe> rechercherUtilisateursGroupe(Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			controleGroupeExistant(idGroupe, false);
+			//Recherche des constitution groupe pour cet id de groupe
+			CriteriaQuery<ConstitutionGroupe> constitutionGroupeIteCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
+			Root<ConstitutionGroupe> constitutionGroupeIte = constitutionGroupeIteCriteriaQuery.from(ConstitutionGroupe.class);
+			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
+			if(idGroupe != null){
+				constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idGroupe), idGroupe));
+			}
+			if(constitutionGroupePredicates.size() > 0){
+				constitutionGroupeIteCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
+			}
+			TypedQuery<ConstitutionGroupe> constitutionGroupeIteQuery = em.createQuery(constitutionGroupeIteCriteriaQuery);
+			List<ConstitutionGroupe> constitutionGroupes = constitutionGroupeIteQuery.getResultList();
+			return constitutionGroupes;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
 	 * Permet a un utilisateur de rejoindre un groupe existant
 	 * @param idUtilisateur	Identifiant de l'utilisateur
 	 * @param jeton	Jeton du groupe
@@ -192,6 +230,31 @@ public class CycleService {
 			//Persistence en base
 			em.persist(constitutionGroupe);
 			return constitutionGroupe;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Supprime un utilisateur d'un groupe
+	 * @param idUtilisateur	Identifiant de l'utilisateur
+	 * @param idGroupe	Identifiant du groupe
+	 */
+	public void quitterGroupe(Long idUtilisateur, Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			ConstitutionGroupe constitutionGroupe = controleConstitutionGroupeEtUtilisateur(idUtilisateur, idGroupe);
+			//Suppression de la constitution de groupe
+			em.remove(em.find(ConstitutionGroupe.class, constitutionGroupe.getIdConstitutionGroupe()));
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
