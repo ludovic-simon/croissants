@@ -11,7 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * Mapper JAX-RS pour configurer la serialisation / deserialisation JSON
  * Gere les dates au format dd/MM/yyyy
  */
-@Provider
+//@Provider
 public class JerseyMapperProvider implements ContextResolver<ObjectMapper> {
 	
 	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
