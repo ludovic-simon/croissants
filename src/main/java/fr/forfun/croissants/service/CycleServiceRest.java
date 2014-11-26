@@ -25,6 +25,15 @@ public class CycleServiceRest {
 	protected CycleService cycleService = new CycleService();
 
 	@GET
+	@Path("rechercherConstitutionGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public ConstitutionGroupe rechercherConstitutionGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
+		ConstitutionGroupe res = cycleService.rechercherConstitutionGroupe(idUtilisateur, idGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@GET
 	@Path("rechercherGroupeParId")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Groupe rechercherGroupeParId(@QueryParam("idGroupe") Long idGroupe){

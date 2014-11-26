@@ -1,6 +1,8 @@
 package fr.forfun.croissants.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +53,18 @@ public class CycleService {
 	
 	{/* SERVICES */}
 	
+	/**
+	 * Permet de recuperer la constitution groupe pour le groupe et l'utilisateur
+	 * @param idUtilisateur	L'identifiant de l'utilisateur
+	 * @param idGroupe	L'identifiant du groupe
+	 * 
+	 * @return La constitution de groupe
+	 */
+	public ConstitutionGroupe rechercherConstitutionGroupe(Long idUtilisateur, Long idGroupe) {
+		ConstitutionGroupe constitutionGroupe = controleConstitutionGroupeEtUtilisateur(idUtilisateur, idGroupe);
+		return constitutionGroupe;
+	}
+
 	/**
 	 * Recherche d'un groupe par son identifiant
 	 * @param idGroupe	Identifiant du groupe
@@ -437,15 +451,16 @@ public class CycleService {
 			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
 			tourIteQuery.setMaxResults(nbUtilisateurs);
 			List<Tour> derniersTours = tourIteQuery.getResultList();
-			//Determination des tours existants en cours
+			Collections.reverse(derniersTours);
+			//Determination des tours existants en cours et de l'ordre des utilisateurs du precedent cycle
 			List<Tour> toursExistantsEnCours = new ArrayList<Tour>();
 			Date dateJour = DateUtils.getCurrentDayDate();
 			Map<Long, Tour> mapUtilisateurTourExistant = new HashMap<Long, Tour>();
-			Map<Long, Integer> mapUtilisateurOrdre = new HashMap<Long, Integer>();
+			final Map<Long, Integer> mapUtilisateurOrdre = new HashMap<Long, Integer>();
 			int ordre = 1;
 			if(derniersTours != null){
 				for(Tour tour : derniersTours) {
-					if(tour.getDateTour().before(dateJour)||tour.getDateTour().equals(dateJour)){
+					if(tour.getDateTour().after(dateJour)||tour.getDateTour().equals(dateJour)){
 						toursExistantsEnCours.add(tour);
 						mapUtilisateurTourExistant.put(tour.getIdUtilisateur(), tour);
 					}
@@ -466,6 +481,29 @@ public class CycleService {
 			if(CollectionUtils.isEmpty(utilisateursSansTours)){
 				return;
 			}
+			//Tri des utilisateurs avec d'abord ceux qui n'ont pas de tour par ordre alphab�tique puis ceux qui
+			//ont un tour par ordre du tour
+			Collections.sort(utilisateursSansTours, new Comparator<Utilisateur>() {
+				@Override
+				public int compare(Utilisateur o1, Utilisateur o2) {
+					//Determination du cas d'un nouvel utilisateur ou d'un utilisateur ayant deja un tour
+					Integer ordreUtilisateur1 = mapUtilisateurOrdre.get(o1.getIdUtilisateur());
+					Integer ordreUtilisateur2 = mapUtilisateurOrdre.get(o2.getIdUtilisateur());
+					if(ordreUtilisateur1 == null && ordreUtilisateur2 != null){
+						//Cas ou l'utilisateur 1 n'a pas d'ordre contrairement au 2, il passe avant 
+						return - 1;
+					} else if(ordreUtilisateur1 != null && ordreUtilisateur2 == null){
+						//Cas ou l'utilisateur 1 a un ordre mais pas le 2, il passe apres 
+						return 1;
+					} else if (ordreUtilisateur1 != null && ordreUtilisateur2 != null){
+						//Cas ou les 2 ont un ordre, on conserve l'ordre
+						return ordreUtilisateur1.compareTo(ordreUtilisateur2);
+					} else {
+						//Cas ou aucun utilisateur n'est present dans les anciens tours, tri alpha
+						return o1.getNom().compareToIgnoreCase(o2.getNom());
+					}
+				}
+			});
 			//Determination de la date a partir de laquelle generer les nouveaux tours
 			Date dateDepart = DateUtils.getCurrentDayDate();
 			if(CollectionUtils.isNotEmpty(toursExistantsEnCours)){
