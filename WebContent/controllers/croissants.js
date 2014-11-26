@@ -47,10 +47,17 @@ function CroissantsTemplateCtrl($scope, $http, $location, $route) {
 	$scope.utilisateur = null;
 
 	$scope.init = function() {
+		//On verifie que le cookie contenant l'i utilisateur est toujours valide
+		if(isNull(getUtilisateurFromCookies())) {
+			console.log("Aucune cookie pour l'utilisateur, redirection vers la page de login")
+			window.location.href = "/croissants/views/guest.html#/loginView";
+		}
+		
 		//Recuperation de l'utilisateur en session
 		$http.get("/croissants/rest/utilisateurService/getUtilisateurSession")
 		.success(function(data) {
 			$scope.utilisateur = extractObjectFromData(data);
+			console.log($scope.utilisateur);
 		})
 		.error(function(data, status, headers, config) {
 			window.location.href = "/croissants/views/guest.html#/loginView";
@@ -62,6 +69,7 @@ function CroissantsTemplateCtrl($scope, $http, $location, $route) {
 	$scope.seDeconnecter = function() {
 		$http.post('/croissants/rest/utilisateurService/seDeconnecter' ).
 		  success(function(data, status, headers, config) {
+			  eraseUtilisateurFromCookies();
 			  window.location.href = "/croissants/views/guest.html#/loginView";
 		  }).
 		  error(function(data, status, headers, config) {

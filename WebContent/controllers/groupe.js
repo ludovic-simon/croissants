@@ -5,13 +5,27 @@ function GroupeViewCtrl($scope, $http, $location, $route) {
 
 	$scope.idGroupe = ($location.search()['idGroupe'] != null)? $location.search()['idGroupe'] : null;
 
-	$scope.groupe = new Object();
+	$scope.tours = new Object();
+	$scope.constitutionGroupe = new Object();
 	
-	 var loadGroupe = function(idGroupe) {
-			$http.get('/croissants/rest/cycleService/rechercherGroupeParId?idGroupe='+idGroupe).
-			  success(function(data, status, headers, config) {
-				  console.log(data);
-				  $scope.groupe=data;
+	 var loadConstitution = function(idUtilisateur, idGroupe) {
+			$http.get('/croissants/rest/cycleService/rechercherConstitutionGroupe?idUtilisateur=' + idUtilisateur + '&idGroupe='+idGroupe).
+			  success(function(data, status, headers, config) {				 
+				  $scope.constitutionGroupe = data;
+				  console.log("Constitution groupe : ");
+				  console.log( $scope.constitutionGroupe);
+			  }).
+			  error(function(data, status, headers, config) {
+				  handleError(data, status, headers, config);
+			  });
+	};
+	
+	 var loadCycleEnCours = function(idGroupe) {
+			$http.get('/croissants/rest/cycleService/rechercherCycleEnCours?idGroupe='+idGroupe).
+			  success(function(data, status, headers, config) {	
+				  console.log("Tours : ");
+				  $scope.tours = data;
+				  console.log($scope.tours);
 			  }).
 			  error(function(data, status, headers, config) {
 				  handleError(data, status, headers, config);
@@ -19,11 +33,15 @@ function GroupeViewCtrl($scope, $http, $location, $route) {
 	};
 	
 	$scope.init = function() {
+		//Chargement de la constitution groupe
+		var idUtilisateur = getUtilisateurFromCookies();
+		loadConstitution(idUtilisateur, $scope.idGroupe);
+		
+		//Chargement du cycle en cours
 		if(!isNull($scope.idGroupe)) {
-			loadGroupe($scope.idGroupe);
+			loadCycleEnCours($scope.idGroupe);
 		} else {
-			$scope.selectedOption = 0;
-			
+			alert("Error pas de groupe!");
 		} 
 	};
 

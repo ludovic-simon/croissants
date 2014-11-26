@@ -339,3 +339,7 @@ textarea {
 h2 {
 	font-size:20px;
 }
+
+.select-groupe {
+	cursor : pointer;
+}

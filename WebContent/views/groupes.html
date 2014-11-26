@@ -23,7 +23,7 @@
 
 				<tr ng-repeat='constitutionGroupe in constitutionsGroupe'>
 
-					<td ng-click="goToGroupe(constitutionGroupe.groupe.idGroupe)">{{constitutionGroupe.groupe.nom}}</td>
+					<td class="select-groupe" ng-click="goToGroupe(constitutionGroupe.groupe.idGroupe)">{{constitutionGroupe.groupe.nom}}</td>
 
 					<td style="text-align:center;"><input type="radio" name="defaultGroup"
 						value="{{constitutionGroupe.parDefaut}}" ng-click="setDefautGroupe(constitutionGroupe.idUtilisateur, constitutionGroupe.groupe.idGroupe)"></td>

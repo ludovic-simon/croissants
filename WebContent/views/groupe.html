@@ -2,21 +2,41 @@
 
 	<div class="bottom-space title-page">
 		<h1>
-			<i class="fa fa-user logo-titre"></i>Groupe {{groupe.nom}}
+			<i class="fa fa-user logo-titre"></i>Groupe {{constitutionGroupe.groupe.nom}}
 		</h1>
 	</div>
-	<div class="bottom-space panel panel-info" ng-show="groupe.message">
+	<div class="bottom-space panel panel-info" ng-show="constitutionGroupe.groupe.message">
 		 <div class="panel-body message-groupe">
-		 	<b>{{groupe.message}}</b>
+		 	<b>{{constitutionGroupe.groupe.message}}</b>
 		 </div>
 	</div>
 	
-	<div ng-show="!groupe.tours" >
-	
-	</div>
 	<h2>Cycle en cours</h2>
-	<div>Tableau..</div>
+	<div ng-hide="tours" class="bottom-space">
+		Aucun cycle trouvé.
+	</div>
 	
+	<div ng-show="tours">
+	
+	<div class="table-responsive">
+		<table class="table table-hover bottom-space">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody class="table-hover">
+				<tr ng-repeat="tour in tours">
+					<td>{{tour.nomTour}}</td>
+					<td>{{tour.dateTour | date : 'd MMM'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</div>
+	
+	<h2>Membres du groupe</h2>
 
 	
 	
