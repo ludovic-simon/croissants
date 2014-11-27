@@ -1,15 +1,19 @@
 /******************** BOOTSTRAP *******************/
-
+html, body {
+	margin: 0;
+	padding: 0;
+}
 
 body {
+	
 	padding-top: 50px;
 	font-family: 'Raleway', sans-serif;
-	min-height:300px;
 }
+
 
 .body-background-logo {
 	background-repeat:no-repeat;
-	background-position:bottom left;
+	background-position:10px 200px;
 }
 
 .guest-logo {
@@ -97,7 +101,7 @@ input[type="checkbox"] {
 /******************** PANEL *******************/
 
 .mainView {
-	height: 100%;
+	height:calc(100vh - 50px);
 	overflow: auto;
 	padding: 15px;
 }
@@ -243,7 +247,6 @@ input.dateTimeField {
 	border: 1px solid #B3B3B3;
 	border-radius: 5px;
 	padding: 5px 20px 5px 20px;	
-	width: 400px;
 }
 
 /***** UTIL *****/

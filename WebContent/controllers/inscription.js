@@ -24,6 +24,8 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 			  success(function(data, status, headers, config) {
 				   $scope.spinnerClass = '';
 				   $scope.inscriptionOk = true;
+				   showActionFeedback("Utilisateur créé.");
+				   window.location.href = "/croissants/views/guest.html#/loginView";
 			  }).
 			  error(function(data, status, headers, config) {
 				  $scope.spinnerClass = '';

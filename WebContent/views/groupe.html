@@ -2,7 +2,7 @@
 
 	<div class="bottom-space title-page">
 		<h1>
-			<i class="fa fa-user logo-titre"></i>Groupe {{constitutionGroupe.groupe.nom}}
+			<i class="fa fa-user logo-titre"></i>{{constitutionGroupe.groupe.nom}}
 		</h1>
 	</div>
 	<div class="bottom-space panel panel-info" ng-show="constitutionGroupe.groupe.message">
@@ -11,33 +11,68 @@
 		 </div>
 	</div>
 	
-	<h2>Cycle en cours</h2>
+	<h2>Cycle en cours<button ng-click="calculerCycle(constitutionGroupe.idGroupe)" class="btn btn-primary btn-sm" style="margin-left:10px;" ng-show="constitutionGroupe.admin"><i class="fa fa-refresh"></i></button></h2>
+	
+	
 	<div ng-hide="tours" class="bottom-space">
 		Aucun cycle trouvé.
 	</div>
 	
 	<div ng-show="tours">
 	
-	<div class="table-responsive">
-		<table class="table table-hover bottom-space">
-			<thead>
-				<tr>
-					<th>Nom</th>
-					<th>Date</th>
-				</tr>
-			</thead>
-			<tbody class="table-hover">
-				<tr ng-repeat="tour in tours">
-					<td>{{tour.nomTour}}</td>
-					<td>{{tour.dateTour | date : 'd MMM'}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+		<div class="table-responsive">
+			<table class="table table-hover bottom-space">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Date</th>
+						<th ng-show="constitutionGroupe.admin"  style="text-align:right;">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-hover">
+					<tr ng-repeat="tour in tours">
+						<td>{{tour.nomTour}}</td>
+						<td>{{tour.dateTour | date : 'd MMM'}}</td>
+						<td ng-show="constitutionGroupe.admin" style="text-align:right;width:100px;">
+							<div>
+								<button ng-click="descendreTour(tour)" class="btn btn-primary btn-xs"><i class="fa fa-arrow-up"></i></button>
+								<button ng-click="monterTour(tour)" class="btn btn-primary btn-xs"><i class="fa fa-arrow-down"></i></button>
+								<button ng-click="annulerTour(tour)" class="btn btn-warning btn-xs"><i class="fa fa-times"></i></button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	
-	<h2>Membres du groupe</h2>
-
+	
+	<div ng-show="constitutionGroupe.admin">
+	
+	
+		<h2>Membres du groupe</h2>
+		<!-- Ne peut normalement être vide ? -->
+		<div class="table-responsive">
+			<table class="table table-hover bottom-space">
+				<thead>
+					<tr>
+						<th style="width: 80%;">Nom</th>
+						<th style="text-align:center;">Admin</th>
+					</tr>
+				</thead>
+				<tbody class="table-hover">
+					<tr ng-repeat="constit in constitutionsGroupe">
+						<td>{{constit.utilisateur.nom}}</td>
+						<td>
+							<input type="checkbox" ng-model="constit.admin" ng-change="setAdministrateur(constit)"/>
+							
+						</td>
+					</tr>
+				</tbody>
+		
+			</table>
+		</div>
+	</div>
 	
 	
 </div>

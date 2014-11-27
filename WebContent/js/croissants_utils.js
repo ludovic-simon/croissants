@@ -223,14 +223,14 @@ function showWarning(dialogTitle, message, okFunction, functionArgs){
 
 function showActionFeedback(actionMessage){
 	var dialogId = getNewUid();
-	$("body").append("<div id=\"sdevActionFeedbackBox" + dialogId + "\" class=\"sdevActionFeedbackBox\">" + actionMessage + "</div>");
+	$("body").append("<span id=\"sdevActionFeedbackBox" + dialogId + "\" class=\"sdevActionFeedbackBox\">" + actionMessage + "</span>");
 	$("#sdevActionFeedbackBox" + dialogId).position({
         of: window,
         my: "right bottom",
         at: "right bottom"
       });
 	$("#sdevActionFeedbackBox" + dialogId).effect(
-			"fade", null, 2000,
+			"fade", null, 20000,
 			function(){$(this).remove();}
 	);
 }

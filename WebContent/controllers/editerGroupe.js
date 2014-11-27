@@ -56,6 +56,8 @@ function EditerGroupeViewCtrl($scope, $http, $location, $route) {
 			  success(function(data, status, headers, config) {
 				  console.log(data);
 				  $scope.spinnerClass = '';
+				  showActionFeedback("Groupe créé.");
+				  window.location.href = "/croissants/views/croissants.html#/groupesView";
 			  }).
 			  error(function(data, status, headers, config) {
 				  $scope.spinnerClass = '';

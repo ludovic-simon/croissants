@@ -20,7 +20,8 @@ function RejoindreGroupeViewCtrl($scope, $http, $location, $route) {
 			  success(function(data, status, headers, config) {
 				  console.log(data);
 				  $scope.spinnerClass = '';
-				  alert('Vous avez bien rejoint le groupe!');
+				  showActionFeedback("Le groupe a bien été rejoint !");
+				  window.location.href = "/croissants/views/croissants.html#/groupesView";
 			  }).
 			  error(function(data, status, headers, config) {
 				  $scope.spinnerClass = '';
