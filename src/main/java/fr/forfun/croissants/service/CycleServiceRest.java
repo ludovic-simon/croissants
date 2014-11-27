@@ -110,7 +110,7 @@ public class CycleServiceRest {
 		cycleService.supprimerGroupe(idUtilisateur, idGroupe);
 	}
 	
-	@GET
+	@POST
 	@Path("calculerProchainCycle")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public String calculerProchainCycle(@QueryParam("idGroupe") Long idGroupe){

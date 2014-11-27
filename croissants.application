@@ -2720,7 +2720,7 @@
             </query>
           </instructions>
         </methods>
-        <methods xsi:type="app:ServiceMethod" name="calculerProchainCycle" description="Calcule les tours du groupe pour que le cycle en cours comporte une fois chaque utilisateur" visibility="PUBLIC" annotations="" returnDescription="L'action effectuee lors du calcul du cycle" callTemplate="" uri="calculerProchainCycle" httpMethodType="GET">
+        <methods xsi:type="app:ServiceMethod" name="calculerProchainCycle" description="Calcule les tours du groupe pour que le cycle en cours comporte une fois chaque utilisateur" visibility="PUBLIC" annotations="" returnDescription="L'action effectuee lors du calcul du cycle" callTemplate="" uri="calculerProchainCycle" httpMethodType="POST">
           <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.5"/>
           <params name="idGroupe" description="L'identifiant du groupe pour lequel calculer le cycle" variableScope="LOCAL">
             <dataType appClassRef="//@modules.0/@layers.0/@simpleTypes.6"/>
@@ -4165,7 +4165,7 @@
       </views>
     </layers>
   </modules>
-  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-27T18:51:34.210+0100"/>
+  <modelMonitorings modelElement="//@modules.1" dateCreateModel="2014-11-10T16:53:37.516+0100" dateUpdateModel="2014-11-27T19:14:47.006+0100"/>
   <modelMonitorings modelElement="//@configuration" isGenerated="true" dateCreateModel="2014-11-10T16:53:44.400+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100" dateLastGenerate="2014-11-10T18:02:17.133+0100"/>
   <modelMonitorings modelElement="//@configuration/@dataSources.0" dateCreateModel="2014-11-10T16:54:44.779+0100" dateUpdateModel="2014-11-10T16:54:44.779+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0" dateCreateModel="2014-11-10T16:54:52.094+0100" dateUpdateModel="2014-11-25T10:10:09.833+0100"/>
@@ -4175,7 +4175,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.2" dateCreateModel="2014-11-10T16:57:04.771+0100" dateUpdateModel="2014-11-17T11:25:57.021+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.3" dateCreateModel="2014-11-10T16:57:16.206+0100" dateUpdateModel="2014-11-21T17:11:20.025+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.0/@properties.4" dateCreateModel="2014-11-10T16:57:46.445+0100" dateUpdateModel="2014-11-10T17:37:44.613+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-27T18:51:34.210+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1" dateCreateModel="2014-11-10T17:31:28.236+0100" dateUpdateModel="2014-11-27T19:14:47.006+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0" isGenerated="true" dateCreateModel="2014-11-10T17:32:19.454+0100" dateUpdateModel="2014-11-24T16:42:45.186+0100" dateLastGenerate="2014-11-24T17:42:29.997+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1" dateCreateModel="2014-11-10T17:34:19.244+0100" dateUpdateModel="2014-11-18T17:42:20.409+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.0/@methods.1/@instructions.1" dateCreateModel="2014-11-10T17:36:08.849+0100" dateUpdateModel="2014-11-18T15:47:14.206+0100"/>
@@ -4258,7 +4258,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.3" dateCreateModel="2014-11-18T17:53:26.745+0100" dateUpdateModel="2014-11-18T17:53:26.745+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.4" dateCreateModel="2014-11-18T17:53:47.682+0100" dateUpdateModel="2014-11-18T17:59:47.899+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.6" dateCreateModel="2014-11-18T17:54:38.360+0100" dateUpdateModel="2014-11-19T11:07:31.545+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-27T18:51:34.210+0100" dateLastGenerate="2014-11-27T18:51:38.096+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1" isGenerated="true" dateCreateModel="2014-11-19T09:31:30.319+0100" dateUpdateModel="2014-11-27T19:14:47.006+0100" dateLastGenerate="2014-11-27T18:51:38.096+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.3" dateCreateModel="2014-11-19T09:33:45.405+0100" dateUpdateModel="2014-11-26T14:09:44.861+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.2/@properties.7" dateCreateModel="2014-11-19T09:34:07.393+0100" dateUpdateModel="2014-11-19T09:34:18.303+0100"/>
   <modelMonitorings dateCreateModel="2014-11-19T09:35:51.458+0100" dateUpdateModel="2014-11-19T10:29:10.617+0100"/>
@@ -4399,7 +4399,7 @@
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.5/@instructions.2/@instructions.0" dateCreateModel="2014-11-24T17:48:31.033+0100" dateUpdateModel="2014-11-24T17:48:31.033+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.5/@instructions.2/@instructions.1" dateCreateModel="2014-11-24T17:48:42.865+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.5/@instructions.2/@instructions.1/@instructions.0" dateCreateModel="2014-11-24T17:49:03.896+0100" dateUpdateModel="2014-11-24T17:49:27.090+0100"/>
-  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.11" dateCreateModel="2014-11-24T18:03:43.975+0100" dateUpdateModel="2014-11-27T18:51:34.210+0100"/>
+  <modelMonitorings modelElement="//@modules.1/@layers.1/@services.1/@methods.11" dateCreateModel="2014-11-24T18:03:43.975+0100" dateUpdateModel="2014-11-27T19:14:47.006+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.3" isGenerated="true" dateCreateModel="2014-11-24T18:04:49.570+0100" dateUpdateModel="2014-11-24T18:13:25.646+0100" dateLastGenerate="2014-11-25T14:32:12.559+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.3/@properties.0" dateCreateModel="2014-11-24T18:05:12.155+0100" dateUpdateModel="2014-11-24T18:05:12.155+0100"/>
   <modelMonitorings modelElement="//@modules.1/@layers.0/@entities.3/@properties.3" dateCreateModel="2014-11-24T18:09:07.171+0100" dateUpdateModel="2014-11-24T18:09:07.171+0100"/>
