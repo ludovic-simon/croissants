@@ -465,8 +465,10 @@ public class CycleService {
 	/**
 	 * Calcule les tours du groupe pour que le cycle en cours comporte une fois chaque utilisateur
 	 * @param idGroupe	L'identifiant du groupe pour lequel calculer le cycle
+	 * 
+	 * @return L'action effectuee lors du calcul du cycle
 	 */
-	public void calculerProchainCycle(Long idGroupe) {
+	public String calculerProchainCycle(Long idGroupe) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -495,7 +497,7 @@ public class CycleService {
 			List<Utilisateur> utilisateursDuGroupe = utilisateurIteQuery.getResultList();
 			//Cas ou il n'y a pas d'utilisateur dans le groupe, il n'y a aucun cycle a generer
 			if(CollectionUtils.isEmpty(utilisateursDuGroupe)){
-				return;
+				return "Il n'y a pas d'utilisateur dans ce groupe donc aucun cycle a generer";
 			}
 			int nbUtilisateurs = utilisateursDuGroupe.size();
 			//Recuperation des derniers tours pour le groupe, recupere autant de tour que d'utilisateurs
@@ -542,7 +544,7 @@ public class CycleService {
 			}
 			//Cas ou il n'y a pas d'utilisateurs sans tour, le cycle est deja calcule
 			if(CollectionUtils.isEmpty(utilisateursSansTours)){
-				return;
+				return "il n'y a pas d'utilisateur sans tour, le cycle est a jour";
 			}
 			//Tri des utilisateurs avec d'abord ceux qui n'ont pas de tour par ordre alphab�tique puis ceux qui
 			//ont un tour par ordre du tour
@@ -576,6 +578,8 @@ public class CycleService {
 			Groupe groupe = em.find(Groupe.class, idGroupe);
 			dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
 			//Creation des tours manquant a partir de la date de depart pour chaque utilisateur n'ayant pas de tour
+			String actionFeedback = "Creation des tours pour : ";
+			String prefixeNom = "";
 			if(utilisateursSansTours != null){
 				for(Utilisateur utilisateurSansTour : utilisateursSansTours) {
 					//Creation du tour pour l'utilisateur
@@ -587,8 +591,11 @@ public class CycleService {
 					nouveauTour.setStatutTour(StatutTour.ACTIF);
 					em.persist(nouveauTour);
 					dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
+					actionFeedback += prefixeNom + nouveauTour.getNomTour();
+					prefixeNom = ", ";
 				}
 			}
+			return actionFeedback;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
