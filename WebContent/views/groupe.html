@@ -11,7 +11,11 @@
 		 </div>
 	</div>
 	
-	<h2>Cycle en cours<button ng-click="calculerCycle(constitutionGroupe.idGroupe)" class="btn btn-primary btn-sm" style="margin-left:10px;" ng-show="constitutionGroupe.admin"><i class="fa fa-refresh"></i></button></h2>
+	<h2>Cycle en cours
+		<button ng-click="calculerCycle(constitutionGroupe.idGroupe)" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Générer le cycle en cours" style="margin-left:10px;" ng-show="constitutionGroupe.admin">
+			<i class="fa fa-refresh"></i>
+		</button>
+	</h2>
 	
 	
 	<div ng-hide="tours" class="bottom-space">
@@ -35,9 +39,12 @@
 						<td>{{tour.dateTour | date : 'd MMM'}}</td>
 						<td ng-show="constitutionGroupe.admin" style="text-align:right;width:100px;">
 							<div>
-								<button ng-click="descendreTour(tour)" class="btn btn-primary btn-xs"><i class="fa fa-arrow-up"></i></button>
-								<button ng-click="monterTour(tour)" class="btn btn-primary btn-xs"><i class="fa fa-arrow-down"></i></button>
-								<button ng-click="annulerTour(tour)" class="btn btn-warning btn-xs"><i class="fa fa-times"></i></button>
+								<button ng-class="$first ? 'disabled' : ''"  ng-click="monterTour(tour)"  title="Permuter avec {{tours[$index - 1 ].nomTour}} !" 
+								data-toggle="tooltip" data-placement="top" class="btn btn-primary btn-xs"><i class="fa fa-arrow-up"></i></button>
+								<button ng-class="$last ? 'disabled' : ''"  ng-click="descendreTour(tour)"  title="Permuter avec {{tours[$index + 1 ].nomTour}} !" 
+								data-toggle="tooltip" data-placement="top" class="btn btn-primary btn-xs"><i class="fa fa-arrow-down"></i></button>
+								<button ng-click="annulerTour(tour)" title="Annuler le tour du {{tour.dateTour | date : 'd MMM'}}" 
+								 data-toggle="tooltip" data-placement="top" class="btn btn-warning btn-xs"><i class="fa fa-times"></i></button>
 							</div>
 						</td>
 					</tr>

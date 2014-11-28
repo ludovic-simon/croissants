@@ -1,7 +1,7 @@
 var groupeViewController = angular.module('groupeViewController', []);
  
-groupeViewController.controller('GroupeViewCtrl', ['$scope', '$http', '$location', '$route',
-function GroupeViewCtrl($scope, $http, $location, $route) {
+groupeViewController.controller('GroupeViewCtrl', ['$scope', '$http', '$location', '$route', '$timeout',
+function GroupeViewCtrl($scope, $http, $location, $route,  $timeout) {
 
 	$scope.idGroupe = ($location.search()['idGroupe'] != null)? $location.search()['idGroupe'] : null;
 
@@ -41,6 +41,10 @@ function GroupeViewCtrl($scope, $http, $location, $route) {
 			  success(function(data, status, headers, config) {	
 				  console.log("Tours : ");
 				  $scope.tours = data;
+				  $timeout(function(){
+					  $('[data-toggle="tooltip"]').tooltip();
+				  });
+				  
 				  console.log($scope.tours);
 			  }).
 			  error(function(data, status, headers, config) {
@@ -49,6 +53,7 @@ function GroupeViewCtrl($scope, $http, $location, $route) {
 	};
 	
 	$scope.init = function() {
+		
 		//Chargement de la constitution groupe pour  l'utilisateur courant
 		var idUtilisateur = getUtilisateurFromCookies();
 		loadConstitutionUtilisateurCourant(idUtilisateur, $scope.idGroupe);

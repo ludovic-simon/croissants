@@ -81,9 +81,6 @@ input[type="file"] {
 	border: none;
 }
 
-input[type="checkbox"] {
-	height: 30px;
-}
 
 .searchBar {
 	border-bottom: 1px solid #EEEEEE;
@@ -118,9 +115,6 @@ input[type="checkbox"] {
 
 
 /******************** FORMULAIRE *******************/
-
-.formGrid {
-}
 
 .formGrid tr:hover {
 	background-color: #D1D4D7;

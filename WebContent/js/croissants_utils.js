@@ -230,7 +230,7 @@ function showActionFeedback(actionMessage){
         at: "right bottom"
       });
 	$("#sdevActionFeedbackBox" + dialogId).effect(
-			"fade", null, 20000,
+			"fade", null, 4000,
 			function(){$(this).remove();}
 	);
 }
