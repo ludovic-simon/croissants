@@ -14,10 +14,22 @@ public class DateUtils {
 	 * @return	la date du jour sans heure
 	 */
 	public static Date getCurrentDayDate(){
-		Date now = new Date();
-		return parseDate(formatDate(now, DEFAULT_PATTERN), DEFAULT_PATTERN);
+		return getDateWithoutTime(new Date());
 	}
 	
+	/**
+	 * @param inputDate
+	 * @return	la date sans heure
+	 */
+	public static Date getDateWithoutTime(Date inputDate){
+		return parseDate(formatDate(inputDate, DEFAULT_PATTERN), DEFAULT_PATTERN);
+	}
+	
+	/**
+	 * @param date
+	 * @param pattern
+	 * @return	la date formatte au pattern ou dd/MM/yyyy par defaut
+	 */
 	public static String formatDate(Date date, String pattern){
 		if(pattern == null){
 			pattern = DEFAULT_PATTERN;
@@ -26,6 +38,11 @@ public class DateUtils {
 		return sdf.format(date);
 	}
 	
+	/**
+	 * @param dateString
+	 * @param pattern		pattern de la chaine ou dd/MM/yyyy par defaut
+	 * @return	la date pour la chaine
+	 */
 	public static Date parseDate(String dateString, String pattern){
 		if(pattern == null){
 			pattern = DEFAULT_PATTERN;

@@ -128,4 +128,13 @@ public class CycleServiceRest {
 		return res;
 	}
 	
+	@POST
+	@Path("annulerTour")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public Tour annulerTour(@QueryParam("idTour") Long idTour, @QueryParam("messageAnnulation") String messageAnnulation){
+		Tour res = cycleService.annulerTour(idTour, messageAnnulation);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
 }

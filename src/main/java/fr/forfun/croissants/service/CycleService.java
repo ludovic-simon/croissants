@@ -572,7 +572,7 @@ public class CycleService {
 			//Determination de la date a partir de laquelle generer les nouveaux tours
 			Date dateDepart = DateUtils.getCurrentDayDate();
 			if(CollectionUtils.isNotEmpty(toursExistantsEnCours)){
-				Tour dernierTourExistant = toursExistantsEnCours.get(0);
+				Tour dernierTourExistant = toursExistantsEnCours.get(toursExistantsEnCours.size() - 1);
 				dateDepart = dernierTourExistant.getDateTour();
 			}
 			Groupe groupe = em.find(Groupe.class, idGroupe);
@@ -591,7 +591,7 @@ public class CycleService {
 					nouveauTour.setStatutTour(StatutTour.ACTIF);
 					em.persist(nouveauTour);
 					dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
-					actionFeedback += prefixeNom + nouveauTour.getNomTour();
+					actionFeedback += prefixeNom + nouveauTour.getNomTour() + " (" + DateUtils.formatDate(nouveauTour.getDateTour(), null) + ")";
 					prefixeNom = ", ";
 				}
 			}
@@ -628,7 +628,7 @@ public class CycleService {
 			List<Predicate> tourPredicates = new ArrayList<Predicate>();
 			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), idGroupe));
 			if(dateJour != null){
-				tourPredicates.add(qb.greaterThan(tourIte.get(Tour_.dateTour), dateJour));
+				tourPredicates.add(qb.greaterThanOrEqualTo(tourIte.get(Tour_.dateTour), dateJour));
 			}
 			if(tourPredicates.size() > 0){
 				tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
@@ -641,6 +641,62 @@ public class CycleService {
 			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
 			List<Tour> tours = tourIteQuery.getResultList();
 			return tours;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet d'annuler un tour en creant un tour vide et en decalant les suivants
+	 * @param idTour	Identifiant du tour a annuler
+	 * @param messageAnnulation	Le message affiche pour ce tour d'annulation
+	 * 
+	 * @return Le tour d'annulation
+	 */
+	public Tour annulerTour(Long idTour, String messageAnnulation) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controle des donnees et determination de la date du tour
+			Tour tour = controleTourExistant(idTour);
+			Date dateAnnulation = DateUtils.getDateWithoutTime(tour.getDateTour());
+			Groupe groupe = controleGroupeExistant(tour.getIdGroupe(), false);
+			//Decalage des tours a partir de cette date
+			//Recuperation des tours du groupe ayant lieu apres la date d'annulation
+			CriteriaQuery<Tour> tourIteCriteriaQuery = qb.createQuery(Tour.class);
+			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
+			List<Predicate> tourPredicates = new ArrayList<Predicate>();
+			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), groupe.getIdGroupe()));
+			tourPredicates.add(qb.greaterThanOrEqualTo(tourIte.get(Tour_.dateTour), dateAnnulation));
+			if(tourPredicates.size() > 0){
+				tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
+			}
+			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
+			List<Tour> toursAReporter = tourIteQuery.getResultList();
+			if(toursAReporter != null){
+				for(Tour tourAReporter : toursAReporter) {
+					Date dateSuivante = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), tourAReporter.getDateTour(), false);
+					tourAReporter.setDateTour(dateSuivante);
+					tourAReporter = em.merge(tourAReporter);
+				}
+			}
+			//Creation du tour d'annulation pour la date du tour indique
+			Tour tourAnnulation = new Tour();
+			tourAnnulation.setIdGroupe(groupe.getIdGroupe());
+			tourAnnulation.setNomTour(messageAnnulation);
+			tourAnnulation.setDateTour(dateAnnulation);
+			tourAnnulation.setStatutTour(StatutTour.ANNULE);
+			em.persist(tourAnnulation);
+			return tourAnnulation;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -764,6 +820,39 @@ public class CycleService {
 				throw new BusinessException("Aucune constitution de groupe pour l'utilisateur " + idUtilisateur + " et le groupe " + idGroupe);
 			}
 			return constitutionGroupe;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Controle que le tour existe
+	 * @param idTour	Identifiant du tour
+	 * 
+	 * @return Le tour existant
+	 */
+	protected Tour controleTourExistant(Long idTour) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			//L'identifiant du tour est obligatoire
+			if(idTour == null){
+				throw new BusinessException("L'identifiant du tour est obligatoire");
+			}
+			Tour tour = em.find(Tour.class, idTour);
+			//Aucun tour pour cet id
+			if(tour == null){
+				throw new BusinessException("Aucun tour pour cet identifiant");
+			}
+			return tour;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;

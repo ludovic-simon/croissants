@@ -7,7 +7,11 @@ public class CycleServiceTest {
 	public static void main(String[] args) {
 		System.out.println("DEBUT CycleServiceTest");
 		CycleService cycleService = CroissantsTestFactory.createCycleService();
-		cycleService.calculerProchainCycle(4L);
+		
+//		System.out.println(cycleService.calculerProchainCycle(4L));
+		
+		cycleService.annulerTour(66L, "Message annulation");
+		
 		System.out.println("FIN CycleServiceTest");
 	}
 	
