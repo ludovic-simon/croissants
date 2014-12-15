@@ -10,7 +10,9 @@ public class CycleServiceTest {
 		
 //		System.out.println(cycleService.calculerProchainCycle(4L));
 		
-		cycleService.annulerTour(66L, "Message annulation");
+//		cycleService.annulerTour(66L, "Message annulation");
+		
+		cycleService.deplacerTour(79L, 78L);
 		
 		System.out.println("FIN CycleServiceTest");
 	}

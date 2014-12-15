@@ -113,9 +113,7 @@ public class CycleService {
 			Root<ConstitutionGroupe> constitutionGroupeTable = constitutionGroupeTableCriteriaQuery.from(ConstitutionGroupe.class);
 			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
 			constitutionGroupePredicates.add(qb.equal(constitutionGroupeTable.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
-			if(constitutionGroupePredicates.size() > 0){
-				constitutionGroupeTableCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
-			}
+			constitutionGroupeTableCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
 			TypedQuery<ConstitutionGroupe> constitutionGroupeTableQuery = em.createQuery(constitutionGroupeTableCriteriaQuery);
 			List<ConstitutionGroupe> constitutionsGroupes = constitutionGroupeTableQuery.getResultList();
 			return constitutionsGroupes;
@@ -355,9 +353,7 @@ public class CycleService {
 			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
 			constitutionGroupePredicates.add(qb.equal(constitutionGroupeTable.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
 			constitutionGroupePredicates.add(qb.equal(constitutionGroupeTable.get(ConstitutionGroupe_.idGroupe), idGroupe));
-			if(constitutionGroupePredicates.size() > 0){
-				constitutionGroupeTableCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
-			}
+			constitutionGroupeTableCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
 			TypedQuery<ConstitutionGroupe> constitutionGroupeTableQuery = em.createQuery(constitutionGroupeTableCriteriaQuery);
 			List<ConstitutionGroupe> constitutionsGroupes = constitutionGroupeTableQuery.getResultList();
 			//Cas ou l'utilisateur ne fait pas partie du groupe
@@ -485,14 +481,10 @@ public class CycleService {
 			ListJoin<Utilisateur, ConstitutionGroupe> constitutionGroupeJoin = utilisateurIte.join(Utilisateur_.constitutionGroupes); 
 			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
 			utilisateurPredicates.add(qb.equal(constitutionGroupeJoin.get(ConstitutionGroupe_.idGroupe), idGroupe));
-			if(utilisateurPredicates.size() > 0){
-				utilisateurIteCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
-			}
+			utilisateurIteCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
 			List<Order> utilisateurIteOrderBy = new ArrayList<Order>();
 			utilisateurIteOrderBy.add(qb.asc(utilisateurIte.get(Utilisateur_.nom)));
-			if(utilisateurIteOrderBy.size() > 0){
-				utilisateurIteCriteriaQuery.orderBy(utilisateurIteOrderBy);
-			}
+			utilisateurIteCriteriaQuery.orderBy(utilisateurIteOrderBy);
 			TypedQuery<Utilisateur> utilisateurIteQuery = em.createQuery(utilisateurIteCriteriaQuery);
 			List<Utilisateur> utilisateursDuGroupe = utilisateurIteQuery.getResultList();
 			//Cas ou il n'y a pas d'utilisateur dans le groupe, il n'y a aucun cycle a generer
@@ -505,14 +497,10 @@ public class CycleService {
 			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
 			List<Predicate> tourPredicates = new ArrayList<Predicate>();
 			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), idGroupe));
-			if(tourPredicates.size() > 0){
-				tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
-			}
+			tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
 			List<Order> tourIteOrderBy = new ArrayList<Order>();
 			tourIteOrderBy.add(qb.desc(tourIte.get(Tour_.dateTour)));
-			if(tourIteOrderBy.size() > 0){
-				tourIteCriteriaQuery.orderBy(tourIteOrderBy);
-			}
+			tourIteCriteriaQuery.orderBy(tourIteOrderBy);
 			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
 			tourIteQuery.setMaxResults(nbUtilisateurs);
 			List<Tour> derniersTours = tourIteQuery.getResultList();
@@ -635,9 +623,7 @@ public class CycleService {
 			}
 			List<Order> tourIteOrderBy = new ArrayList<Order>();
 			tourIteOrderBy.add(qb.asc(tourIte.get(Tour_.dateTour)));
-			if(tourIteOrderBy.size() > 0){
-				tourIteCriteriaQuery.orderBy(tourIteOrderBy);
-			}
+			tourIteCriteriaQuery.orderBy(tourIteOrderBy);
 			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
 			List<Tour> tours = tourIteQuery.getResultList();
 			return tours;
@@ -656,9 +642,9 @@ public class CycleService {
 	 * @param idTour	Identifiant du tour a annuler
 	 * @param messageAnnulation	Le message affiche pour ce tour d'annulation
 	 * 
-	 * @return Le tour d'annulation
+	 * @return Les tours courant du groupe apres l'annulation
 	 */
-	public Tour annulerTour(Long idTour, String messageAnnulation) {
+	public List<Tour> annulerTour(Long idTour, String messageAnnulation) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -677,9 +663,7 @@ public class CycleService {
 			List<Predicate> tourPredicates = new ArrayList<Predicate>();
 			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), groupe.getIdGroupe()));
 			tourPredicates.add(qb.greaterThanOrEqualTo(tourIte.get(Tour_.dateTour), dateAnnulation));
-			if(tourPredicates.size() > 0){
-				tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
-			}
+			tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
 			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
 			List<Tour> toursAReporter = tourIteQuery.getResultList();
 			if(toursAReporter != null){
@@ -696,7 +680,152 @@ public class CycleService {
 			tourAnnulation.setDateTour(dateAnnulation);
 			tourAnnulation.setStatutTour(StatutTour.ANNULE);
 			em.persist(tourAnnulation);
-			return tourAnnulation;
+			List<Tour> cycleEnCours = rechercherCycleEnCours(groupe.getIdGroupe());
+			return cycleEnCours;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet de deplacer / permuter un tour avec un autre
+	 * @param idTourSource	Le tour deplace
+	 * @param idTourCible	Le tour qui se fait remplace par le tour source
+	 * 
+	 * @return Le cycle en cours pour le groupe apres le deplacement du tour
+	 */
+	public List<Tour> deplacerTour(Long idTourSource, Long idTourCible) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controles des parametres et recuperation des tours
+			Tour tourSource = controleTourExistant(idTourSource);
+			Tour tourCible = controleTourExistant(idTourCible);
+			//Determination de l'intervalle de date des tours concernes par le mouvement
+			Date dateDebut = tourCible.getDateTour();
+			Date dateFin = tourSource.getDateTour();
+			boolean tourSourceApres = tourSource.getDateTour().after(tourCible.getDateTour());
+			if(!tourSourceApres){
+				dateDebut = tourSource.getDateTour();
+				dateFin = tourCible.getDateTour();
+			}
+			//Recuperation des tours entre les tours source et cible inclus
+			CriteriaQuery<Tour> tourIteCriteriaQuery = qb.createQuery(Tour.class);
+			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
+			List<Predicate> tourPredicates = new ArrayList<Predicate>();
+			tourPredicates.add(qb.greaterThanOrEqualTo(tourIte.get(Tour_.dateTour), dateDebut));
+			tourPredicates.add(qb.lessThanOrEqualTo(tourIte.get(Tour_.dateTour), dateFin));
+			tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
+			List<Order> tourIteOrderBy = new ArrayList<Order>();
+			tourIteOrderBy.add(qb.asc(tourIte.get(Tour_.dateTour)));
+			tourIteCriteriaQuery.orderBy(tourIteOrderBy);
+			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
+			List<Tour> toursDeplaces = tourIteQuery.getResultList();
+			//Determination des dates de tours pour reaffectation apres le changement d'ordre
+			List<Date> datesTours = new ArrayList<Date>();
+			if(toursDeplaces != null){
+				for(Tour tour : toursDeplaces) {
+					datesTours.add(tour.getDateTour());
+				}
+			}
+			//Deplacement des tours par changement d'index
+			int lastIndex = toursDeplaces.size() - 1;
+			if(tourSourceApres){
+				toursDeplaces.remove(lastIndex);
+				toursDeplaces.add(0, tourSource);
+			} else {
+				toursDeplaces.remove(0);
+				toursDeplaces.add(tourSource);
+			}
+			//Affectation des dates au tours deplaces et maj en base
+			int indexDate = 0;
+			if(toursDeplaces != null){
+				for(Tour tour : toursDeplaces) {
+					tour.setDateTour(datesTours.get(indexDate));
+					tour = em.merge(tour);
+					indexDate++;
+				}
+			}
+			//Recherche du cycle pour le groupe
+			List<Tour> cycleEnCours = rechercherCycleEnCours(tourSource.getIdGroupe());
+			return cycleEnCours;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet d'inviter par email a un groupe
+	 * @param idGroupe	Identifiant du groupe
+	 * @param email	Email de la personne a inviter
+	 * @param idUtilisateurHote	Identifiant de l'utilisateur administrateur proposant l'invitation
+	 */
+	public void inviterAuGroupe(Long idGroupe, String email, Long idUtilisateurHote) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controles
+			Utilisateur utilisateurHote = controleUtilisateurExistant(idUtilisateurHote, false);
+			//Controle du groupe
+			Groupe groupe = controleGroupeExistant(idGroupe, false);
+			//L'email est obligatoire
+			if(StringUtils.isEmpty(email)){
+				throw new BusinessException("L'email est obligatoire");
+			}
+			//Determine si le destinataire a deja un compte sur l'application
+			CriteriaQuery<Utilisateur> utilisateurIteCriteriaQuery = qb.createQuery(Utilisateur.class);
+			Root<Utilisateur> utilisateurIte = utilisateurIteCriteriaQuery.from(Utilisateur.class);
+			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
+			if(email != null){
+				utilisateurPredicates.add(qb.equal(utilisateurIte.get(Utilisateur_.email), email));
+			}
+			if(utilisateurPredicates.size() > 0){
+				utilisateurIteCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
+			}
+			TypedQuery<Utilisateur> utilisateurIteQuery = em.createQuery(utilisateurIteCriteriaQuery);
+			Utilisateur utilisateurDestinataire = AppUtils.first(utilisateurIteQuery.getResultList());
+			//Si l'utilisateur destinataire a deja un compte, on s'assure qu'il ne fait pas deja partie du groupe
+			if(utilisateurDestinataire != null){
+				ConstitutionGroupe constitutionGroupe = faitPartieGroupe(utilisateurDestinataire.getIdUtilisateur(), idGroupe);
+				if(constitutionGroupe != null){
+					throw new BusinessException("L'utilisateur " + utilisateurDestinataire.getNom() + " avec l'email " + utilisateurDestinataire.getEmail() + " fait deja partie du groupe " + groupe.getNom());
+				}
+			}
+			//Formation du message d'invitation au groupe
+			StringBuffer bf = new StringBuffer();
+			bf.append("Bonjour <br/><br/>, ");
+			bf.append(utilisateurHote.getNom() + " vous invite � rejoindre son groupe '" + groupe.getNom() + "' sur l'application Croissants.<br/>");
+			if(utilisateurDestinataire != null){
+				bf.append("Connectez-vous a l'application <a href='" + CycleUtils.getUrlLogin() + "'>" + CycleUtils.getUrlLogin() + "</a>.<br/>");
+			} else {
+				bf.append("Inscrivez-vous a l'application <a href='" + CycleUtils.getUrlInscription() + "'>" + CycleUtils.getUrlInscription() + "</a>.<br/>");
+			}
+			bf.append("Puis rejoignez le groupe avec les informations suivantes : <br/>");
+			bf.append("- jeton : " + groupe.getJeton() + "<br/>");
+			bf.append("- mot de passe : " + groupe.getMotDePasse() + "<br/><br/>");
+			bf.append("Bon appetit");
+			String corps = bf.toString();
+			//Envoi du mail d'invitation
+			String sujet = "Appli des croissants : Invitation au groupe '" + groupe.getNom() + "'";
+			CycleUtils.envoyerEmail(sujet, email, corps);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -853,6 +982,44 @@ public class CycleService {
 				throw new BusinessException("Aucun tour pour cet identifiant");
 			}
 			return tour;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Methode non bloquante pour savoir si un utilisateur fait partie d'un groupe
+	 * @param idUtilisateur	Identifiant de l'utilisateur
+	 * @param idGroupe	Identifiant du groupe
+	 * 
+	 * @return La constitution de groupe de l'utilisateur pour ce groupe
+	 */
+	protected ConstitutionGroupe faitPartieGroupe(Long idUtilisateur, Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			controleUtilisateurExistant(idUtilisateur, false);
+			controleGroupeExistant(idGroupe, false);
+			CriteriaQuery<ConstitutionGroupe> constitutionGroupeIteCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
+			Root<ConstitutionGroupe> constitutionGroupeIte = constitutionGroupeIteCriteriaQuery.from(ConstitutionGroupe.class);
+			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idGroupe), idGroupe));
+			if(constitutionGroupePredicates.size() > 0){
+				constitutionGroupeIteCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
+			}
+			TypedQuery<ConstitutionGroupe> constitutionGroupeIteQuery = em.createQuery(constitutionGroupeIteCriteriaQuery);
+			ConstitutionGroupe constitutionGroupe = AppUtils.first(constitutionGroupeIteQuery.getResultList());
+			return constitutionGroupe;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;

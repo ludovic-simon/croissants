@@ -4,12 +4,34 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
+import fr.forfun.croissants.core.TechnicalException;
+
 /**
  * Classe utilitaire pour le cycle
  */
 public class CycleUtils implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+
+	/** URL de base de l'application */
+	public static final String URL_APPLICATION = "http://www.lud007.jvmhost.net/croissants";
+	
+	public static final String EMAIL_FROM = "croissants@jvmhost.com";
+	
+	public static final String EMAIL_FROM_DISPLAY = "Application des croissants";
+	
+	public static final String EMAIL_JNDI_NAME = "mail/croissants";
 
 	{/* METHODES */}
 	
@@ -24,10 +46,10 @@ public class CycleUtils implements Serializable {
 		
 		//Conversion du jourOccurence en jour Calendar qui commence par dimanche (1), lundi(2) ... 
 		if(jourOccurence != null){
-			if(jourOccurence.intValue() == 7){
+			if(jourOccurence.intValue() == 6){
 				jourCibleCalendar = Calendar.SUNDAY;
 			} else {
-				jourCibleCalendar = jourOccurence.intValue() + 1;
+				jourCibleCalendar = jourOccurence.intValue() + 2;
 			}
 		}
 		
@@ -53,6 +75,48 @@ public class CycleUtils implements Serializable {
 		Date dateCible = calendarActuel.getTime();
 		
 		return dateCible;
+	}
+
+	/**
+	 * Permet d'envoyer un mail depuis le serveur
+	 * @param sujet	Sujet du mail
+	 * @param destinataire	Destinataire du mail
+	 * @param corps	Corps du mail
+	 */
+	public static void envoyerEmail(String sujet, String destinataire, String corps) {
+		Session session = null;
+		try {
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			session = (Session) envCtx.lookup(EMAIL_JNDI_NAME);
+			
+			Message message = new MimeMessage(session);
+			
+			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_DISPLAY));
+			
+			InternetAddress to[] = new InternetAddress[1];
+			to[0] = new InternetAddress(destinataire);
+			message.setRecipients(Message.RecipientType.TO, to);
+			message.setSubject(sujet);
+			message.setContent(corps, "text/html;charset=UTF-8");
+			Transport.send(message);
+		} catch (Exception ex) {
+			throw new TechnicalException(ex);
+		}
+	}
+
+	/**
+	 * @return L'URL de l'ecran de connexion
+	 */
+	public static String getUrlLogin() {
+		return URL_APPLICATION + "/views/guest.html#loginView";
+	}
+
+	/**
+	 * L'URL de l'ecran d'inscription
+	 */
+	public static String getUrlInscription() {
+		return URL_APPLICATION + "/views/guest.html#inscriptionView";
 	}
 
 }

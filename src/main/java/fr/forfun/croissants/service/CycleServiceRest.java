@@ -131,10 +131,26 @@ public class CycleServiceRest {
 	@POST
 	@Path("annulerTour")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Tour annulerTour(@QueryParam("idTour") Long idTour, @QueryParam("messageAnnulation") String messageAnnulation){
-		Tour res = cycleService.annulerTour(idTour, messageAnnulation);
+	public List<Tour> annulerTour(@QueryParam("idTour") Long idTour, @QueryParam("messageAnnulation") String messageAnnulation){
+		List<Tour> res = cycleService.annulerTour(idTour, messageAnnulation);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
+	}
+	
+	@POST
+	@Path("deplacerTour")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public List<Tour> deplacerTour(@QueryParam("idTourSource") Long idTourSource, @QueryParam("idTourCible") Long idTourCible){
+		List<Tour> res = cycleService.deplacerTour(idTourSource, idTourCible);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@POST
+	@Path("inviterAuGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void inviterAuGroupe(@QueryParam("idGroupe") Long idGroupe, @QueryParam("email") String email, @QueryParam("idUtilisateurHote") Long idUtilisateurHote){
+		cycleService.inviterAuGroupe(idGroupe, email, idUtilisateurHote);
 	}
 	
 }
