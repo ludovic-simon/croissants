@@ -2,13 +2,36 @@
 
 	<div class="bottom-space title-page">
 		<h1>
-			<i class="fa fa-user logo-titre"></i>{{constitutionGroupe.groupe.nom}}
+			<i class="fa fa-user logo-titre"></i>
+			<!--   "editable-text" ajoute ses class "à lui", donc le ng-class est overridé ici -->
+			<span ng-if="constitutionGroupe.admin" editable-text="constitutionGroupe.groupe.nom" onaftersave="updateGroupe()">
+				{{constitutionGroupe.groupe.nom}}
+			</span>
+			<span ng-if="!constitutionGroupe.admin">
+		 		<b>{{constitutionGroupe.groupe.nom}}</b>
+		 	</span>
 		</h1>
 	</div>
 	<div class="bottom-space panel panel-info" ng-show="constitutionGroupe.groupe.message">
 		 <div class="panel-body message-groupe">
-		 	<b>{{constitutionGroupe.groupe.message}}</b>
+		 	<span ng-if="constitutionGroupe.admin"  editable-textarea="constitutionGroupe.groupe.message" onaftersave="updateGroupe()" >
+		 		<b>{{constitutionGroupe.groupe.message}}</b> <!-- TODO Gérer les retours à lignes... -->
+		 	</span>
+		 	<span ng-if="!constitutionGroupe.admin">
+		 		<b>{{constitutionGroupe.groupe.message}}</b> <!-- TODO Gérer les retours à lignes... -->
+		 	</span>
 		 </div>
+	</div>
+
+	<div class="bottom-space">
+		Occurence : 
+		<!-- Désactivé car pour le moment on ne veut pas éditer le jour d'occurence.
+		<a ng-if="constitutionGroupe.admin" href="#" editable-select="jourCourant.id" e-ng-options="jour.id as jour.nom for jour in jours" onaftersave="updateGroupe()">
+		 {{ jourCourant.nom || 'not set' }} 
+		</a> -->
+		<span >
+			<b>{{ jours[constitutionGroupe.groupe.jourOccurence].nom }}</b>
+		</span>
 	</div>
 	
 	<h2>Cycle en cours
@@ -34,7 +57,7 @@
 					</tr>
 				</thead>
 				<tbody class="table-hover">
-					<tr ng-repeat="tour in tours">
+					<tr ng-repeat="tour in tours" ng-class="(tour.statutTour == 'ANNULE') ? 'danger' : ''">
 						<td>{{tour.nomTour}}</td>
 						<td>{{tour.dateTour | date : 'd MMM'}}</td>
 						<td ng-show="constitutionGroupe.admin" style="text-align:right;width:100px;">
@@ -43,7 +66,7 @@
 								data-toggle="tooltip" data-placement="top" class="btn btn-primary btn-xs"><i class="fa fa-arrow-up"></i></button>
 								<button ng-class="$last ? 'disabled' : ''"  ng-click="descendreTour(tour)"  title="Permuter avec {{tours[$index + 1 ].nomTour}} !" 
 								data-toggle="tooltip" data-placement="top" class="btn btn-primary btn-xs"><i class="fa fa-arrow-down"></i></button>
-								<button ng-click="annulerTour(tour)" title="Annuler le tour du {{tour.dateTour | date : 'd MMM'}}" 
+								<button ng-class="(tour.statutTour == 'ANNULE') ? 'disabled' : ''" ng-click="annulerTour(tour)" title="Annuler le tour du {{tour.dateTour | date : 'd MMM'}}" 
 								 data-toggle="tooltip" data-placement="top" class="btn btn-warning btn-xs"><i class="fa fa-times"></i></button>
 							</div>
 						</td>
@@ -79,6 +102,7 @@
 		
 			</table>
 		</div>
+		
 	</div>
 	
 	

@@ -2,6 +2,7 @@ var croissantsTemplateApp = angular.module('croissants',
 								 [ 'ngRoute',
                                    'ui.select2',
                                    'angular-jquery-ui',
+                                   'xeditable',
                                    'accueilViewController',
                                    'groupesViewController',
                                    'groupeViewController',
@@ -38,6 +39,12 @@ croissantsTemplateApp.config(['$routeProvider',
        redirectTo: '/accueilView'
      });
  }]);
+
+croissantsTemplateApp.run(function(editableOptions) {
+	  editableOptions.theme = 'bs3'; 
+	  editableOptions.mode = 'inline';
+});
+
  
  var croissantsTemplateController = angular.module('croissantsTemplateController', []);
  

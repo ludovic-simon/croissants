@@ -340,3 +340,53 @@ h2 {
 .select-groupe {
 	cursor : pointer;
 }
+
+.editable:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+  content: "\f044";
+  font-size:16px;
+  margin-left:5px;
+  vertical-align: top;
+}
+
+.editable {
+	cursor:pointer;
+	border : 1px solid transparent;
+	color:inherit;
+}
+
+.editable:hover {
+	border : 1px dashed #CCCCCC;
+}
+
+
+.editable-textarea {
+	width:100%;
+}
+
+/* Mieux cibler ici !! */
+.editable-controls {
+	width:100%;
+}
+
+textarea.editable-input {
+	width:80% !important;
+}
+
+.editable-buttons {
+	width:20%;
+}
+
+/*.table>tbody>tr.warning>td {
+	background-color : #B9B9B6;
+}
+
+.table-hover>tbody>tr.warning:hover>td {
+	background-color : #D0CFCD;
+}*/
+}
+

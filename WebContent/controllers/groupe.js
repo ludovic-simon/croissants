@@ -1,7 +1,8 @@
 var groupeViewController = angular.module('groupeViewController', []);
  
-groupeViewController.controller('GroupeViewCtrl', ['$scope', '$http', '$location', '$route', '$timeout',
-function GroupeViewCtrl($scope, $http, $location, $route,  $timeout) {
+groupeViewController.controller('GroupeViewCtrl', ['$scope', '$http', '$location', '$route', '$timeout', '$filter',
+function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
+	
 
 	$scope.idGroupe = ($location.search()['idGroupe'] != null)? $location.search()['idGroupe'] : null;
 
@@ -9,8 +10,23 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout) {
 	$scope.tours = new Object();
 	// La constitution du groupe courant.
 	$scope.constitutionGroupe = new Object();
+	//En préparation de la création du groupe par ce controleur, on créé un groupe vide.
+//	$scope.constitutionGroupe.groupe = new Object();
 	//Toutes les constitutions groupes associées au groupe courant.
 	$scope.constitutionsGroupe = new Object();
+	
+	 $scope.jours =
+		    [
+		        { id: 0, nom: "Lundi" },
+		        { id: 1, nom: "Mardi" }, 
+		        { id: 2, nom: "Mercredi" },
+		        { id: 3, nom: "Jeudi" },
+		        { id: 4, nom: "Vendredi" },
+		        { id: 5, nom: "Samedi" },
+		        { id: 6, nom: "Dimanche" },
+		    ];      
+	
+	
 	
 	 var loadConstitutionUtilisateurCourant = function(idUtilisateur, idGroupe) {
 			$http.get('/croissants/rest/cycleService/rechercherConstitutionGroupe?idUtilisateur=' + idUtilisateur + '&idGroupe='+idGroupe).
@@ -18,6 +34,11 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout) {
 				  $scope.constitutionGroupe = data;
 				  console.log("Constitution groupe : ");
 				  console.log( $scope.constitutionGroupe);
+				  /*if($scope.constitutionGroupe.admin) {
+					  $timeout(function(){
+						  $('.editable').editable();
+					  });
+				  }*/
 			  }).
 			  error(function(data, status, headers, config) {
 				  handleError(data, status, headers, config);
@@ -95,7 +116,8 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout) {
 	}
 	
 	var notYetImplemented = function() {
-		alert("Pas encore fait...!");
+		showActionFeedback("Pas encore fait...!");
+//		alert();
 	} 
 	
 	$scope.monterTour = function(tour) {
@@ -106,8 +128,53 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout) {
 		notYetImplemented();
 	}
 	
-	$scope.annulerTour = function(tour) {
-		notYetImplemented();
+	$scope.updateGroupe = function() {
+		//$scope.constitutionGroupe.groupe.jourOccurence =  $scope.jourCourant.id;
+		$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.constitutionGroupe.groupe ).
+		  success(function(data, status, headers, config) {
+			  console.log(data);
+			  showActionFeedback("Groupe modifié.");
+		  }).
+		  error(function(data, status, headers, config) {
+			  handleError(data, status, headers, config);
+		  });
 	}
+	
+	$scope.annulerTour = function(tour) {
+		$http.post('/croissants/rest/cycleService/annulerTour?idTour='+tour.idTour+'&messageAnnulation=Annulé par ' +$scope.utilisateur.nom).
+		  success(function(data, status, headers, config) {
+			  console.log(data);
+			  showActionFeedback("Tour annulé.");
+			  loadCycleEnCours($scope.idGroupe);
+		  }).
+		  error(function(data, status, headers, config) {
+			  handleError(data, status, headers, config);
+		  });
+	}
+	
+	 /* Désactivé car pour le moment on ne veut pas éditer le jour d'occurence.
+	  
+	$scope.jourCourant = new Object();
+	   
+	  $scope.$watch('constitutionGroupe.groupe', function(newVal, oldVal) {
+		    if (newVal !== oldVal) {
+		      var selected = $filter('filter')($scope.jours, {id: $scope.constitutionGroupe.groupe.jourOccurence});
+		      $scope.jourCourant = selected[0];
+		      console.log($scope.jourCourant);
+		    }
+		  });
 
+	  
+	  $scope.$watch('jourCourant.id', function(newVal, oldVal) {
+		  if (newVal !== oldVal) {
+			  console.log('CHANGE!!!!!');
+			  console.log($scope.jourCourant.id);
+			  var selected = $filter('filter')($scope.jours, {id: $scope.jourCourant.id});
+		      $scope.jourCourant = selected[0];
+		      $scope.jourCourant.id = selected[0].id;
+		      
+			  $scope.constitutionGroupe.groupe.jourOccurence = $scope.jourCourant.id;
+		  }
+	  });*/
+	 
 }]);
