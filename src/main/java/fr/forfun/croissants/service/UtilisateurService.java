@@ -67,9 +67,7 @@ public class UtilisateurService {
 			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
 			utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.email), email));
 			utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.motDePasse), motDePasse));
-			if(utilisateurPredicates.size() > 0){
-				utilisateurCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
-			}
+			utilisateurCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
 			TypedQuery<Utilisateur> utilisateurQuery = em.createQuery(utilisateurCriteriaQuery);
 			List<Utilisateur> utilisateurs = utilisateurQuery.getResultList();
 			//Cas ou aucun utilisateur n'est trouve
@@ -121,9 +119,7 @@ public class UtilisateurService {
 			Root<Utilisateur> utilisateurTable = utilisateurTableCriteriaQuery.from(Utilisateur.class);
 			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
 			utilisateurPredicates.add(qb.equal(utilisateurTable.get(Utilisateur_.email), utilisateur.getEmail()));
-			if(utilisateurPredicates.size() > 0){
-				utilisateurTableCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
-			}
+			utilisateurTableCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
 			TypedQuery<Utilisateur> utilisateurTableQuery = em.createQuery(utilisateurTableCriteriaQuery);
 			List<Utilisateur> utilisateursPourEmail = utilisateurTableQuery.getResultList();
 			if(CollectionUtils.isNotEmpty(utilisateursPourEmail)){

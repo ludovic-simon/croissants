@@ -645,6 +645,10 @@ public class CycleService {
 	 * @return Les tours courant du groupe apres l'annulation
 	 */
 	public List<Tour> annulerTour(Long idTour, String messageAnnulation) {
+		//Controle des donnees et determination de la date du tour
+		Tour tour = controleTourExistant(idTour);
+		Date dateAnnulation = DateUtils.getDateWithoutTime(tour.getDateTour());
+		Groupe groupe = controleGroupeExistant(tour.getIdGroupe(), false);
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -652,10 +656,6 @@ public class CycleService {
 			tx = em.getTransaction();
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
-			//Controle des donnees et determination de la date du tour
-			Tour tour = controleTourExistant(idTour);
-			Date dateAnnulation = DateUtils.getDateWithoutTime(tour.getDateTour());
-			Groupe groupe = controleGroupeExistant(tour.getIdGroupe(), false);
 			//Decalage des tours a partir de cette date
 			//Recuperation des tours du groupe ayant lieu apres la date d'annulation
 			CriteriaQuery<Tour> tourIteCriteriaQuery = qb.createQuery(Tour.class);
@@ -680,8 +680,6 @@ public class CycleService {
 			tourAnnulation.setDateTour(dateAnnulation);
 			tourAnnulation.setStatutTour(StatutTour.ANNULE);
 			em.persist(tourAnnulation);
-			List<Tour> cycleEnCours = rechercherCycleEnCours(groupe.getIdGroupe());
-			return cycleEnCours;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -690,6 +688,8 @@ public class CycleService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+		List<Tour> cycleEnCours = rechercherCycleEnCours(groupe.getIdGroupe());
+		return cycleEnCours;
 	}
 
 	/**
@@ -700,6 +700,9 @@ public class CycleService {
 	 * @return Le cycle en cours pour le groupe apres le deplacement du tour
 	 */
 	public List<Tour> deplacerTour(Long idTourSource, Long idTourCible) {
+		//Controles des parametres et recuperation des tours
+		Tour tourSource = controleTourExistant(idTourSource);
+		Tour tourCible = controleTourExistant(idTourCible);
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -707,9 +710,6 @@ public class CycleService {
 			tx = em.getTransaction();
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
-			//Controles des parametres et recuperation des tours
-			Tour tourSource = controleTourExistant(idTourSource);
-			Tour tourCible = controleTourExistant(idTourCible);
 			//Determination de l'intervalle de date des tours concernes par le mouvement
 			Date dateDebut = tourCible.getDateTour();
 			Date dateFin = tourSource.getDateTour();
@@ -755,9 +755,6 @@ public class CycleService {
 					indexDate++;
 				}
 			}
-			//Recherche du cycle pour le groupe
-			List<Tour> cycleEnCours = rechercherCycleEnCours(tourSource.getIdGroupe());
-			return cycleEnCours;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -766,6 +763,9 @@ public class CycleService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+		//Recherche du cycle pour le groupe
+		List<Tour> cycleEnCours = rechercherCycleEnCours(tourSource.getIdGroupe());
+		return cycleEnCours;
 	}
 
 	/**
@@ -811,12 +811,12 @@ public class CycleService {
 			}
 			//Formation du message d'invitation au groupe
 			StringBuffer bf = new StringBuffer();
-			bf.append("Bonjour <br/><br/>, ");
-			bf.append(utilisateurHote.getNom() + " vous invite � rejoindre son groupe '" + groupe.getNom() + "' sur l'application Croissants.<br/>");
+			bf.append("Bonjour,<br/><br/>");
+			bf.append(utilisateurHote.getNom() + " vous invite a rejoindre son groupe '" + groupe.getNom() + "' sur l'application Croissants.<br/><br/>");
 			if(utilisateurDestinataire != null){
-				bf.append("Connectez-vous a l'application <a href='" + CycleUtils.getUrlLogin() + "'>" + CycleUtils.getUrlLogin() + "</a>.<br/>");
+				bf.append("Connectez-vous a l'application via le lien : <a href='" + CycleUtils.getUrlLogin() + "'>" + CycleUtils.getUrlLogin() + "</a>.<br/><br/>");
 			} else {
-				bf.append("Inscrivez-vous a l'application <a href='" + CycleUtils.getUrlInscription() + "'>" + CycleUtils.getUrlInscription() + "</a>.<br/>");
+				bf.append("Inscrivez-vous a l'application via le lien : <a href='" + CycleUtils.getUrlInscription() + "'>" + CycleUtils.getUrlInscription() + "</a>.<br/><br/>");
 			}
 			bf.append("Puis rejoignez le groupe avec les informations suivantes : <br/>");
 			bf.append("- jeton : " + groupe.getJeton() + "<br/>");
