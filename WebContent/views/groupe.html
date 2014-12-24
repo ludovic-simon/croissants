@@ -12,12 +12,12 @@
 		 	</span>
 		</h1>
 	</div>
-	<div class="bottom-space panel panel-info" ng-show="constitutionGroupe.groupe.message">
+	<div class="bottom-space panel panel-info" >
 		 <div class="panel-body message-groupe">
 		 	<span ng-if="constitutionGroupe.admin"  editable-textarea="constitutionGroupe.groupe.message" onaftersave="updateGroupe()" >
 		 		<b>{{constitutionGroupe.groupe.message}}</b> <!-- TODO Gérer les retours à lignes... -->
 		 	</span>
-		 	<span ng-if="!constitutionGroupe.admin">
+		 	<span ng-if="!constitutionGroupe.admin" ng-show="constitutionGroupe.groupe.message">
 		 		<b>{{constitutionGroupe.groupe.message}}</b> <!-- TODO Gérer les retours à lignes... -->
 		 	</span>
 		 </div>
@@ -25,12 +25,12 @@
 
 	<div class="bottom-space">
 		Occurence : 
-		<!-- Désactivé car pour le moment on ne veut pas éditer le jour d'occurence.
+		<!-- Désactivé car pour le moment on ne veut pas éditer le jour d'occurence. --> 
 		<a ng-if="constitutionGroupe.admin" href="#" editable-select="jourCourant.id" e-ng-options="jour.id as jour.nom for jour in jours" onaftersave="updateGroupe()">
 		 {{ jourCourant.nom || 'not set' }} 
-		</a> -->
+		</a> 
 		<span >
-			<b>{{ jours[constitutionGroupe.groupe.jourOccurence].nom }}</b>
+			<b>{{ jours[jourCourant.id].nom }}</b>
 		</span>
 	</div>
 	
@@ -62,9 +62,9 @@
 						<td>{{tour.dateTour | date : 'd MMM'}}</td>
 						<td ng-show="constitutionGroupe.admin" style="text-align:right;width:100px;">
 							<div>
-								<button ng-class="$first ? 'disabled' : ''"  ng-click="monterTour(tour)"  title="Permuter avec {{tours[$index - 1 ].nomTour}} !" 
+								<button ng-class="$first ? 'disabled' : ''"  ng-click="switchTour(tour, tours[$index - 1 ])"  title="Permuter avec {{tours[$index - 1 ].nomTour}} !" 
 								data-toggle="tooltip" data-placement="top" class="btn btn-primary btn-xs"><i class="fa fa-arrow-up"></i></button>
-								<button ng-class="$last ? 'disabled' : ''"  ng-click="descendreTour(tour)"  title="Permuter avec {{tours[$index + 1 ].nomTour}} !" 
+								<button ng-class="$last ? 'disabled' : ''"  ng-click="switchTour(tour, tours[$index + 1 ])"  title="Permuter avec {{tours[$index + 1 ].nomTour}} !" 
 								data-toggle="tooltip" data-placement="top" class="btn btn-primary btn-xs"><i class="fa fa-arrow-down"></i></button>
 								<button ng-class="(tour.statutTour == 'ANNULE') ? 'disabled' : ''" ng-click="annulerTour(tour)" title="Annuler le tour du {{tour.dateTour | date : 'd MMM'}}" 
 								 data-toggle="tooltip" data-placement="top" class="btn btn-warning btn-xs"><i class="fa fa-times"></i></button>
@@ -93,7 +93,7 @@
 				<tbody class="table-hover">
 					<tr ng-repeat="constit in constitutionsGroupe">
 						<td>{{constit.utilisateur.nom}}</td>
-						<td>
+						<td style="text-align:center;">
 							<input type="checkbox" ng-model="constit.admin" ng-change="setAdministrateur(constit)"/>
 							
 						</td>
@@ -101,6 +101,13 @@
 				</tbody>
 		
 			</table>
+		</div>
+		
+		<div>
+			Token du groupe : <b>{{constitutionGroupe.groupe.jeton}}</b>
+		</div>
+		<div>
+			Mot de passe du groupe : <b>{{constitutionGroupe.groupe.motDePasse}}</b>
 		</div>
 		
 	</div>

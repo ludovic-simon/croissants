@@ -3,7 +3,6 @@ var groupesViewController = angular.module('groupesViewController', []);
 groupesViewController.controller('GroupesViewCtrl', ['$scope', '$http', '$location', '$route', '$timeout',
 function GroupesViewCtrl($scope, $http, $location, $route, $timeout) {
 
-	console.log($scope.utilisateur);
 	$scope.constitutionsGroupe = new Object();
 
 	$scope.init = function() {
