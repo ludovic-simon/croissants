@@ -1,18 +1,24 @@
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-xs-12" style="text-align:center;"> 
+			<h1>Fais péter les croissants</h1>
+		</div>
+	 </div>
+	<div class="row">
+		<div ng-show="errorMessage" class="error-div small-bottom-space col-xs-12 col-md-offset-2 col-md-10" >
+					{{errorMessage}}
+		</div>	
 		<div class="col-xs-12 col-md-offset-2 col-md-4">
 			<div style="margin: 0 auto;max-width: 330px;margin-top:20px;">
-				<h1>FPLC<sup>&#0153;</sup></h1>
+				<h2>FPLC<sup>&#0153;</sup></h2>
 				Marre d'utiliser un fichier Excel pour savoir qui est le prochain qui ramène le ptit dej ? <b>Fais Peter Les Croissants</b><sup>&#0153;</sup> est fait pour vous.<br/> Cette application conviendra également à gérer tout évènement répété dont le responsable change de façon cyclique : Qui fait le ménage cette semaine ? Qui doit aller faire les courses jeudi prochain ? <br/><b>FPLC<sup>&#0153;</sup></b> permet de gérer ces cycles et de rappeler la personne concernée peu avant l'évènement ! 
 			 </div>
 		</div >
 		<!-- Formulaire de connexion -->
 		<div class="col-xs-12 col-md-4">
 			<form novalidate class="form-horizontal login-form" style="margin-top:20px;">
-				<h1>Connectez-vous</h1>
-				<div ng-show="errorMessage" class="error-div small-bottom-space">
-					{{errorMessage}}
-				</div>	
+				<h2>Connectez-vous</h2>
+				
 				<div class="form-group">
 					<input type="text" id="emailField" name="emailField" class="form-control" placeholder="Email" ng-model="email"/>
 				</div>
