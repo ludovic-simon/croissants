@@ -15,6 +15,9 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 	//Toutes les constitutions groupes associées au groupe courant.
 	$scope.constitutionsGroupe = new Object();
 	
+	$scope.invite = null;
+	$scope.inviteError = null;
+	
 	 $scope.jours =
 		    [
 		        { id: 0, nom: "Lundi" },
@@ -147,6 +150,24 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		  error(function(data, status, headers, config) {
 			  handleError(data, status, headers, config);
 		  });
+	}
+	
+	$scope.inviteUser  = function() {
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if( ! isNull($scope.invite) && re.test($scope.invite)) {
+			$http.post('/croissants/rest/cycleService/inviterAuGroupe?idGroupe='+$scope.idGroupe+'&email=' +$scope.invite + '&idUtilisateurHote='+$scope.utilisateur.idUtilisateur).
+			  success(function(data, status, headers, config) {
+				  console.log(data);
+				  showActionFeedback("Utilisateur invité.");
+				  $scope.invite = null;
+			  }).
+			  error(function(data, status, headers, config) {
+				  $scope.invite = null;
+				  handleError(data, status, headers, config);
+			  });
+		} else {
+			$scope.inviteError = 'Format invalide';
+		}
 	}
 	
 	 /* Désactivé car pour le moment on ne veut pas éditer le jour d'occurence. */

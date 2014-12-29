@@ -80,7 +80,16 @@
 	<div ng-show="constitutionGroupe.admin">
 	
 	
-		<h2>Membres du groupe</h2>
+		<h2 class="bottom-space">Membres du groupe</h2>
+		<div class="row">
+			<div class="col-xs-2" style="margin-top:5px;"><b>Inviter</b></div>
+			<div class="col-xs-8"> <input type="email" class="form-control pull-left" placeholder="Email" ng-model="invite" ></div>
+			<div class="col-xs-2"><button class="btn btn-primary pull-right" ng-click="inviteUser()">Inviter</button></div>
+		</div>
+		<div class="row bottom-space">
+		 	<div class=" col-xs-offset-2 col-xs-10  format-error-message" ng-show="inviteError">{{inviteError}} </div>
+		 </div>
+		
 		<!-- Ne peut normalement être vide ? -->
 		<div class="table-responsive">
 			<table class="table table-hover bottom-space">
