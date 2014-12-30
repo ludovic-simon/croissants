@@ -18,6 +18,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import fr.forfun.croissants.core.BusinessException;
+import fr.forfun.croissants.entity.Historique;
+import fr.forfun.croissants.entity.HistoriqueDomaine;
 import fr.forfun.croissants.entity.Utilisateur;
 import fr.forfun.croissants.entity.Utilisateur_;
 
@@ -27,6 +29,8 @@ import fr.forfun.croissants.entity.Utilisateur_;
 public class UtilisateurService {
 
 	protected EntityManagerFactory emf;
+	
+	protected TransverseService transverseService;
 	
 	public UtilisateurService(){
 		emf = Persistence.createEntityManagerFactory("croissants");
@@ -129,6 +133,14 @@ public class UtilisateurService {
 			utilisateur.setDateCreation(new Date());
 			//Persistence de l'utilisateur
 			em.persist(utilisateur);
+			//Historisation de l'action
+			Historique historique = new Historique();
+			historique.setIdUtilisateurAction(utilisateur.getIdUtilisateur());
+			historique.setHistoriqueDomaine(HistoriqueDomaine.INSCRIPTION);
+			historique.setReference(utilisateur.getEmail());
+			historique.setAction("Inscription de l'utilisateur '" + utilisateur.getEmail() + "'");
+			historique.setIsSuperAdmin(false);
+			transverseService.tracerHistorique(historique);
 			return utilisateur;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -157,6 +169,16 @@ public class UtilisateurService {
 	 */
 	public void seDeconnecter() {
 
+	}
+	
+	{/* UTILES */}
+	
+	public TransverseService getTransverseService() {
+		return transverseService;
+	}
+	
+	public void setTransverseService(TransverseService transverseService) {
+		this.transverseService = transverseService;
 	}
 
 }

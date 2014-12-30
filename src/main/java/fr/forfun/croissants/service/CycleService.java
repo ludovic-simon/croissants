@@ -25,7 +25,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
-import fr.forfun.croissants.CycleUtils;
 import fr.forfun.croissants.DateUtils;
 import fr.forfun.croissants.core.AppUtils;
 import fr.forfun.croissants.core.BusinessException;
@@ -33,6 +32,8 @@ import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.ConstitutionGroupe_;
 import fr.forfun.croissants.entity.Groupe;
 import fr.forfun.croissants.entity.Groupe_;
+import fr.forfun.croissants.entity.Historique;
+import fr.forfun.croissants.entity.HistoriqueDomaine;
 import fr.forfun.croissants.entity.StatutTour;
 import fr.forfun.croissants.entity.Tour;
 import fr.forfun.croissants.entity.Tour_;
@@ -42,6 +43,8 @@ import fr.forfun.croissants.entity.Utilisateur_;
 public class CycleService {
 
 	protected EntityManagerFactory emf;
+	
+	protected TransverseService transverseService;
 	
 	public CycleService(){
 		emf = Persistence.createEntityManagerFactory("croissants");
@@ -182,7 +185,7 @@ public class CycleService {
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
 			//Controles de surface et d'existance
-			controleUtilisateurExistant(idUtilisateur, false);
+			Utilisateur utilisateur = controleUtilisateurExistant(idUtilisateur, false);
 			//Le jeton du groupe est obligatoire
 			if(StringUtils.isEmpty(jeton)){
 				throw new BusinessException("Le jeton du groupe est obligatoire");
@@ -227,6 +230,14 @@ public class CycleService {
 			constitutionGroupe.setDateArriveeGroupe(new Date());
 			//Persistence en base
 			em.persist(constitutionGroupe);
+			//Ajout d'un historique d'action
+			Historique historique = new Historique();
+			historique.setIdUtilisateurAction(utilisateur.getIdUtilisateur());
+			historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+			historique.setReference(groupePourJeton.getIdGroupe().toString());
+			historique.setAction("'" + utilisateur.getNom() + "' a rejoint le groupe");
+			historique.setIsSuperAdmin(false);
+			transverseService.tracerHistorique(historique);
 			return constitutionGroupe;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -250,9 +261,18 @@ public class CycleService {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
+			Utilisateur utilisateur = controleUtilisateurExistant(idUtilisateur, false);
 			ConstitutionGroupe constitutionGroupe = controleConstitutionGroupeEtUtilisateur(idUtilisateur, idGroupe);
 			//Suppression de la constitution de groupe
 			em.remove(em.find(ConstitutionGroupe.class, constitutionGroupe.getIdConstitutionGroupe()));
+			//Historisation de l'action
+			Historique historique = new Historique();
+			historique.setIdUtilisateurAction(idUtilisateur);
+			historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+			historique.setReference(idGroupe.toString());
+			historique.setAction("'" + utilisateur.getNom() + "' a quitte le groupe");
+			historique.setIsSuperAdmin(false);
+			transverseService.tracerHistorique(historique);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -278,7 +298,7 @@ public class CycleService {
 			tx = em.getTransaction();
 			tx.begin();
 			//Controles de surface
-			controleUtilisateurExistant(idUtilisateur, false);
+			Utilisateur utilisateur = controleUtilisateurExistant(idUtilisateur, false);
 			//Le groupe est obligatoire
 			if(groupe == null){
 				throw new BusinessException("Le groupe est obligatoire");
@@ -316,6 +336,14 @@ public class CycleService {
 				constitutionGroupe.setAdmin(true);
 				constitutionGroupe.setDateArriveeGroupe(new Date());
 				em.persist(constitutionGroupe);
+				//Ajout d'un historique pour la creation du groupe
+				Historique historique = new Historique();
+				historique.setIdUtilisateurAction(idUtilisateur);
+				historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+				historique.setReference(groupe.getIdGroupe().toString());
+				historique.setAction("'" + utilisateur.getNom() + "' a cree le groupe");
+				historique.setIsSuperAdmin(false);
+				transverseService.tracerHistorique(historique);
 			}
 			return groupe;
 		} catch (RuntimeException e) {
@@ -345,7 +373,7 @@ public class CycleService {
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
 			//Controles de surface et d'existance
-			controleUtilisateurExistant(idUtilisateur, false);
+			Utilisateur utilisateur = controleUtilisateurExistant(idUtilisateur, false);
 			controleGroupeExistant(idGroupe, false);
 			//Recuperation de la constitution de groupe
 			CriteriaQuery<ConstitutionGroupe> constitutionGroupeTableCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
@@ -364,6 +392,15 @@ public class CycleService {
 			ConstitutionGroupe constitutionGroupe = constitutionsGroupes.get(0);
 			constitutionGroupe.setAdmin(admin);
 			constitutionGroupe = em.merge(constitutionGroupe);
+			//Historisation de l'action
+			String statutAdminPrefix = (admin) ? "devient" : "n'est plus";
+			Historique historique = new Historique();
+			historique.setIdUtilisateurAction(idUtilisateur);
+			historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+			historique.setReference(idGroupe.toString());
+			historique.setAction("'" + utilisateur.getNom() + "' " + statutAdminPrefix + " administrateur du groupe");
+			historique.setIsSuperAdmin(false);
+			transverseService.tracerHistorique(historique);
 			return constitutionGroupe;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -425,8 +462,8 @@ public class CycleService {
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
 			//Controles de surface et d'existance
-			controleUtilisateurExistant(idUtilisateur, false);
-			controleGroupeExistant(idGroupe, false);
+			Utilisateur utilisateur = controleUtilisateurExistant(idUtilisateur, false);
+			Groupe groupe = controleGroupeExistant(idGroupe, false);
 			//Controle que l'utilisateur est administrateur du groupe
 			CriteriaQuery<ConstitutionGroupe> constitutionGroupeTableCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
 			Root<ConstitutionGroupe> constitutionGroupeTable = constitutionGroupeTableCriteriaQuery.from(ConstitutionGroupe.class);
@@ -446,8 +483,20 @@ public class CycleService {
 			if(!constitutionGroupe.getAdmin()){
 				throw new BusinessException("L'utilisateur n'est pas administrateur du groupe, il ne peut pas le supprimer");
 			}
+			//Suppression des constitution groupe fils de ce groupe
+			Query queryConstitutionGroupe = em.createQuery("DELETE FROM ConstitutionGroupe constitutionGroupeIte WHERE constitutionGroupeIte.idGroupe = :idGroupe");
+			queryConstitutionGroupe.setParameter("idGroupe", idGroupe);
+			queryConstitutionGroupe.executeUpdate();
 			//Suppression du groupe
 			em.remove(em.find(Groupe.class, idGroupe));
+			//Historisation de l'action
+			Historique historique = new Historique();
+			historique.setIdUtilisateurAction(idUtilisateur);
+			historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+			historique.setReference(idGroupe.toString());
+			historique.setAction("'" + utilisateur.getNom() + "' a supprime le groupe '" + groupe.getNom() + "'");
+			historique.setIsSuperAdmin(false);
+			transverseService.tracerHistorique(historique);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -564,7 +613,7 @@ public class CycleService {
 				dateDepart = dernierTourExistant.getDateTour();
 			}
 			Groupe groupe = em.find(Groupe.class, idGroupe);
-			dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
+			dateDepart = transverseService.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
 			//Creation des tours manquant a partir de la date de depart pour chaque utilisateur n'ayant pas de tour
 			String actionFeedback = "Creation des tours pour : ";
 			String prefixeNom = "";
@@ -578,11 +627,18 @@ public class CycleService {
 					nouveauTour.setDateTour(dateDepart);
 					nouveauTour.setStatutTour(StatutTour.ACTIF);
 					em.persist(nouveauTour);
-					dateDepart = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
+					dateDepart = transverseService.getProchaineDateOccurence(groupe.getJourOccurence(), dateDepart, false);
 					actionFeedback += prefixeNom + nouveauTour.getNomTour() + " (" + DateUtils.formatDate(nouveauTour.getDateTour(), null) + ")";
 					prefixeNom = ", ";
 				}
 			}
+			//Historisation de l'action
+			Historique historique = new Historique();
+			historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+			historique.setReference(idGroupe.toString());
+			historique.setAction(actionFeedback);
+			historique.setIsSuperAdmin(true);
+			transverseService.tracerHistorique(historique);
 			return actionFeedback;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -668,7 +724,7 @@ public class CycleService {
 			List<Tour> toursAReporter = tourIteQuery.getResultList();
 			if(toursAReporter != null){
 				for(Tour tourAReporter : toursAReporter) {
-					Date dateSuivante = CycleUtils.getProchaineDateOccurence(groupe.getJourOccurence(), tourAReporter.getDateTour(), false);
+					Date dateSuivante = transverseService.getProchaineDateOccurence(groupe.getJourOccurence(), tourAReporter.getDateTour(), false);
 					tourAReporter.setDateTour(dateSuivante);
 					tourAReporter = em.merge(tourAReporter);
 				}
@@ -688,6 +744,14 @@ public class CycleService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+		//Historisation de l'action
+		Historique historique = new Historique();
+		historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+		historique.setReference(tour.getIdGroupe().toString());
+		historique.setAction("Annulation du tour du " + DateUtils.formatDate(tour.getDateTour(), null));
+		historique.setIsSuperAdmin(false);
+		transverseService.tracerHistorique(historique);
+		//Recherche du cycle pour le groupe
 		List<Tour> cycleEnCours = rechercherCycleEnCours(groupe.getIdGroupe());
 		return cycleEnCours;
 	}
@@ -763,6 +827,13 @@ public class CycleService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+		//Historisation de l'action
+		Historique historique = new Historique();
+		historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+		historique.setReference(tourSource.getIdGroupe().toString());
+		historique.setAction("Permutation entre le tour de '" + tourSource.getNomTour() + "' et '" + tourCible.getNomTour() + "'");
+		historique.setIsSuperAdmin(false);
+		transverseService.tracerHistorique(historique);
 		//Recherche du cycle pour le groupe
 		List<Tour> cycleEnCours = rechercherCycleEnCours(tourSource.getIdGroupe());
 		return cycleEnCours;
@@ -814,9 +885,9 @@ public class CycleService {
 			bf.append("Bonjour,<br/><br/>");
 			bf.append(utilisateurHote.getNom() + " vous invite a rejoindre son groupe '" + groupe.getNom() + "' sur l'application Croissants.<br/><br/>");
 			if(utilisateurDestinataire != null){
-				bf.append("Connectez-vous a l'application via le lien : <a href='" + CycleUtils.getUrlLogin() + "'>" + CycleUtils.getUrlLogin() + "</a>.<br/><br/>");
+				bf.append("Connectez-vous a l'application via le lien : <a href='" + transverseService.getUrlLogin() + "'>" + transverseService.getUrlLogin() + "</a>.<br/><br/>");
 			} else {
-				bf.append("Inscrivez-vous a l'application via le lien : <a href='" + CycleUtils.getUrlInscription() + "'>" + CycleUtils.getUrlInscription() + "</a>.<br/><br/>");
+				bf.append("Inscrivez-vous a l'application via le lien : <a href='" + transverseService.getUrlInscription() + "'>" + transverseService.getUrlInscription() + "</a>.<br/><br/>");
 			}
 			bf.append("Puis rejoignez le groupe avec les informations suivantes : <br/>");
 			bf.append("- jeton : " + groupe.getJeton() + "<br/>");
@@ -825,7 +896,97 @@ public class CycleService {
 			String corps = bf.toString();
 			//Envoi du mail d'invitation
 			String sujet = "Appli des croissants : Invitation au groupe '" + groupe.getNom() + "'";
-			CycleUtils.envoyerEmail(sujet, email, corps);
+			transverseService.envoyerEmail(sujet, email, corps);
+			//Historisation de l'action
+			Historique historique = new Historique();
+			historique.setIdUtilisateurAction(idUtilisateurHote);
+			historique.setHistoriqueDomaine(HistoriqueDomaine.GROUPE);
+			historique.setReference(groupe.getIdGroupe().toString());
+			historique.setAction("'" + utilisateurHote.getNom() + "' a invite '" + email + "' a rejoindre le groupe ");
+			historique.setIsSuperAdmin(false);
+			transverseService.tracerHistorique(historique);
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet de calculer les cycles pour tous les groupes
+	 */
+	public void calculerTousLesCycles() {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Recuperation de tous les groupes
+			CriteriaQuery<Groupe> groupeIteCriteriaQuery = qb.createQuery(Groupe.class);
+			TypedQuery<Groupe> groupeIteQuery = em.createQuery(groupeIteCriteriaQuery);
+			List<Groupe> groupes = groupeIteQuery.getResultList();
+			//Calcul du cycle pour chaque groupe
+			if(groupes != null){
+				for(Groupe groupe : groupes) {
+					String retourCalcul = calculerProchainCycle(groupe.getIdGroupe());
+				}
+			}
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet de prevenir par email les responsables des tours du lendemain
+	 */
+	public void prevenirResponsablesTours() {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Recuperation des tours se produisant le lendemain
+			//Recuperation de la date du lendemain
+			Date dateLendemain = DateUtils.addDays(DateUtils.getCurrentDayDate(), 1);
+
+			CriteriaQuery<Tour> tourIteCriteriaQuery = qb.createQuery(Tour.class);
+			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
+			List<Predicate> tourPredicates = new ArrayList<Predicate>();
+			tourPredicates.add(qb.equal(tourIte.get(Tour_.dateTour), dateLendemain));
+			tourPredicates.add(qb.isNotNull(tourIte.get(Tour_.idUtilisateur)));
+			tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
+			TypedQuery<Tour> tourIteQuery = em.createQuery(tourIteCriteriaQuery);
+			List<Tour> toursDuLendemain = tourIteQuery.getResultList();
+			//Envoi d'un email a l'utilisateur responsable du tour
+			if(toursDuLendemain != null){
+				for(Tour tour : toursDuLendemain) {
+					//Recuperation de l'utilisateur associe au tour
+					Utilisateur utilisateur = em.find(Utilisateur.class, tour.getIdUtilisateur());
+					if(utilisateur != null){
+						//Envoi du mail a l'utilisateur
+						Groupe groupe = em.find(Groupe.class, tour.getIdGroupe());
+						String sujet = groupe.getNom() + " : fais peter les croissants";
+						StringBuffer bf = new StringBuffer();
+						bf.append("Yo " + utilisateur.getNom() + " ,<br/><br/>");
+						bf.append("C'est a toi de ramener les croissants demain.<br/><br/>");
+						bf.append("Que la chouquette soit avec toi ^^");
+						String corpsEmail = bf.toString();
+						transverseService.envoyerEmail(sujet, utilisateur.getEmail(), corpsEmail);
+					}
+				}
+			}
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -1028,6 +1189,16 @@ public class CycleService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+	}
+
+	{/* UTILES */}
+	
+	public TransverseService getTransverseService() {
+		return transverseService;
+	}
+
+	public void setTransverseService(TransverseService transverseService) {
+		this.transverseService = transverseService;
 	}
 
 }

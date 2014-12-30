@@ -17,6 +17,11 @@ public class DateUtils {
 		return getDateWithoutTime(new Date());
 	}
 	
+	
+	public static Date addDays(Date dateInput, int days){
+		return org.apache.commons.lang.time.DateUtils.addDays(dateInput, days);
+	}
+	
 	/**
 	 * @param inputDate
 	 * @return	la date sans heure

@@ -24,6 +24,10 @@ public class CycleServiceRest {
 
 	protected CycleService cycleService = new CycleService();
 
+	{
+		cycleService.setTransverseService(new TransverseService());
+	}
+	
 	@GET
 	@Path("rechercherConstitutionGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -151,6 +155,20 @@ public class CycleServiceRest {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public void inviterAuGroupe(@QueryParam("idGroupe") Long idGroupe, @QueryParam("email") String email, @QueryParam("idUtilisateurHote") Long idUtilisateurHote){
 		cycleService.inviterAuGroupe(idGroupe, email, idUtilisateurHote);
+	}
+	
+	@POST
+	@Path("calculerTousLesCycles")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void calculerTousLesCycles(){
+		cycleService.calculerTousLesCycles();
+	}
+	
+	@POST
+	@Path("prevenirResponsablesTours")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void prevenirResponsablesTours(){
+		cycleService.prevenirResponsablesTours();
 	}
 	
 }

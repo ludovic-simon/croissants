@@ -1,6 +1,5 @@
-package fr.forfun.croissants;
+package fr.forfun.croissants.service;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,18 +10,30 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import fr.forfun.croissants.core.TechnicalException;
+import fr.forfun.croissants.entity.Historique;
 
 /**
- * Classe utilitaire pour le cycle
+ * Services transverses
  */
-public class CycleUtils implements Serializable {
+public class TransverseService {
+
+	protected EntityManagerFactory emf;
 	
-	private static final long serialVersionUID = 1L;
+	public TransverseService(){
+		emf = Persistence.createEntityManagerFactory("croissants");
+	}
+	
+	public TransverseService(String persistenceUnit){
+		emf = Persistence.createEntityManagerFactory(persistenceUnit);
+	}
+	
+	{/* CHAMPS */}
 
 	/** URL de base de l'application */
 	public static final String URL_APPLICATION = "http://www.lud007.jvmhost.net/croissants";
@@ -33,8 +44,60 @@ public class CycleUtils implements Serializable {
 	
 	public static final String EMAIL_JNDI_NAME = "mail/croissants";
 
-	{/* METHODES */}
+	{/* SERVICES */}
 	
+	/**
+	 * Ajoute une action dans l'historique
+	 * @param historique
+	 */
+	public void tracerHistorique(Historique historique) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			//Affectation de la date actuelle a l'historique
+			historique.setDateAction(new Date());
+			em.persist(historique);
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet d'envoyer un mail depuis le serveur
+	 * @param sujet	Sujet du mail
+	 * @param destinataire	Destinataire du mail
+	 * @param corps	Corps du mail
+	 */
+	public static void envoyerEmail(String sujet, String destinataire, String corps) {
+		Session session = null;
+		try {
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			session = (Session) envCtx.lookup(EMAIL_JNDI_NAME);
+			
+			Message message = new MimeMessage(session);
+			
+			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_DISPLAY));
+			
+			InternetAddress to[] = new InternetAddress[1];
+			to[0] = new InternetAddress(destinataire);
+			message.setRecipients(Message.RecipientType.TO, to);
+			message.setSubject(sujet);
+			message.setContent(corps, "text/html;charset=UTF-8");
+			Transport.send(message);
+		} catch (Exception ex) {
+			throw new TechnicalException(ex);
+		}
+	}
+
 	/**
 	 * Calcul la prochaine date d'occurence pour un jour d'occurence et une date de depart
 	 * @param jourOccurence	Jour d'occurence souhaite pour la date
@@ -75,34 +138,6 @@ public class CycleUtils implements Serializable {
 		Date dateCible = calendarActuel.getTime();
 		
 		return dateCible;
-	}
-
-	/**
-	 * Permet d'envoyer un mail depuis le serveur
-	 * @param sujet	Sujet du mail
-	 * @param destinataire	Destinataire du mail
-	 * @param corps	Corps du mail
-	 */
-	public static void envoyerEmail(String sujet, String destinataire, String corps) {
-		Session session = null;
-		try {
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			session = (Session) envCtx.lookup(EMAIL_JNDI_NAME);
-			
-			Message message = new MimeMessage(session);
-			
-			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_DISPLAY));
-			
-			InternetAddress to[] = new InternetAddress[1];
-			to[0] = new InternetAddress(destinataire);
-			message.setRecipients(Message.RecipientType.TO, to);
-			message.setSubject(sujet);
-			message.setContent(corps, "text/html;charset=UTF-8");
-			Transport.send(message);
-		} catch (Exception ex) {
-			throw new TechnicalException(ex);
-		}
 	}
 
 	/**

@@ -1,8 +1,9 @@
 package fr.forfun.croissants.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,23 +21,22 @@ import fr.forfun.croissants.entity.Utilisateur;
 @Path("/utilisateurService")
 @Singleton
 public class UtilisateurServiceRest {
- 
-	protected UtilisateurService utilisateurService = new UtilisateurService();
 
+	protected UtilisateurService utilisateurService = new UtilisateurService();
+	
+	{
+		utilisateurService.setTransverseService(new TransverseService());
+	}
+	
 	@Context
 	private HttpServletRequest request;
-	
+
 	@GET
 	@Path("connecterUtilisateur")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Utilisateur connecterUtilisateur(@QueryParam("email") String email, @QueryParam("motDePasse") String motDePasse){
 		Utilisateur res = utilisateurService.connecterUtilisateur(email, motDePasse);
 		SDevRestDoBeforeSerialization.run(res);
-		
-		//Mise de l'utilisateur en session
-		HttpSession session = request.getSession();
-		session.setAttribute("utilisateur", res);
-		
 		return res;
 	}
 	
@@ -55,13 +55,7 @@ public class UtilisateurServiceRest {
 	public Utilisateur getUtilisateurSession(){
 		Utilisateur res = utilisateurService.getUtilisateurSession();
 		SDevRestDoBeforeSerialization.run(res);
-		
-		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-		if(utilisateur == null){
-			throw new BusinessException("Veuillez vous authentifier");
-		}
-		return utilisateur;
+		return res;
 	}
 	
 	@POST
@@ -69,10 +63,6 @@ public class UtilisateurServiceRest {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public void seDeconnecter(){
 		utilisateurService.seDeconnecter();
-		
-		//Invalidation de la session
-		HttpSession session = request.getSession();
-		session.invalidate();
 	}
 	
 }
