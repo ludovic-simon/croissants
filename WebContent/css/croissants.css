@@ -91,7 +91,7 @@ input[type="file"] {
 
 .login-form {
 	max-width: 330px;
-	padding-top: 50px;
+	/*padding-top: 50px;*/
 	margin: 0 auto;
 }
 

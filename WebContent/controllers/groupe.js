@@ -15,6 +15,9 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 	//Toutes les constitutions groupes associées au groupe courant.
 	$scope.constitutionsGroupe = new Object();
 	
+	$scope.invite = null;
+	$scope.inviteError = null;
+	
 	 $scope.jours =
 		    [
 		        { id: 0, nom: "Lundi" },
@@ -32,13 +35,9 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 			$http.get('/croissants/rest/cycleService/rechercherConstitutionGroupe?idUtilisateur=' + idUtilisateur + '&idGroupe='+idGroupe).
 			  success(function(data, status, headers, config) {				 
 				  $scope.constitutionGroupe = data;
+				  $scope.jourCourant.id = $scope.constitutionGroupe.groupe.jourCourant;
 				  console.log("Constitution groupe : ");
 				  console.log( $scope.constitutionGroupe);
-				  /*if($scope.constitutionGroupe.admin) {
-					  $timeout(function(){
-						  $('.editable').editable();
-					  });
-				  }*/
 			  }).
 			  error(function(data, status, headers, config) {
 				  handleError(data, status, headers, config);
@@ -115,21 +114,22 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		
 	}
 	
-	var notYetImplemented = function() {
-		showActionFeedback("Pas encore fait...!");
-//		alert();
-	} 
 	
-	$scope.monterTour = function(tour) {
-		notYetImplemented();
+	$scope.switchTour = function(tourSource, tourCible) {
+		$http.post('/croissants/rest/cycleService/deplacerTour?idTourSource='+tourSource.idTour+"&idTourCible="+tourCible.idTour).
+		  success(function(data, status, headers, config) {
+			  console.log(data);
+			  $scope.tours = data;
+			  showActionFeedback("Tour échangé!");
+		  }).
+		  error(function(data, status, headers, config) {
+			  handleError(data, status, headers, config);
+		  });
 	}
 
-	$scope.descendreTour = function(tour) {
-		notYetImplemented();
-	}
 	
 	$scope.updateGroupe = function() {
-		//$scope.constitutionGroupe.groupe.jourOccurence =  $scope.jourCourant.id;
+		$scope.constitutionGroupe.groupe.jourOccurence =  $scope.jourCourant.id;
 		$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.constitutionGroupe.groupe ).
 		  success(function(data, status, headers, config) {
 			  console.log(data);
@@ -152,7 +152,25 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		  });
 	}
 	
-	 /* Désactivé car pour le moment on ne veut pas éditer le jour d'occurence.
+	$scope.inviteUser  = function() {
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if( ! isNull($scope.invite) && re.test($scope.invite)) {
+			$http.post('/croissants/rest/cycleService/inviterAuGroupe?idGroupe='+$scope.idGroupe+'&email=' +$scope.invite + '&idUtilisateurHote='+$scope.utilisateur.idUtilisateur).
+			  success(function(data, status, headers, config) {
+				  console.log(data);
+				  showActionFeedback("Utilisateur invité.");
+				  $scope.invite = null;
+			  }).
+			  error(function(data, status, headers, config) {
+				  $scope.invite = null;
+				  handleError(data, status, headers, config);
+			  });
+		} else {
+			$scope.inviteError = 'Format invalide';
+		}
+	}
+	
+	 /* Désactivé car pour le moment on ne veut pas éditer le jour d'occurence. */
 	  
 	$scope.jourCourant = new Object();
 	   
@@ -167,7 +185,6 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 	  
 	  $scope.$watch('jourCourant.id', function(newVal, oldVal) {
 		  if (newVal !== oldVal) {
-			  console.log('CHANGE!!!!!');
 			  console.log($scope.jourCourant.id);
 			  var selected = $filter('filter')($scope.jours, {id: $scope.jourCourant.id});
 		      $scope.jourCourant = selected[0];
@@ -175,6 +192,6 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		      
 			  $scope.constitutionGroupe.groupe.jourOccurence = $scope.jourCourant.id;
 		  }
-	  });*/
+	  });
 	 
 }]);

@@ -17,8 +17,23 @@ function LoginViewCtrl($scope, $http, $location, $route) {
 		.success(function(data) {
 			var utilisateur = extractObjectFromData(data);
 			saveUtilisteurInCookies(utilisateur.idUtilisateur);
+			
 			//Navigation vers l'appli connectee
-			window.location.href = "/croissants/views/croissants.html";
+			//On recupère les groupes auxquels l'utilisateur est lié afin de le rediriger vers son groupe favori s'il en a un. 
+			// Il faudrait peut être faire un service qui renvoie le groupe favori de l'utilisateur directement ?
+			$http.get('/croissants/rest/cycleService/rechercherGroupesUtilisateur?idUtilisateur='+utilisateur.idUtilisateur).
+			  success(function(data, status, headers, config) {
+				  for(var i = 0 ; i < data.length; i++){
+					  if(data[i].parDefaut == true) {
+						  window.location.href = "/croissants/views/croissants.html#/groupeView?idGroupe="+data[i].idGroupe;
+						  return;
+					  }
+				  }
+				  window.location.href = "/croissants/views/croissants.html";
+			  }).
+			  error(function(data, status, headers, config) {
+				  handleError(data, status, headers, config);
+			  });
 		})
 		.error(function(data, status, headers, config) {
 			$scope.errorMessage = data;
