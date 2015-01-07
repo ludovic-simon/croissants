@@ -35,7 +35,9 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 			$http.get('/croissants/rest/cycleService/rechercherConstitutionGroupe?idUtilisateur=' + idUtilisateur + '&idGroupe='+idGroupe).
 			  success(function(data, status, headers, config) {				 
 				  $scope.constitutionGroupe = data;
-				  $scope.jourCourant.id = $scope.constitutionGroupe.groupe.jourCourant;
+				  //console.log('MESSAGE : ');
+				  // console.log( $scope.constitutionGroupe.groupe.message.charAt(0));//replace(/(?:\r\n|\r|\n)/g, '@'));
+				  // $scope.jourCourant.id = $scope.constitutionGroupe.groupe.jourCourant;
 				  console.log("Constitution groupe : ");
 				  console.log( $scope.constitutionGroupe);
 			  }).
@@ -129,7 +131,7 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 
 	
 	$scope.updateGroupe = function() {
-		$scope.constitutionGroupe.groupe.jourOccurence =  $scope.jourCourant.id;
+//		$scope.constitutionGroupe.groupe.jourOccurence =  $scope.jourCourant.id;
 		$http.post('/croissants/rest/cycleService/editerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur, $scope.constitutionGroupe.groupe ).
 		  success(function(data, status, headers, config) {
 			  console.log(data);
@@ -170,7 +172,7 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		}
 	}
 	
-	 /* Désactivé car pour le moment on ne veut pas éditer le jour d'occurence. */
+	 /* Désactivé car pour le moment on ne veut pas éditer le jour d'occurence.
 	  
 	$scope.jourCourant = new Object();
 	   
@@ -192,6 +194,7 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		      
 			  $scope.constitutionGroupe.groupe.jourOccurence = $scope.jourCourant.id;
 		  }
-	  });
+	  }); */
 	 
 }]);
+

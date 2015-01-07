@@ -25,12 +25,18 @@
 
 	<div class="bottom-space">
 		Occurence : 
-		<!-- Désactivé car pour le moment on ne veut pas éditer le jour d'occurence. --> 
+		<!-- Désactivé car pour le moment on ne veut pas éditer le jour d'occurence.
 		<a ng-if="constitutionGroupe.admin" href="#" editable-select="jourCourant.id" e-ng-options="jour.id as jour.nom for jour in jours" onaftersave="updateGroupe()">
 		 {{ jourCourant.nom || 'not set' }} 
 		</a> 
+		
+		<select name="jourOccurence" ng-model="selectedOption" form="groupeForm"
+				 class="form-control" id="jourOccurence"  ng-options=" jour.nom for jour in jours track by jour.id">                
+	     </select> --> 
+	       		
+	       		
 		<span >
-			<b>{{ jours[jourCourant.id].nom }}</b>
+			<b>{{ jours[constitutionGroupe.groupe.jourOccurence].nom }}</b>
 		</span>
 	</div>
 	

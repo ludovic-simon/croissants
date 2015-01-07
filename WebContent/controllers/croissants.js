@@ -36,7 +36,7 @@ croissantsTemplateApp.config(['$routeProvider',
        controller: 'RejoindreGroupeViewCtrl'
      }).
      otherwise({
-       redirectTo: '/accueilView'
+       redirectTo: '/groupesView'
      });
  }]);
 
@@ -85,3 +85,4 @@ function CroissantsTemplateCtrl($scope, $http, $location, $route) {
 	}
 
 }]);
+
