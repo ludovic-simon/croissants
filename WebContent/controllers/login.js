@@ -16,7 +16,7 @@ function LoginViewCtrl($scope, $http, $location, $route) {
 		$http.get("/croissants/rest/utilisateurService/connecterUtilisateur" + getEmptyIfNullExpression("?email=" + $scope.email, $scope.email) + getEmptyIfNullExpression("&motDePasse=" + $scope.motDePasse, $scope.motDePasse))
 		.success(function(data) {
 			var utilisateur = extractObjectFromData(data);
-			saveUtilisteurInCookies(utilisateur.idUtilisateur);
+			saveUtilisteurInCookies(utilisateur);
 			
 			//Navigation vers l'appli connectee
 			//On recupère les groupes auxquels l'utilisateur est lié afin de le rediriger vers son groupe favori s'il en a un. 

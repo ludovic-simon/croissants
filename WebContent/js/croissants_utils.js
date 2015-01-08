@@ -261,15 +261,23 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-function saveUtilisteurInCookies(idUtilisateur) {
-	console.log("SAVE COOKIE : " +idUtilisateur );
-	createCookie("idUtilisateur", idUtilisateur);
+function saveUtilisteurInCookies(utilisateur) {
+	console.log("SAVE COOKIE : " + utilisateur );
+	createCookie("idUtilisateur", utilisateur.idUtilisateur);
+	createCookie("nomUtilisateur", utilisateur.nom);
+	createCookie("mailUtilisateur", utilisateur.email);
 }
 
 function getUtilisateurFromCookies () {
-	return readCookie("idUtilisateur");
+	var utilisateur = new Object(); 
+	utilisateur.idUtilisateur =  readCookie("idUtilisateur");
+	utilisateur.nom = readCookie("nomUtilisateur");
+	utilisateur.email = readCookie("mailUtilisateur");
+	return utilisateur;
 }
 
 function eraseUtilisateurFromCookies() {
 	eraseCookie("idUtilisateur");
+	eraseCookie("nomUtilisateur");
+	eraseCookie("mailUtilisateur");
 }
