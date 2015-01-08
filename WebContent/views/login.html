@@ -5,9 +5,7 @@
 		</div>
 	 </div>
 	<div class="row">
-		<div ng-show="errorMessage" class="error-div small-bottom-space col-xs-12 col-md-offset-2 col-md-10" >
-					{{errorMessage}}
-		</div>	
+		
 		<div class="col-xs-12 col-md-offset-2 col-md-4">
 			<div style="margin: 0 auto;max-width: 330px;margin-top:20px;">
 				<h2>FPLC<sup>&#0153;</sup></h2>
@@ -18,7 +16,9 @@
 		<div class="col-xs-12 col-md-4">
 			<form novalidate class="form-horizontal login-form" style="margin-top:20px;">
 				<h2>Connectez-vous</h2>
-				
+				<div ng-show="errorMessage" class="error-div small-bottom-space" >
+					{{errorMessage}}
+				</div>	
 				<div class="form-group">
 					<input type="text" id="emailField" name="emailField" class="form-control" placeholder="Email" ng-model="email"/>
 				</div>
