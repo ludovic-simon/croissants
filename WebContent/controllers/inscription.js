@@ -22,9 +22,11 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 			console.log("Sauvegarde de l'utilisateur : " + $scope.user);
 			$http.post('/croissants/rest/utilisateurService/creerUtilisateur', $scope.user).
 			  success(function(data, status, headers, config) {
+				   var utilisateur = extractObjectFromData(data);
 				   $scope.spinnerClass = '';
 				   $scope.inscriptionOk = true;
 				   showActionFeedback("Utilisateur créé.");
+				   saveUtilisteurInCookies(utilisateur);
 				   window.location.href = "/croissants/views/croissants.html";
 			  }).
 			  error(function(data, status, headers, config) {
