@@ -77,8 +77,7 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 	$scope.init = function() {
 		
 		//Chargement de la constitution groupe pour  l'utilisateur courant
-		var idUtilisateur = getUtilisateurFromCookies();
-		loadConstitutionUtilisateurCourant(idUtilisateur, $scope.idGroupe);
+		loadConstitutionUtilisateurCourant($scope.utilisateur.idUtilisateur, $scope.idGroupe);
 		
 		//Chargement de toutes les constitutions liées à ce groupes, 
 		//afin d'en extraire les différents utilisateurs

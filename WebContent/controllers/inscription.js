@@ -35,6 +35,10 @@ function InscriptionViewCtrl($scope, $http, $location, $route) {
 		
 	}
 	
+	$scope.goToLogin = function() {
+		 window.location.href = "/croissants/views/guest.html#/loginView";
+	}
+	
 	var isUserValid = function () {
 		var ok = true;
 		//on supprime tous les messages d'erreurs précédents.

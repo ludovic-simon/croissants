@@ -1,7 +1,7 @@
 <!-- Formulaire de creation de compte -->
 <div class="center-div">
 	<h1><i class="fa fa-play-circle logo-titre"></i></i>Creer un compte</h1>
-	Cycles est une application de gestion de périodicité (rappels automatique à certains évènements) pour des groupes de personnes. Cette application nécessite une connexion préalable des utilisateurs.
+	<b>"Fais péter les croissants"</b> est une application de gestion de périodicité (rappels automatique à certains évènements) pour des groupes de personnes. Cette application nécessite une connexion préalable des utilisateurs.
 	<div class="bottom-space"></div>
 	<div ng-show="inscriptionOk">Merci <b>{{user.nom}}</b>, votre inscription a bien été prise en compte.
 	<div class="bottom-space"></div>
@@ -41,7 +41,7 @@
 		      	<span class="spinner"><i class="fa fa-spinner fa-spin"></i></span>S'inscrire
 		      </button>
 		      <!-- TODO -->
-		       <button type="submit" class="btn btn-warning has-spinner {{spinnerClass}}" ng-click="">
+		       <button type="submit" class="btn btn-warning has-spinner {{spinnerClass}}" ng-click="goToLogin()">
 		      	<span class="spinner"><i class="fa fa-spinner fa-spin"></i></span>Retour
 		      </button>
 		    </div>
