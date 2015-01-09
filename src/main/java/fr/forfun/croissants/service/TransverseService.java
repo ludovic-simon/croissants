@@ -15,8 +15,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
 import fr.forfun.croissants.core.TechnicalException;
 import fr.forfun.croissants.entity.Historique;
+import fr.forfun.croissants.entity.HistoriqueDomaine;
 
 /**
  * Services transverses
@@ -36,11 +40,11 @@ public class TransverseService {
 	{/* CHAMPS */}
 
 	/** URL de base de l'application */
-	public static final String URL_APPLICATION = "http://www.lud007.jvmhost.net/croissants";
+	public static final String URL_APPLICATION = "http://www.faispeterlescroissants.com/croissants";
 	
-	public static final String EMAIL_FROM = "croissants@jvmhost.com";
+	public static final String EMAIL_FROM = "admin@faispeterlescroissants.com";
 	
-	public static final String EMAIL_FROM_DISPLAY = "Application des croissants";
+	public static final String EMAIL_FROM_DISPLAY = "Fais Peter Les Croissants";
 	
 	public static final String EMAIL_JNDI_NAME = "mail/croissants";
 
@@ -57,8 +61,10 @@ public class TransverseService {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			//Affectation de la date actuelle a l'historique
-			historique.setDateAction(new Date());
+			if(historique.getDateAction() == null){
+				//Affectation de la date actuelle a l'historique
+				historique.setDateAction(new Date());
+			}
 			em.persist(historique);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -71,12 +77,42 @@ public class TransverseService {
 	}
 
 	/**
+	 * Ajoute un historique d'erreur avec les infos de l'exception
+	 * @param exception	l'erreur technique
+	 * 
+	 * @return Le message d'erreur
+	 */
+	public String tracerErreurTechnique(Exception exception) {
+		//Determination du message d'erreur
+		String errorMessage = "Erreur technique";
+		Throwable targetException = exception;
+		Throwable rootException = ExceptionUtils.getRootCause(exception);
+		if(rootException != null){
+			targetException = rootException;
+		}
+		String exceptionMessage = ExceptionUtils.getFullStackTrace(targetException);
+		if(StringUtils.isNotEmpty(exceptionMessage)){
+			errorMessage += "\n" + exceptionMessage;
+		}
+		//Trace de l'erreur (en attendant un vrai log)
+		System.err.println(errorMessage);
+		//Historisation de l'erreur
+		Historique historique = new Historique();
+		historique.setHistoriqueDomaine(HistoriqueDomaine.ERREUR);
+		historique.setAction(errorMessage);
+		historique.setIsSuperAdmin(true);
+		tracerHistorique(historique);
+		return errorMessage;
+	}
+
+	/**
 	 * Permet d'envoyer un mail depuis le serveur
 	 * @param sujet	Sujet du mail
 	 * @param destinataire	Destinataire du mail
 	 * @param corps	Corps du mail
 	 */
-	public static void envoyerEmail(String sujet, String destinataire, String corps) {
+	public void envoyerEmail(String sujet, String destinataire, String corps) {
+		//Envoi du mail
 		Session session = null;
 		try {
 			Context initCtx = new InitialContext();
@@ -96,6 +132,13 @@ public class TransverseService {
 		} catch (Exception ex) {
 			throw new TechnicalException(ex);
 		}
+		//Historisation de l'action
+		Historique historique = new Historique();
+		historique.setHistoriqueDomaine(HistoriqueDomaine.EMAIL);
+		historique.setReference(sujet);
+		historique.setAction("Envoi du mail de sujet '" + sujet + "' au destinataire '" + destinataire + "'");
+		historique.setIsSuperAdmin(true);
+		tracerHistorique(historique);
 	}
 
 	/**
@@ -104,7 +147,7 @@ public class TransverseService {
 	 * @param dateDepart	La date a partir de laquelle prendre la prochaine occurence
 	 * @param prendreSiEgal	si la date de depart est un jour d'occurence alors elle sera retournee
 	 */
-	public static Date getProchaineDateOccurence(Long jourOccurence, Date dateDepart, boolean prendreSiEgal) {
+	public Date getProchaineDateOccurence(Long jourOccurence, Date dateDepart, boolean prendreSiEgal) {
 		int jourCibleCalendar = Calendar.FRIDAY;
 		
 		//Conversion du jourOccurence en jour Calendar qui commence par dimanche (1), lundi(2) ... 
@@ -143,14 +186,14 @@ public class TransverseService {
 	/**
 	 * @return L'URL de l'ecran de connexion
 	 */
-	public static String getUrlLogin() {
+	public String getUrlLogin() {
 		return URL_APPLICATION + "/views/guest.html#loginView";
 	}
 
 	/**
 	 * L'URL de l'ecran d'inscription
 	 */
-	public static String getUrlInscription() {
+	public String getUrlInscription() {
 		return URL_APPLICATION + "/views/guest.html#inscriptionView";
 	}
 

@@ -5,8 +5,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import fr.forfun.croissants.service.TransverseService;
 
 
 /**
@@ -29,21 +28,8 @@ public class SDevExceptionMapper implements ExceptionMapper<Exception> {
     		//Cas d'une erreur fonctionnelle
     		errorMessage = ex.getMessage();
     	} else {
-    		//Cas d'une erreur technique : message "Erreur technique" et impression de la cause de l'erreur
-    		errorMessage = "Erreur technique";
-    		Throwable targetException = ex;
-    		Throwable rootException = ExceptionUtils.getRootCause(ex);
-    		if(rootException != null){
-    			targetException = rootException;
-    		}
-    		String exceptionMessage = ExceptionUtils.getFullStackTrace(targetException);
-    		if(StringUtils.isNotEmpty(exceptionMessage)){
-    			exceptionMessage = ExceptionUtils.getFullStackTrace(ex);
-    			errorMessage += "\n" + exceptionMessage;
-    		}
-    		
-    		//Trace de l'erreur technique en log
-    		System.err.println(errorMessage);
+    		TransverseService transverseService = new TransverseService();
+    		errorMessage = transverseService.tracerErreurTechnique(ex);
     	}
     	
     	//Envoi de l'erreur dans une reponse HTTP avec le code 500 et portant le message de l'erreur

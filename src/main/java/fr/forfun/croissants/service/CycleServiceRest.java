@@ -15,6 +15,7 @@ import com.sun.jersey.spi.resource.Singleton;
 import fr.forfun.croissants.core.SDevRestDoBeforeSerialization;
 import fr.forfun.croissants.entity.ConstitutionGroupe;
 import fr.forfun.croissants.entity.Groupe;
+import fr.forfun.croissants.entity.Historique;
 import fr.forfun.croissants.entity.Tour;
 import fr.forfun.croissants.entity.Utilisateur;
 
@@ -23,16 +24,25 @@ import fr.forfun.croissants.entity.Utilisateur;
 public class CycleServiceRest {
 
 	protected CycleService cycleService = new CycleService();
-
+	
 	{
 		cycleService.setTransverseService(new TransverseService());
 	}
-	
+
 	@GET
 	@Path("rechercherConstitutionGroupe")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public ConstitutionGroupe rechercherConstitutionGroupe(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("idGroupe") Long idGroupe){
 		ConstitutionGroupe res = cycleService.rechercherConstitutionGroupe(idUtilisateur, idGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
+	}
+	
+	@GET
+	@Path("rechercherConstitutionGroupeParDefaut")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public ConstitutionGroupe rechercherConstitutionGroupeParDefaut(@QueryParam("idUtilisateur") Long idUtilisateur){
+		ConstitutionGroupe res = cycleService.rechercherConstitutionGroupeParDefaut(idUtilisateur);
 		SDevRestDoBeforeSerialization.run(res);
 		return res;
 	}
@@ -155,6 +165,15 @@ public class CycleServiceRest {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public void inviterAuGroupe(@QueryParam("idGroupe") Long idGroupe, @QueryParam("email") String email, @QueryParam("idUtilisateurHote") Long idUtilisateurHote){
 		cycleService.inviterAuGroupe(idGroupe, email, idUtilisateurHote);
+	}
+	
+	@GET
+	@Path("rechercherHistoriqueGroupe")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public List<Historique> rechercherHistoriqueGroupe(@QueryParam("idGroupe") Long idGroupe){
+		List<Historique> res = cycleService.rechercherHistoriqueGroupe(idGroupe);
+		SDevRestDoBeforeSerialization.run(res);
+		return res;
 	}
 	
 	@POST

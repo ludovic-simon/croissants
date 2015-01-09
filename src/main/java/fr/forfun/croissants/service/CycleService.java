@@ -34,6 +34,7 @@ import fr.forfun.croissants.entity.Groupe;
 import fr.forfun.croissants.entity.Groupe_;
 import fr.forfun.croissants.entity.Historique;
 import fr.forfun.croissants.entity.HistoriqueDomaine;
+import fr.forfun.croissants.entity.Historique_;
 import fr.forfun.croissants.entity.StatutTour;
 import fr.forfun.croissants.entity.Tour;
 import fr.forfun.croissants.entity.Tour_;
@@ -66,6 +67,42 @@ public class CycleService {
 	public ConstitutionGroupe rechercherConstitutionGroupe(Long idUtilisateur, Long idGroupe) {
 		ConstitutionGroupe constitutionGroupe = controleConstitutionGroupeEtUtilisateur(idUtilisateur, idGroupe);
 		return constitutionGroupe;
+	}
+
+	/**
+	 * Permet de recuperer la constitution de groupe par defaut d'un utilisateur
+	 * @param idUtilisateur	L'identifiant de l'utilisateur
+	 * 
+	 * @return La constitution de groupe ou null
+	 */
+	public ConstitutionGroupe rechercherConstitutionGroupeParDefaut(Long idUtilisateur) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			controleUtilisateurExistant(idUtilisateur, false);
+			CriteriaQuery<ConstitutionGroupe> constitutionGroupeIteCriteriaQuery = qb.createQuery(ConstitutionGroupe.class);
+			Root<ConstitutionGroupe> constitutionGroupeIte = constitutionGroupeIteCriteriaQuery.from(ConstitutionGroupe.class);
+			List<Predicate> constitutionGroupePredicates = new ArrayList<Predicate>();
+			constitutionGroupePredicates.add(qb.equal(constitutionGroupeIte.get(ConstitutionGroupe_.idUtilisateur), idUtilisateur));
+			constitutionGroupePredicates.add(qb.isTrue(constitutionGroupeIte.get(ConstitutionGroupe_.parDefaut)));
+			if(constitutionGroupePredicates.size() > 0){
+				constitutionGroupeIteCriteriaQuery.where(constitutionGroupePredicates.toArray(new Predicate[constitutionGroupePredicates.size()]));
+			}
+			TypedQuery<ConstitutionGroupe> constitutionGroupeIteQuery = em.createQuery(constitutionGroupeIteCriteriaQuery);
+			ConstitutionGroupe constitutionGroupe = AppUtils.first(constitutionGroupeIteQuery.getResultList());
+			return constitutionGroupe;
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
 	}
 
 	/**
@@ -177,6 +214,8 @@ public class CycleService {
 	 * @return la constitution de groupe
 	 */
 	public ConstitutionGroupe rejoindreGroupe(Long idUtilisateur, String jeton, String motDePasse) {
+		Groupe groupePourJeton = null;
+		ConstitutionGroupe constitutionGroupe = null;
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = null;
 		boolean txError = false;
@@ -205,7 +244,7 @@ public class CycleService {
 				groupeIteCriteriaQuery.where(groupePredicates.toArray(new Predicate[groupePredicates.size()]));
 			}
 			TypedQuery<Groupe> groupeIteQuery = em.createQuery(groupeIteCriteriaQuery);
-			Groupe groupePourJeton = AppUtils.first(groupeIteQuery.getResultList());
+			groupePourJeton = AppUtils.first(groupeIteQuery.getResultList());
 			if(groupePourJeton == null){
 				throw new BusinessException("Le couple jeton et mot du passe du groupe est incorrect");
 			}
@@ -224,7 +263,7 @@ public class CycleService {
 				throw new BusinessException("Vous faites deja partie du groupe " + groupePourJeton.getNom());
 			}
 			//Creation d'une constitution groupe pour l'utilisateur et le groupe
-			ConstitutionGroupe constitutionGroupe = new ConstitutionGroupe();
+			constitutionGroupe = new ConstitutionGroupe();
 			constitutionGroupe.setIdGroupe(groupePourJeton.getIdGroupe());
 			constitutionGroupe.setIdUtilisateur(idUtilisateur);
 			constitutionGroupe.setDateArriveeGroupe(new Date());
@@ -238,7 +277,6 @@ public class CycleService {
 			historique.setAction("'" + utilisateur.getNom() + "' a rejoint le groupe");
 			historique.setIsSuperAdmin(false);
 			transverseService.tracerHistorique(historique);
-			return constitutionGroupe;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -247,6 +285,9 @@ public class CycleService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+		//Calcul du prochain cycle avec prise en compte du nouveau venu
+		calculerProchainCycle(groupePourJeton.getIdGroupe());
+		return constitutionGroupe;
 	}
 
 	/**
@@ -546,6 +587,7 @@ public class CycleService {
 			Root<Tour> tourIte = tourIteCriteriaQuery.from(Tour.class);
 			List<Predicate> tourPredicates = new ArrayList<Predicate>();
 			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), idGroupe));
+			tourPredicates.add(qb.equal(tourIte.get(Tour_.statutTour), StatutTour.ACTIF));
 			tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
 			List<Order> tourIteOrderBy = new ArrayList<Order>();
 			tourIteOrderBy.add(qb.desc(tourIte.get(Tour_.dateTour)));
@@ -583,7 +625,7 @@ public class CycleService {
 			if(CollectionUtils.isEmpty(utilisateursSansTours)){
 				return "il n'y a pas d'utilisateur sans tour, le cycle est a jour";
 			}
-			//Tri des utilisateurs avec d'abord ceux qui n'ont pas de tour par ordre alphab�tique puis ceux qui
+			//Tri des utilisateurs avec d'abord ceux qui n'ont pas de tour par ordre alphabétique puis ceux qui
 			//ont un tour par ordre du tour
 			Collections.sort(utilisateursSansTours, new Comparator<Utilisateur>() {
 				@Override
@@ -788,6 +830,7 @@ public class CycleService {
 			List<Predicate> tourPredicates = new ArrayList<Predicate>();
 			tourPredicates.add(qb.greaterThanOrEqualTo(tourIte.get(Tour_.dateTour), dateDebut));
 			tourPredicates.add(qb.lessThanOrEqualTo(tourIte.get(Tour_.dateTour), dateFin));
+			tourPredicates.add(qb.equal(tourIte.get(Tour_.idGroupe), tourSource.getIdGroupe()));
 			tourIteCriteriaQuery.where(tourPredicates.toArray(new Predicate[tourPredicates.size()]));
 			List<Order> tourIteOrderBy = new ArrayList<Order>();
 			tourIteOrderBy.add(qb.asc(tourIte.get(Tour_.dateTour)));
@@ -883,19 +926,19 @@ public class CycleService {
 			//Formation du message d'invitation au groupe
 			StringBuffer bf = new StringBuffer();
 			bf.append("Bonjour,<br/><br/>");
-			bf.append(utilisateurHote.getNom() + " vous invite a rejoindre son groupe '" + groupe.getNom() + "' sur l'application Croissants.<br/><br/>");
+			bf.append(utilisateurHote.getNom() + " vous invite à rejoindre son groupe '" + groupe.getNom() + "' sur FPLC (Fais Péter Les Croissants).<br/><br/>");
 			if(utilisateurDestinataire != null){
-				bf.append("Connectez-vous a l'application via le lien : <a href='" + transverseService.getUrlLogin() + "'>" + transverseService.getUrlLogin() + "</a>.<br/><br/>");
+				bf.append("Connectez-vous avec votre compte via le lien : <a href='" + transverseService.getUrlLogin() + "'>" + transverseService.getUrlLogin() + "</a>.<br/><br/>");
 			} else {
-				bf.append("Inscrivez-vous a l'application via le lien : <a href='" + transverseService.getUrlInscription() + "'>" + transverseService.getUrlInscription() + "</a>.<br/><br/>");
+				bf.append("Inscrivez-vous à l'application via le lien : <a href='" + transverseService.getUrlInscription() + "'>" + transverseService.getUrlInscription() + "</a>.<br/><br/>");
 			}
 			bf.append("Puis rejoignez le groupe avec les informations suivantes : <br/>");
 			bf.append("- jeton : " + groupe.getJeton() + "<br/>");
 			bf.append("- mot de passe : " + groupe.getMotDePasse() + "<br/><br/>");
-			bf.append("Bon appetit");
+			bf.append("Bon appétit");
 			String corps = bf.toString();
 			//Envoi du mail d'invitation
-			String sujet = "Appli des croissants : Invitation au groupe '" + groupe.getNom() + "'";
+			String sujet = "Vous êtes invité à rejoindre le groupe '" + groupe.getNom() + "'";
 			transverseService.envoyerEmail(sujet, email, corps);
 			//Historisation de l'action
 			Historique historique = new Historique();
@@ -905,6 +948,44 @@ public class CycleService {
 			historique.setAction("'" + utilisateurHote.getNom() + "' a invite '" + email + "' a rejoindre le groupe ");
 			historique.setIsSuperAdmin(false);
 			transverseService.tracerHistorique(historique);
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet d'avoir l'historique des actions effectuees sur le groupe
+	 * @param idGroupe	Identifiant du groupe
+	 * 
+	 * @return Les Historique du groupe
+	 */
+	public List<Historique> rechercherHistoriqueGroupe(Long idGroupe) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			CriteriaQuery<Historique> historiqueIteCriteriaQuery = qb.createQuery(Historique.class);
+			Root<Historique> historiqueIte = historiqueIteCriteriaQuery.from(Historique.class);
+			List<Predicate> historiquePredicates = new ArrayList<Predicate>();
+			historiquePredicates.add(qb.equal(historiqueIte.get(Historique_.historiqueDomaine), HistoriqueDomaine.GROUPE));
+			historiquePredicates.add(qb.equal(historiqueIte.get(Historique_.reference), idGroupe.toString()));
+			historiquePredicates.add(qb.isFalse(historiqueIte.get(Historique_.isSuperAdmin)));
+			historiqueIteCriteriaQuery.where(historiquePredicates.toArray(new Predicate[historiquePredicates.size()]));
+			List<Order> historiqueIteOrderBy = new ArrayList<Order>();
+			historiqueIteOrderBy.add(qb.desc(historiqueIte.get(Historique_.dateAction)));
+			historiqueIteCriteriaQuery.orderBy(historiqueIteOrderBy);
+			TypedQuery<Historique> historiqueIteQuery = em.createQuery(historiqueIteCriteriaQuery);
+			List<Historique> historiques = historiqueIteQuery.getResultList();
+			controleGroupeExistant(idGroupe, false);
+			return historiques;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -926,8 +1007,10 @@ public class CycleService {
 			tx = em.getTransaction();
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
+			Date dateDebutMethode = new Date();
 			//Recuperation de tous les groupes
 			CriteriaQuery<Groupe> groupeIteCriteriaQuery = qb.createQuery(Groupe.class);
+			groupeIteCriteriaQuery.from(Groupe.class);
 			TypedQuery<Groupe> groupeIteQuery = em.createQuery(groupeIteCriteriaQuery);
 			List<Groupe> groupes = groupeIteQuery.getResultList();
 			//Calcul du cycle pour chaque groupe
@@ -936,6 +1019,17 @@ public class CycleService {
 					String retourCalcul = calculerProchainCycle(groupe.getIdGroupe());
 				}
 			}
+			Date dateFinMethode = new Date();
+			//Historisation de l'action
+			Long elapsedTime = dateFinMethode.getTime() - dateDebutMethode.getTime();
+			elapsedTime = elapsedTime / 1000;
+			Historique historique = new Historique();
+			historique.setDateAction(dateDebutMethode);
+			historique.setHistoriqueDomaine(HistoriqueDomaine.BATCH);
+			historique.setReference("calculerTousLesCycles");
+			historique.setAction("Batch de calcul des cycles execute en " + elapsedTime + " secondes");
+			historique.setIsSuperAdmin(true);
+			transverseService.tracerHistorique(historique);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -957,6 +1051,8 @@ public class CycleService {
 			tx = em.getTransaction();
 			tx.begin();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
+			Date dateDebutMethode = new Date();
+			int nbEmailEnvoyes = 0;
 			//Recuperation des tours se produisant le lendemain
 			//Recuperation de la date du lendemain
 			Date dateLendemain = DateUtils.addDays(DateUtils.getCurrentDayDate(), 1);
@@ -977,16 +1073,28 @@ public class CycleService {
 					if(utilisateur != null){
 						//Envoi du mail a l'utilisateur
 						Groupe groupe = em.find(Groupe.class, tour.getIdGroupe());
-						String sujet = groupe.getNom() + " : fais peter les croissants";
+						String sujet = "Fais péter les croissants à '" + groupe.getNom() + "'";
 						StringBuffer bf = new StringBuffer();
-						bf.append("Yo " + utilisateur.getNom() + " ,<br/><br/>");
-						bf.append("C'est a toi de ramener les croissants demain.<br/><br/>");
-						bf.append("Que la chouquette soit avec toi ^^");
+						bf.append("Yo " + utilisateur.getNom() + ",<br/><br/>");
+						bf.append("Oublie pas de ramener le ptit dèj' à '" + groupe.getNom() + "' demain.<br/><br/>");
+						bf.append("May the chouquette be with you ^^");
 						String corpsEmail = bf.toString();
 						transverseService.envoyerEmail(sujet, utilisateur.getEmail(), corpsEmail);
+						nbEmailEnvoyes++;
 					}
 				}
 			}
+			Date dateFinMethode = new Date();
+			//Historisation de l'action
+			Long elapsedTime = dateFinMethode.getTime() - dateDebutMethode.getTime();
+			elapsedTime = elapsedTime / 1000;
+			Historique historique = new Historique();
+			historique.setDateAction(dateDebutMethode);
+			historique.setHistoriqueDomaine(HistoriqueDomaine.BATCH);
+			historique.setReference("prevenirResponsablesTours");
+			historique.setAction("Batch de notification des responsables des tours du lendemain execute en " + elapsedTime + " secondes, " + nbEmailEnvoyes + " email envoyés");
+			historique.setIsSuperAdmin(true);
+			transverseService.tracerHistorique(historique);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
 			txError = true;
@@ -1190,13 +1298,13 @@ public class CycleService {
 			em.close();
 		}
 	}
-
+	
 	{/* UTILES */}
 	
 	public TransverseService getTransverseService() {
 		return transverseService;
 	}
-
+	
 	public void setTransverseService(TransverseService transverseService) {
 		this.transverseService = transverseService;
 	}
