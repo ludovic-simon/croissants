@@ -81,6 +81,20 @@ public class UtilisateurServiceRest {
 		session.invalidate();
 	}
 	
+	@POST
+	@Path("motDePassePerdu")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void motDePassePerdu(@QueryParam("email") String email){
+		utilisateurService.motDePassePerdu(email);
+	}
+	
+	@POST
+	@Path("changerMotDePasse")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public void changerMotDePasse(@QueryParam("idUtilisateur") Long idUtilisateur, @QueryParam("ancienMdp") String ancienMdp, @QueryParam("nouveauMdp") String nouveauMdp){
+		utilisateurService.changerMotDePasse(idUtilisateur, ancienMdp, nouveauMdp);
+	}
+	
 	{/* UTILITAIRES */}
 	
 	protected void updateUtilisateurSession(Utilisateur utilisateur){

@@ -923,6 +923,7 @@ public class CycleService {
 					throw new BusinessException("L'utilisateur " + utilisateurDestinataire.getNom() + " avec l'email " + utilisateurDestinataire.getEmail() + " fait deja partie du groupe " + groupe.getNom());
 				}
 			}
+			//Envoi du mail d'invitation
 			//Formation du message d'invitation au groupe
 			StringBuffer bf = new StringBuffer();
 			bf.append("Bonjour,<br/><br/>");
@@ -937,7 +938,6 @@ public class CycleService {
 			bf.append("- mot de passe : " + groupe.getMotDePasse() + "<br/><br/>");
 			bf.append("Bon appétit");
 			String corps = bf.toString();
-			//Envoi du mail d'invitation
 			String sujet = "Vous êtes invité à rejoindre le groupe '" + groupe.getNom() + "'";
 			transverseService.envoyerEmail(sujet, email, corps);
 			//Historisation de l'action

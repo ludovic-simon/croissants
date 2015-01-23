@@ -15,8 +15,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
+import fr.forfun.croissants.core.AppUtils;
 import fr.forfun.croissants.core.BusinessException;
 import fr.forfun.croissants.entity.Historique;
 import fr.forfun.croissants.entity.HistoriqueDomaine;
@@ -94,6 +96,13 @@ public class UtilisateurService {
 	}
 
 	/**
+	 * Deconnexion de l'utilisateur en session
+	 */
+	public void seDeconnecter() {
+
+	}
+
+	/**
 	 * Creer un utilisateur
 	 * @param utilisateur
 	 */
@@ -141,6 +150,14 @@ public class UtilisateurService {
 			historique.setAction("Inscription de l'utilisateur '" + utilisateur.getEmail() + "'");
 			historique.setIsSuperAdmin(false);
 			transverseService.tracerHistorique(historique);
+			//Envoi d'un email d'inscription
+			StringBuffer bf = new StringBuffer();
+			bf.append("Bonjour " + utilisateur.getNom() + ",<br/><br/>");
+			bf.append("Bienvenue sur le site <a href='http://www.faispeterlescroissants.com'>http://www.faispeterlescroissants.com</a>.<br/>");
+			bf.append("Tu peux dès maintenant te connecter avec ton email '" + utilisateur.getEmail() + "' et ton mot de passe<br/><br/>");
+			bf.append("May the chouquette be with you");
+			String corpsEmail = bf.toString();
+			transverseService.envoyerEmail("Bienvenue sur 'Fais Péter Les Croissants'", utilisateur.getEmail(), corpsEmail);
 			return utilisateur;
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -163,13 +180,6 @@ public class UtilisateurService {
 		utilisateur.setEmail("toto@gmail.com");
 		return utilisateur;
 	}
-
-	/**
-	 * Deconnexion de l'utilisateur en session
-	 */
-	public void seDeconnecter() {
-
-	}
 	
 	{/* UTILES */}
 	
@@ -179,6 +189,90 @@ public class UtilisateurService {
 	
 	public void setTransverseService(TransverseService transverseService) {
 		this.transverseService = transverseService;
+	}
+
+	/**
+	 * Change le mot de passe de l'utilisateur et lui envoie un email lui indiquant son nouveau mot de passe
+	 * @param email	L'email de l'utilisateur
+	 */
+	public void motDePassePerdu(String email) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			CriteriaBuilder qb = em.getCriteriaBuilder();
+			//Controle qu'un utilisateur existe bien pour cet email
+			CriteriaQuery<Utilisateur> utilisateurIteCriteriaQuery = qb.createQuery(Utilisateur.class);
+			Root<Utilisateur> utilisateurIte = utilisateurIteCriteriaQuery.from(Utilisateur.class);
+			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
+			utilisateurPredicates.add(qb.equal(utilisateurIte.get(Utilisateur_.email), email));
+			if(utilisateurPredicates.size() > 0){
+				utilisateurIteCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
+			}
+			TypedQuery<Utilisateur> utilisateurIteQuery = em.createQuery(utilisateurIteCriteriaQuery);
+			Utilisateur utilisateur = AppUtils.first(utilisateurIteQuery.getResultList());
+			if(utilisateur == null){
+				throw new BusinessException("Aucun compte 'Fais Peter Les Croissants' n'existe pour cet email");
+			}
+			//Changement du mot de passe en base
+			String nouveauMdp = RandomStringUtils.randomAlphanumeric(10);
+			utilisateur.setMotDePasse(nouveauMdp);
+			utilisateur = em.merge(utilisateur);
+			//Envoi du mail indiquant le nouveau mot de passe
+			StringBuffer bf = new StringBuffer();
+			bf.append("Bonjour,<br/><br/>");
+			bf.append("Voilà votre nouveau mot de passe :<br/>");
+			bf.append("<b>" + nouveauMdp + "</b><br/><br/>");
+			bf.append("A bientôt sur <a href='http://www.faispeterlescroissants.com'>http://www.faispeterlescroissants.com</a>");
+			String corpsEmail = bf.toString();
+			transverseService.envoyerEmail("Votre nouveau mot de passe", email, corpsEmail);
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
+	}
+
+	/**
+	 * Permet a un utilisateur de modifier son mot de passe
+	 * @param idUtilisateur	
+	 * @param ancienMdp	
+	 * @param nouveauMdp
+	 */
+	public void changerMotDePasse(Long idUtilisateur, String ancienMdp, String nouveauMdp) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = null;
+		boolean txError = false;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			//Controles
+			if(StringUtils.isEmpty(nouveauMdp)){
+				throw new BusinessException("Le nouveau mot de passe ne doit pas être vide");
+			}
+			Utilisateur utilisateur = em.find(Utilisateur.class, idUtilisateur);
+			if(utilisateur == null){
+				throw new BusinessException("L'utilisateur n'existe pas");
+			}
+			if(!utilisateur.getMotDePasse().equals(ancienMdp)){
+				throw new BusinessException("L'ancien mot de passe ne correspond pas");
+			}
+			//Changement du mot de passe en base
+			utilisateur.setMotDePasse(nouveauMdp);
+			utilisateur = em.merge(utilisateur);
+		} catch (RuntimeException e) {
+			if (tx != null && tx.isActive()){tx.rollback();}
+			txError = true;
+			throw e;
+		} finally {
+			if(!txError){tx.commit();}
+			em.close();
+		}
 	}
 
 }
