@@ -22,8 +22,11 @@
 				<div class="form-group">
 					<input type="text" id="emailField" name="emailField" class="form-control" placeholder="Email" ng-model="email"/>
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="margin-bottom:0px;">
 					<input type="password" id="motDePasseField" name="motDePasseField" class="form-control" placeholder="Mot de passe" ng-model="motDePasse"/>
+				</div>
+				<div class="forgot-password">
+					<a href ng-click="oubliMdp()">Mot de passe oublié ?</a>
 				</div>
 				<button class="btn btn-primary btn-block" ng-click="connexion()">Connexion</button>
 				<button class="btn btn-primary btn-block btn-warning" ng-click="gotoInscription()">Creer un compte</button>

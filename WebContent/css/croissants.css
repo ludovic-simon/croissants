@@ -98,7 +98,8 @@ input[type="file"] {
 /******************** PANEL *******************/
 
 .mainView {
-	height:calc(100vh - 50px);
+	/* height:calc(100vh - 20px); */
+	
 	overflow: auto;
 	padding: 15px;
 }
@@ -323,7 +324,7 @@ textarea {
 }
 
 .error-div {
-	font-size:16px;	
+	font-size:14px;	
 	font-weight: bold;
 	color: red;
 }
@@ -381,12 +382,9 @@ textarea.editable-input {
 	width:20%;
 }
 
-/*.table>tbody>tr.warning>td {
-	background-color : #B9B9B6;
-}
-
-.table-hover>tbody>tr.warning:hover>td {
-	background-color : #D0CFCD;
-}*/
+.forgot-password {
+	font-style: italic;
+	font-size:12px;
+	margin-bottom: 15px;
 }
 

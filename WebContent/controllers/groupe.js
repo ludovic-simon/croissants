@@ -153,6 +153,42 @@ function GroupeViewCtrl($scope, $http, $location, $route,  $timeout, $filter) {
 		  });
 	}
 	
+	$scope.quitterGroupe = function() {
+		$http.post('/croissants/rest/cycleService/quitterGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur+'&idGroupe=' +$scope.idGroupe).
+		  success(function(data, status, headers, config) {
+			  console.log(data);
+			  $('#quitterGroupeModal').modal('hide');
+			  $('body').removeClass('modal-open');
+			  $('.modal-backdrop').remove();
+			  window.location.href = "/croissants/views/croissants.html#/groupesView";
+			  showActionFeedback("Groupe quitté.");
+		  }).
+		  error(function(data, status, headers, config) {
+			  $('#quitterGroupeModal').modal('hide');
+			  $('body').removeClass('modal-open');
+			  $('.modal-backdrop').remove();
+			  handleError(data, status, headers, config);
+		  });
+	}
+	
+	$scope.supprimerGroupe = function() {
+		$http.post('/croissants/rest/cycleService/supprimerGroupe?idUtilisateur='+$scope.utilisateur.idUtilisateur+'&idGroupe=' +$scope.idGroupe).
+		  success(function(data, status, headers, config) {
+			  console.log(data);
+			  $('#quitterGroupeModal').modal('hide');
+			  $('body').removeClass('modal-open');
+			  $('.modal-backdrop').remove();
+			  window.location.href = "/croissants/views/croissants.html#/groupesView";
+			  showActionFeedback("Groupe supprimé.");
+		  }).
+		  error(function(data, status, headers, config) {
+			  $('#quitterGroupeModal').modal('hide');
+			  $('body').removeClass('modal-open');
+			  $('.modal-backdrop').remove();
+			  handleError(data, status, headers, config);
+		  });
+	}
+	
 	$scope.inviteUser  = function() {
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if( ! isNull($scope.invite) && re.test($scope.invite)) {

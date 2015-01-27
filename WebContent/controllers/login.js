@@ -36,6 +36,7 @@ function LoginViewCtrl($scope, $http, $location, $route) {
 			  });
 		})
 		.error(function(data, status, headers, config) {
+			console.log(data);
 			$scope.errorMessage = data;
 //			handleError(data, status, headers, config);
 		});
@@ -44,6 +45,20 @@ function LoginViewCtrl($scope, $http, $location, $route) {
 	$scope.gotoInscription = function() {
 		//Navigation vers l'inscription
 		window.location.href = "/croissants/views/guest.html#/inscriptionView";
+	};
+	
+	$scope.oubliMdp = function() {
+		if(isNull($scope.email)) {
+			$scope.errorMessage = "Saisisez votre mail pour recevoir un nouveau mot de passe";
+		} else {
+			$http.post('/croissants/rest/utilisateurService/motDePassePerdu?email='+ $scope.email).
+			  success(function(data, status, headers, config) {
+				  showActionFeedback(data);
+			  }).
+			  error(function(data, status, headers, config) {
+				  $scope.errorMessage = data;
+			  });
+		}
 	};
 
 	$scope.init();

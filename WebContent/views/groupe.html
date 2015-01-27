@@ -63,7 +63,7 @@
 					</tr>
 				</thead>
 				<tbody class="table-hover">
-					<tr ng-repeat="tour in tours" ng-class="(tour.statutTour == 'ANNULE') ? 'danger' : ''">
+					<tr ng-repeat="tour in tours" ng-class="{danger:tour.statutTour == 'ANNULE', success:tour.idUtilisateur == constitutionGroupe.idUtilisateur}">
 						<td>{{tour.nomTour}}</td>
 						<td>{{tour.dateTour | date : 'd MMM'}}</td>
 						<td ng-show="constitutionGroupe.admin" style="text-align:right;width:100px;">
@@ -82,8 +82,12 @@
 		</div>
 	</div>
 	
+	<div class="bottom-space">
+		<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#quitterGroupeModal">Quitter le groupe</button>
+	</div>
 	
-	<div ng-show="constitutionGroupe.admin">
+	
+	<div ng-show="constitutionGroupe.admin" >
 	
 	
 		<h2 class="bottom-space">Membres du groupe</h2>
@@ -121,10 +125,49 @@
 		<div>
 			Token du groupe : <b>{{constitutionGroupe.groupe.jeton}}</b>
 		</div>
-		<div>
+		<div class="bottom-space">
 			Mot de passe du groupe : <b>{{constitutionGroupe.groupe.motDePasse}}</b>
 		</div>
 		
+		<div class="bottom-space">
+			<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#supprimerGroupeModal">Supprimer le groupe</button>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="quitterGroupeModal" tabindex="-1" role="dialog" aria-labelledby="Quitter groupe" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Confirmation nécessaire</h4>
+	      </div>
+	      <div class="modal-body">
+	      	Etes-vous sûr de souhaiter quitter ce groupe ?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" ng-click="quitterGroupe()" data-dismiss="modal">Quitter le groupe</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="supprimerGroupeModal" tabindex="-1" role="dialog" aria-labelledby="Supprimer groupe" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Confirmation nécessaire</h4>
+	      </div>
+	      <div class="modal-body">
+	      	Etes-vous sûr de souhaiter <b>supprimer</b> ce groupe ? <br/>Tous les tours de ce groupe seront supprimés et les participants n'en feront plus partie! 
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" ng-click="supprimerGroupe()" data-dismiss="modal" >Supprimer le groupe</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	
