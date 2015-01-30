@@ -67,15 +67,17 @@ public class UtilisateurService {
 			if(StringUtils.isEmpty(motDePasse)){
 				throw new BusinessException("Le mot de passe est obligatoire");
 			}
+			//Recherche de l'utilisateur pour le login et mdp encode
+			String mdpEncode = transverseService.encodeMotDePasse(motDePasse);
 			//Recuperation de l'utilisateur pour l'email et mot de passe
-			CriteriaQuery<Utilisateur> utilisateurCriteriaQuery = qb.createQuery(Utilisateur.class);
-			Root<Utilisateur> utilisateur = utilisateurCriteriaQuery.from(Utilisateur.class);
+			CriteriaQuery<Utilisateur> utilisateurIteCriteriaQuery = qb.createQuery(Utilisateur.class);
+			Root<Utilisateur> utilisateurIte = utilisateurIteCriteriaQuery.from(Utilisateur.class);
 			List<Predicate> utilisateurPredicates = new ArrayList<Predicate>();
-			utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.email), email));
-			utilisateurPredicates.add(qb.equal(utilisateur.get(Utilisateur_.motDePasse), motDePasse));
-			utilisateurCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
-			TypedQuery<Utilisateur> utilisateurQuery = em.createQuery(utilisateurCriteriaQuery);
-			List<Utilisateur> utilisateurs = utilisateurQuery.getResultList();
+			utilisateurPredicates.add(qb.equal(utilisateurIte.get(Utilisateur_.email), email));
+			utilisateurPredicates.add(qb.equal(utilisateurIte.get(Utilisateur_.motDePasse), mdpEncode));
+			utilisateurIteCriteriaQuery.where(utilisateurPredicates.toArray(new Predicate[utilisateurPredicates.size()]));
+			TypedQuery<Utilisateur> utilisateurIteQuery = em.createQuery(utilisateurIteCriteriaQuery);
+			List<Utilisateur> utilisateurs = utilisateurIteQuery.getResultList();
 			//Cas ou aucun utilisateur n'est trouve
 			if(CollectionUtils.isEmpty(utilisateurs)){
 				throw new BusinessException("Aucun utilisateur pour cet email / mot de passe");
@@ -93,13 +95,6 @@ public class UtilisateurService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
-	}
-
-	/**
-	 * Deconnexion de l'utilisateur en session
-	 */
-	public void seDeconnecter() {
-
 	}
 
 	/**
@@ -138,7 +133,10 @@ public class UtilisateurService {
 			if(CollectionUtils.isNotEmpty(utilisateursPourEmail)){
 				throw new BusinessException("Il y a deja un utilisateur enregistre pour cet email");
 			}
-			//Affectation de la date de creation
+			//Ajout de l'utilisateur en base
+			String mdpEncode = transverseService.encodeMotDePasse(utilisateur.getMotDePasse());
+			//Affectation de la date de creation et du mdp encode
+			utilisateur.setMotDePasse(mdpEncode);
 			utilisateur.setDateCreation(new Date());
 			//Persistence de l'utilisateur
 			em.persist(utilisateur);
@@ -170,28 +168,6 @@ public class UtilisateurService {
 	}
 
 	/**
-	 * Recuperation de l'utilisateur connecte
-	 * @return L'utilisateur connecte ou une exception si aucun utilisateur
-	 */
-	public Utilisateur getUtilisateurSession() {
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setIdUtilisateur(1L);
-		utilisateur.setNom("Toto");
-		utilisateur.setEmail("toto@gmail.com");
-		return utilisateur;
-	}
-	
-	{/* UTILES */}
-	
-	public TransverseService getTransverseService() {
-		return transverseService;
-	}
-	
-	public void setTransverseService(TransverseService transverseService) {
-		this.transverseService = transverseService;
-	}
-
-	/**
 	 * Change le mot de passe de l'utilisateur et lui envoie un email lui indiquant son nouveau mot de passe
 	 * @param email	L'email de l'utilisateur
 	 */
@@ -218,7 +194,8 @@ public class UtilisateurService {
 			}
 			//Changement du mot de passe en base
 			String nouveauMdp = RandomStringUtils.randomAlphanumeric(10);
-			utilisateur.setMotDePasse(nouveauMdp);
+			String mdpEncode = transverseService.encodeMotDePasse(nouveauMdp);
+			utilisateur.setMotDePasse(mdpEncode);
 			utilisateur = em.merge(utilisateur);
 			//Envoi du mail indiquant le nouveau mot de passe
 			StringBuffer bf = new StringBuffer();
@@ -259,11 +236,13 @@ public class UtilisateurService {
 			if(utilisateur == null){
 				throw new BusinessException("L'utilisateur n'existe pas");
 			}
-			if(!utilisateur.getMotDePasse().equals(ancienMdp)){
+			String ancienMdpEncode = transverseService.encodeMotDePasse(ancienMdp);
+			if(!utilisateur.getMotDePasse().equals(ancienMdpEncode)){
 				throw new BusinessException("L'ancien mot de passe ne correspond pas");
 			}
 			//Changement du mot de passe en base
-			utilisateur.setMotDePasse(nouveauMdp);
+			String mdpEncode = transverseService.encodeMotDePasse(nouveauMdp);
+			utilisateur.setMotDePasse(mdpEncode);
 			utilisateur = em.merge(utilisateur);
 		} catch (RuntimeException e) {
 			if (tx != null && tx.isActive()){tx.rollback();}
@@ -273,6 +252,16 @@ public class UtilisateurService {
 			if(!txError){tx.commit();}
 			em.close();
 		}
+	}
+	
+	{/* UTILES */}
+	
+	public TransverseService getTransverseService() {
+		return transverseService;
+	}
+	
+	public void setTransverseService(TransverseService transverseService) {
+		this.transverseService = transverseService;
 	}
 
 }

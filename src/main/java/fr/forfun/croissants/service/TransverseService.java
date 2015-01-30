@@ -10,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,6 +18,7 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.util.DigestUtils;
 
 import fr.forfun.croissants.core.TechnicalException;
 import fr.forfun.croissants.entity.Historique;
@@ -112,25 +114,39 @@ public class TransverseService {
 	 * @param corps	Corps du mail
 	 */
 	public void envoyerEmail(String sujet, String destinataire, String corps) {
-		//Envoi du mail
-		Session session = null;
+		//Test d'activation ou non du mockEmail
+		boolean mockEmail = false;
 		try {
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			session = (Session) envCtx.lookup(EMAIL_JNDI_NAME);
-			
-			Message message = new MimeMessage(session);
-			
-			message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_DISPLAY));
-			
-			InternetAddress to[] = new InternetAddress[1];
-			to[0] = new InternetAddress(destinataire);
-			message.setRecipients(Message.RecipientType.TO, to);
-			message.setSubject(sujet);
-			message.setContent(corps, "text/html;charset=UTF-8");
-			Transport.send(message);
-		} catch (Exception ex) {
-			throw new TechnicalException(ex);
+			InitialContext jndiContext = new InitialContext();
+			if("true".equals(jndiContext.lookup("java:/comp/env/string/mockEmail"))){
+				mockEmail = true;
+			}
+		} catch (NamingException e) {
+		}
+		if(mockEmail){
+			//Cas de mock de l'envoi de mail, on trace simplement en console
+			System.out.println("Envoi du mail '" + sujet + "' au destinataire '" + destinataire + "':\n" + corps);
+		} else {
+			//Envoi du mail via la Session mail du serveur
+			Session session = null;
+			try {
+				Context initCtx = new InitialContext();
+				Context envCtx = (Context) initCtx.lookup("java:comp/env");
+				session = (Session) envCtx.lookup(EMAIL_JNDI_NAME);
+				
+				Message message = new MimeMessage(session);
+				
+				message.setFrom(new InternetAddress(EMAIL_FROM, EMAIL_FROM_DISPLAY));
+				
+				InternetAddress to[] = new InternetAddress[1];
+				to[0] = new InternetAddress(destinataire);
+				message.setRecipients(Message.RecipientType.TO, to);
+				message.setSubject(sujet);
+				message.setContent(corps, "text/html;charset=UTF-8");
+				Transport.send(message);
+			} catch (Exception ex) {
+				throw new TechnicalException(ex);
+			}
 		}
 		//Historisation de l'action
 		Historique historique = new Historique();
@@ -181,6 +197,15 @@ public class TransverseService {
 		Date dateCible = calendarActuel.getTime();
 		
 		return dateCible;
+	}
+	
+	/**
+	 * Permet d'encoder le mot de passe pour le proteger en base
+	 * @param motDePasse
+	 * @return	le mot de passe encode
+	 */
+	public String encodeMotDePasse(String motDePasse){
+		return DigestUtils.md5DigestAsHex(motDePasse.getBytes());
 	}
 
 	/**
