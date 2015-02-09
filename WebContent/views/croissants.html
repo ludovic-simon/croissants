@@ -23,6 +23,7 @@
 		<script src="/croissants/controllers/groupe.js"></script>
 		<script src="/croissants/controllers/editerGroupe.js"></script>
 		<script src="/croissants/controllers/rejoindreGroupe.js"></script>
+		<script src="/croissants/controllers/profil.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="/croissants/css/jquery-ui.css"></link>
 		<link rel="stylesheet" type="text/css" href="/croissants/css/select2.css"></link>
@@ -62,7 +63,7 @@
 					
 				</ul>-->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href=""><i class="fa fa-user" style="margin-right:5px;"></i>{{utilisateur.nom | limitTo: 8 }}</a></li>
+					<li><a href="/croissants/views/croissants.html#/profilView"><i class="fa fa-user" style="margin-right:5px;"></i>{{utilisateur.nom | limitTo: 8 }}</a></li>
 					<li><a href="" ng-click="seDeconnecter()">Deconnexion</a></li>
 				</ul>
 			</div>

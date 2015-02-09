@@ -8,6 +8,7 @@ var croissantsTemplateApp = angular.module('croissants',
                                    'groupeViewController',
                                    'editerGroupeViewController',
                                    'rejoindreGroupeViewController',
+                                   'profilViewController',
                                    'croissantsTemplateController'
                                  ]
 );
@@ -23,6 +24,7 @@ croissantsTemplateApp.config(['$routeProvider',
        templateUrl: 'groupes.html',
        controller: 'GroupesViewCtrl'
      }).
+     
      when('/groupeView', {
        templateUrl: 'groupe.html',
        controller: 'GroupeViewCtrl'
@@ -35,6 +37,10 @@ croissantsTemplateApp.config(['$routeProvider',
        templateUrl: 'rejoindreGroupe.html',
        controller: 'RejoindreGroupeViewCtrl'
      }).
+     when('/profilView', {
+         templateUrl: 'profil.html',
+         controller: 'ProfilViewCtrl'
+       }).
      otherwise({
        redirectTo: '/groupesView'
      });
