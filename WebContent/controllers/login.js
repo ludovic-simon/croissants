@@ -53,7 +53,7 @@ function LoginViewCtrl($scope, $http, $location, $route) {
 		} else {
 			$http.post('/croissants/rest/utilisateurService/motDePassePerdu?email='+ $scope.email).
 			  success(function(data, status, headers, config) {
-				  showActionFeedback(data);
+				  showInfo("Un email avec votre nouveau mot de passe vous a été envoyé");
 			  }).
 			  error(function(data, status, headers, config) {
 				  $scope.errorMessage = data;
